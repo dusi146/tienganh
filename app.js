@@ -1391,11 +1391,14 @@ function escapeHtml(text) {
 }
 
 // ===================================================================
-// AUDIO PRONUNCIATION (High Clarity Google & Native Studio Voice)
+// AUDIO PRONUNCIATION (Studio Native Human Voice - US English)
 // ===================================================================
+
+let currentPronounceAudio = null;
 
 function speakWord(text, btn) {
   if (!text) return;
+  // Clean word: remove slashes, parentheses, commas, punctuation
   const cleanWord = text.split('/')[0].split('(')[0].replace(/[.,;:!?]/g, '').trim();
   if (!cleanWord) return;
 
@@ -1403,61 +1406,46 @@ function speakWord(text, btn) {
     btn.classList.add('speaking');
     setTimeout(() => {
       if (btn) btn.classList.remove('speaking');
-    }, 1400);
+    }, 1500);
   }
 
-  // 1. Try browser SpeechSynthesis with highest quality English voice
-  let speechTriggered = false;
-  if ('speechSynthesis' in window) {
+  // Stop previous pronunciation immediately if user clicks rapidly
+  if (currentPronounceAudio) {
     try {
-      window.speechSynthesis.cancel();
-      const utter = new SpeechSynthesisUtterance(cleanWord);
-      utter.lang = 'en-US';
-      utter.rate = 0.85; // slightly slowed down for maximum clarity
-      utter.pitch = 1.0;
-
-      const voices = window.speechSynthesis.getVoices();
-      const bestVoice = voices.find(v => 
-        (v.lang === 'en-US' || v.lang.startsWith('en')) &&
-        (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Ava') || v.name.includes('Siri'))
-      ) || voices.find(v => v.lang === 'en-US' || v.lang.startsWith('en'));
-
-      if (bestVoice) {
-        utter.voice = bestVoice;
-      }
-
-      utter.onend = () => {
-        if (btn) btn.classList.remove('speaking');
-      };
-
-      utter.onerror = () => {
-        playCdnPronunciation(cleanWord, btn);
-      };
-
-      window.speechSynthesis.speak(utter);
-      speechTriggered = true;
-    } catch (e) {
-      speechTriggered = false;
-    }
+      currentPronounceAudio.pause();
+      currentPronounceAudio.currentTime = 0;
+    } catch (e) {}
   }
 
-  // 2. Fallback to native studio audio CDN
-  if (!speechTriggered) {
-    playCdnPronunciation(cleanWord, btn);
-  }
-}
+  // DEFAULT: Studio Native Human Voice Recording (Type 2 = US English standard)
+  const studioCdnUrl = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(cleanWord)}&type=2`;
+  currentPronounceAudio = new Audio(studioCdnUrl);
 
-function playCdnPronunciation(word, btn) {
-  // Youdao American English studio recording (type=2: US English)
-  const url = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(word)}&type=2`;
-  const audio = new Audio(url);
-  audio.onended = () => {
+  currentPronounceAudio.onended = () => {
     if (btn) btn.classList.remove('speaking');
   };
-  audio.play().catch(() => {
-    // Secondary fallback: Google Translate TTS endpoint
-    const gUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encodeURIComponent(word)}`;
-    const gAudio = new Audio(gUrl);
-    gAudio.play().catch(() => {});
+
+  currentPronounceAudio.play().catch(err => {
+    // Fallback 1: Google Translate TTS official audio
+    const googleTtsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encodeURIComponent(cleanWord)}`;
+    currentPronounceAudio = new Audio(googleTtsUrl);
+    currentPronounceAudio.onended = () => {
+      if (btn) btn.classList.remove('speaking');
+    };
+    currentPronounceAudio.play().catch(() => {
+      // Fallback 2: Browser SpeechSynthesis
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance(cleanWord);
+          utter.lang = 'en-US';
+          utter.rate = 0.9;
+          utter.onend = () => {
+            if (btn) btn.classList.remove('speaking');
+          };
+          window.speechSynthesis.speak(utter);
+        } catch (e) {}
+      }
+    });
   });
 }
