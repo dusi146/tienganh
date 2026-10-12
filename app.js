@@ -807,25 +807,41 @@ function showScoreModal(correct, total, score, maxPts) {
   const modalMsg = document.getElementById('modal-message');
   const modalTitle = document.getElementById('modal-title');
   const mascot = document.getElementById('modal-mascot');
+  const levelBadge = document.getElementById('modal-level-badge');
 
   scoreNum.innerText = `${score}`;
   scoreTotal.innerText = `/ ${maxPts} pts (${correct}/${total} câu)`;
 
   const percentage = (correct / total) * 100;
+  const scaledScore = (correct / total) * 10;
 
-  if (percentage >= 80) {
+  if (scaledScore >= 7.0) {
     modalTitle.innerText = "XUẤT SẮC LẮM NÈ! ✨";
-    mascot.innerText = "🌸";
-    modalMsg.innerHTML = "Bạn làm bài rất tốt luôn á! Nắm kiến thức cực kỳ chắc chắn, hầu như không bị bẫy câu nào luôn nè 🎉";
+    mascot.innerText = "🏆";
+    if (levelBadge) {
+      levelBadge.className = "modal-level-badge b1";
+      levelBadge.innerText = "🏆 XẾP LOẠI: ĐẠT CHUẨN B1 (BẬC 3 - ĐỦ ĐẦU RA)";
+    }
+    modalMsg.innerHTML = "Bạn làm bài rất tốt luôn á! Điểm số đạt <strong>chuẩn B1 (Bậc 3)</strong>, đủ điều kiện đầu ra và nắm bài cực kỳ chắc chắn luôn nè 🎉";
     launchConfetti();
-  } else if (percentage >= 50) {
+  } else if (scaledScore >= 5.0) {
     modalTitle.innerText = "LÀM TỐT LẮM NÈ! 🌿";
-    mascot.innerText = "✨";
-    modalMsg.innerHTML = "Bạn đã đúng được phần lớn câu hỏi rồi đó! Hãy bấm nút <strong>'Câu chưa đúng'</strong> bên dưới để xem lại vài chỗ cần lưu ý là lần sau đạt điểm tuyệt đối nha!";
+    mascot.innerText = "🌸";
+    const neededForB1 = Math.ceil(0.7 * total) - correct;
+    if (levelBadge) {
+      levelBadge.className = "modal-level-badge a2";
+      levelBadge.innerText = "🌸 XẾP LOẠI: ĐẠT CHUẨN A2 (BẬC 2 - ĐÃ QUA MÔN)";
+    }
+    modalMsg.innerHTML = `Bạn đã <strong>đạt chuẩn A2 (Bậc 2)</strong> qua môn rồi nè! Chỉ cần đúng thêm <strong>${neededForB1} câu nữa</strong> là chạm mốc chuẩn B1 luôn á. Hãy bấm nút <strong>'Câu chưa đúng'</strong> để xem lại vài chỗ cần lưu ý nha!`;
   } else {
     modalTitle.innerText = "CỐ GẮNG LÊN NÈ! 🌱";
     mascot.innerText = "💡";
-    modalMsg.innerHTML = "Không sao đâu nè, đề này có vài chỗ bẫy từ vựng xíu thôi. Bạn bấm <strong>'Câu chưa đúng'</strong> để xem giải thích chi tiết và ghi lại từ vựng nhé!";
+    const neededForA2 = Math.ceil(0.5 * total) - correct;
+    if (levelBadge) {
+      levelBadge.className = "modal-level-badge try";
+      levelBadge.innerText = `🌱 XẾP LOẠI: CHƯA ĐẠT CHUẨN A2 (Cần thêm ${neededForA2} câu)`;
+    }
+    modalMsg.innerHTML = `Đừng nản lòng nhé! Bạn chỉ cần đúng thêm <strong>${neededForA2} câu nữa</strong> là đạt chuẩn A2 qua môn rồi. Bấm <strong>'Câu chưa đúng'</strong> bên dưới để xem giải thích chi tiết và nhớ mẹo làm bài nhé!`;
   }
 
   modal.classList.add('show');
@@ -1006,4 +1022,217 @@ function launchConfetti() {
   }
 
   animate();
+}
+
+
+// ===================================================================
+// A2 - B1 HUB LOGIC & RENDERING
+// ===================================================================
+
+let currentVocabTopic = 'all';
+let currentVocabSearch = '';
+
+function switchMainTab(tab) {
+  const viewExams = document.getElementById('view-exams');
+  const viewA2B1 = document.getElementById('view-a2b1');
+  const btnExams = document.getElementById('tab-btn-exams');
+  const btnA2B1 = document.getElementById('tab-btn-a2b1');
+  const bottomBar = document.getElementById('bottom-submit-bar');
+
+  if (tab === 'exams') {
+    if (viewExams) viewExams.style.display = 'block';
+    if (viewA2B1) viewA2B1.style.display = 'none';
+    if (btnExams) btnExams.classList.add('active');
+    if (btnA2B1) btnA2B1.classList.remove('active');
+    if (bottomBar) bottomBar.style.display = 'flex';
+  } else {
+    if (viewExams) viewExams.style.display = 'none';
+    if (viewA2B1) viewA2B1.style.display = 'block';
+    if (btnExams) btnExams.classList.remove('active');
+    if (btnA2B1) btnA2B1.classList.add('active');
+    if (bottomBar) bottomBar.style.display = 'none';
+    renderA2B1Hub();
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderA2B1Hub() {
+  if (typeof A2_B1_KNOWLEDGE === 'undefined') return;
+
+  renderStandards();
+  renderGrammarList();
+  renderVocabSection();
+  renderTacticsSection();
+}
+
+function renderStandards() {
+  const container = document.getElementById('standards-grid');
+  if (!container || !A2_B1_KNOWLEDGE.standards) return;
+
+  container.innerHTML = A2_B1_KNOWLEDGE.standards.levels.map(lvl => `
+    <div class="standard-card ${lvl.colorClass}">
+      <div class="standard-card-header">
+        <div>
+          <div class="standard-title">${lvl.level}</div>
+          <div class="standard-sub">${lvl.sub}</div>
+        </div>
+        <span class="standard-badge">${lvl.badge}</span>
+      </div>
+      <div class="score-req-box">
+        <div class="req-item">
+          <span class="req-label">Mốc điểm chuẩn:</span>
+          <span class="req-val">${lvl.targetScore}</span>
+        </div>
+        <div class="req-item">
+          <span class="req-label">Kỹ năng Nghe (25 câu):</span>
+          <span class="req-val">${lvl.listeningReq}</span>
+        </div>
+        <div class="req-item">
+          <span class="req-label">Kỹ năng Đọc (30 câu):</span>
+          <span class="req-val">${lvl.readingReq}</span>
+        </div>
+      </div>
+      <div class="standard-desc">${lvl.desc}</div>
+      <div class="standard-tips-box">
+        💡 <strong>Chiến thuật:</strong> ${lvl.tips}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderGrammarList() {
+  const container = document.getElementById('grammar-list');
+  if (!container || !A2_B1_KNOWLEDGE.grammar) return;
+
+  container.innerHTML = A2_B1_KNOWLEDGE.grammar.map(gr => `
+    <div class="grammar-card" id="grammar-card-${gr.id}">
+      <div class="grammar-card-header" onclick="toggleGrammar('${gr.id}')">
+        <div class="grammar-card-title-group">
+          <span class="grammar-title">${gr.title}</span>
+          <span class="grammar-badge">${gr.badge}</span>
+        </div>
+        <span class="grammar-toggle-icon">▼</span>
+      </div>
+      <div class="grammar-body">
+        <div class="grammar-formula-box">📝 Công thức: ${escapeHtml(gr.formula)}</div>
+        <div class="grammar-rule">${escapeHtml(gr.rule)}</div>
+        ${gr.clues ? `<div class="grammar-clues">🔍 Dấu hiệu nhận biết: ${escapeHtml(gr.clues)}</div>` : ''}
+        <div class="grammar-example">💡 Ví dụ thực tế:\n${escapeHtml(gr.example)}</div>
+        ${gr.trap ? `<div class="grammar-trap">⚠️ Bẫy đề thi cần tránh: ${escapeHtml(gr.trap)}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleGrammar(id) {
+  const card = document.getElementById(`grammar-card-${id}`);
+  if (card) {
+    card.classList.toggle('open');
+  }
+}
+
+function renderVocabSection() {
+  const chipsContainer = document.getElementById('vocab-topic-chips');
+  if (!chipsContainer || !A2_B1_KNOWLEDGE.vocabularyTopics) return;
+
+  let chipsHtml = `
+    <button class="vocab-topic-chip ${currentVocabTopic === 'all' ? 'active' : ''}" onclick="selectVocabTopic('all')">
+      ✨ Tất cả chủ đề
+    </button>
+  `;
+
+  A2_B1_KNOWLEDGE.vocabularyTopics.forEach(t => {
+    chipsHtml += `
+      <button class="vocab-topic-chip ${currentVocabTopic === t.id ? 'active' : ''}" onclick="selectVocabTopic('${t.id}')">
+        ${t.name}
+      </button>
+    `;
+  });
+
+  chipsContainer.innerHTML = chipsHtml;
+  filterAndRenderVocab();
+}
+
+function selectVocabTopic(topicId) {
+  currentVocabTopic = topicId;
+  renderVocabSection();
+}
+
+function handleVocabSearch(query) {
+  currentVocabSearch = query.trim().toLowerCase();
+  filterAndRenderVocab();
+}
+
+function filterAndRenderVocab() {
+  const grid = document.getElementById('vocab-cards-grid');
+  if (!grid || !A2_B1_KNOWLEDGE.vocabularyTopics) return;
+
+  let allWords = [];
+  A2_B1_KNOWLEDGE.vocabularyTopics.forEach(topic => {
+    if (currentVocabTopic === 'all' || currentVocabTopic === topic.id) {
+      topic.words.forEach(w => {
+        allWords.push({ ...w, topicName: topic.name });
+      });
+    }
+  });
+
+  if (currentVocabSearch) {
+    allWords = allWords.filter(w => 
+      w.word.toLowerCase().includes(currentVocabSearch) ||
+      w.meaning.toLowerCase().includes(currentVocabSearch) ||
+      (w.example && w.example.toLowerCase().includes(currentVocabSearch))
+    );
+  }
+
+  if (allWords.length === 0) {
+    grid.innerHTML = '<p class="text-muted" style="padding: 20px; grid-column: 1 / -1; text-align: center;">Không tìm thấy từ vựng nào khớp với từ khóa tìm kiếm.</p>';
+    return;
+  }
+
+  grid.innerHTML = allWords.map(w => `
+    <div class="a2b1-vocab-card">
+      <div>
+        <div class="a2b1-vocab-top">
+          <span class="a2b1-vocab-word">${w.word}</span>
+          <span class="a2b1-vocab-phonetic">${w.phonetic || ''}</span>
+        </div>
+        <div style="font-size: 0.76rem; color: #94a3b8; font-weight: 600; margin-bottom: 4px;">(${w.type})</div>
+        <div class="a2b1-vocab-meaning">${w.meaning}</div>
+      </div>
+      ${w.example ? `<div class="a2b1-vocab-example">"${w.example}"</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderTacticsSection() {
+  const container = document.getElementById('tactics-grid');
+  if (!container || !A2_B1_KNOWLEDGE.tactics) return;
+
+  let html = '';
+  A2_B1_KNOWLEDGE.tactics.listening.forEach(t => {
+    html += `
+      <div class="tactic-card">
+        <div class="tactic-part-title">🎧 ${t.part}</div>
+        <div class="tactic-tip-text">${escapeHtml(t.tip)}</div>
+      </div>
+    `;
+  });
+
+  A2_B1_KNOWLEDGE.tactics.reading.forEach(t => {
+    html += `
+      <div class="tactic-card">
+        <div class="tactic-part-title">📖 ${t.part}</div>
+        <div class="tactic-tip-text">${escapeHtml(t.tip)}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  return text.replace(/&/g, '&amp;')
+             .replace(/</g, '&lt;')
+             .replace(/>/g, '&gt;');
 }

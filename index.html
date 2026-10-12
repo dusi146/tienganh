@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Luyện Thi Tiếng Anh - Study with Lâm ✨</title>
+  <!-- Google Fonts: Plus Jakarta Sans & Be Vietnam Pro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>" />
 </head>
@@ -34,90 +38,174 @@
     </div>
   </header>
 
+  <!-- Segmented Control Navigation: Luyện Đề vs Trọng Tâm A2-B1 -->
+  <div class="main-nav-tabs-wrapper">
+    <div class="main-nav-tabs">
+      <button class="nav-tab-btn active" id="tab-btn-exams" onclick="switchMainTab('exams')">
+        <span>📝</span> Luyện Đề Thi Thử
+      </button>
+      <button class="nav-tab-btn" id="tab-btn-a2b1" onclick="switchMainTab('a2b1')">
+        <span>🌟</span> Trọng Tâm A2 - B1
+      </button>
+    </div>
+  </div>
+
   <!-- Main Content Wrapper -->
   <main class="main-wrapper">
-    <!-- Gentle & Sweet Encouragement Banner -->
-    <div class="info-banner">
-      <div class="banner-icon">✨</div>
-      <div class="banner-text">
-        <h3>Luyện Đề Tiếng Anh Cùng Lâm</h3>
-        <p>
-          Tổng hợp 3 bộ đề Nghe &amp; Đọc (165 câu) bám sát đề thi thực tế. Đầy đủ phân tích chi tiết: <strong>dịch nghĩa, chỉ rõ manh mối (clue), nhận diện bẫy đề thi và từ vựng trọng tâm</strong>. Cứ tự tin làm bài, câu nào chưa rõ đều có giải thích bên dưới nhé! 🌸
-        </p>
-      </div>
-    </div>
 
-    <!-- Exam Selector Cards -->
-    <section class="exam-selector">
-      <div class="selector-title">📚 Chọn đề thi để luyện tập:</div>
-      <div id="exam-cards-container" class="exam-cards-grid">
-        <!-- Rendered by app.js -->
-      </div>
-    </section>
-
-    <!-- Sticky Audio Player for Listening Tests -->
-    <div id="sticky-audio-box" class="audio-sticky-box">
-      <div class="audio-header">
-        <span id="current-audio-title">🎧 Đang phát bài nghe</span>
-        <span>Chạm nút để tua hoặc đổi tốc độ 👇</span>
-      </div>
-      <div id="audio-parts-nav" class="audio-parts-nav"></div>
-      <div class="audio-controls-row">
-        <div class="audio-elem-wrapper">
-          <audio id="main-audio" controls preload="metadata"></audio>
-        </div>
-        <button id="audio-back-5" class="audio-skip-btn" title="Lùi lại 5 giây">⏪ -5s</button>
-        <button id="audio-fwd-5" class="audio-skip-btn" title="Tiến lên 5 giây">+5s ⏩</button>
-        <div class="audio-speed-chips">
-          <div class="speed-chip" data-speed="0.8" title="Tốc độ 0.8x cho dễ nghe">0.8x</div>
-          <div class="speed-chip active" data-speed="1.0" title="Tốc độ chuẩn">1.0x</div>
-          <div class="speed-chip" data-speed="1.25" title="Tốc độ nhanh hơn">1.25x</div>
+    <!-- ==================== VIEW 1: LUYỆN ĐỀ THI THỬ ==================== -->
+    <div id="view-exams">
+      <!-- Gentle & Sweet Encouragement Banner -->
+      <div class="info-banner">
+        <div class="banner-icon">✨</div>
+        <div class="banner-text">
+          <h3>Luyện Đề Tiếng Anh Cùng Lâm</h3>
+          <p>
+            Tổng hợp 3 bộ đề Nghe &amp; Đọc (165 câu) chuẩn KET / VSTEP Phenikaa. Đầy đủ phân tích chi tiết: <strong>dịch nghĩa, trích dẫn manh mối (clue), nhận diện bẫy đề thi và từ vựng trọng tâm</strong>. Cứ tự tin làm bài, câu nào chưa rõ đều có giải thích bên dưới nhé! 🌸
+          </p>
         </div>
       </div>
-    </div>
 
-    <!-- Active Exam Header -->
-    <div class="active-exam-header">
-      <div class="active-title-group">
-        <h2 id="active-exam-title">Đang tải bài thi...</h2>
-        <div class="active-exam-stats">
-          <span id="active-exam-skill">Skill</span>
-          <span>•</span>
-          <span id="active-exam-count">25 câu hỏi</span>
-          <span>•</span>
-          <span id="active-exam-time">30 phút</span>
+      <!-- Exam Selector Cards -->
+      <section class="exam-selector">
+        <div class="selector-title">📚 Chọn đề thi để luyện tập:</div>
+        <div id="exam-cards-container" class="exam-cards-grid">
+          <!-- Rendered by app.js -->
+        </div>
+      </section>
+
+      <!-- Sticky Audio Player for Listening Tests -->
+      <div id="sticky-audio-box" class="audio-sticky-box">
+        <div class="audio-header">
+          <span id="current-audio-title">🎧 Đang phát bài nghe</span>
+          <span>Chạm nút để tua hoặc đổi tốc độ 👇</span>
+        </div>
+        <div id="audio-parts-nav" class="audio-parts-nav"></div>
+        <div class="audio-controls-row">
+          <div class="audio-elem-wrapper">
+            <audio id="main-audio" controls preload="metadata"></audio>
+          </div>
+          <button id="audio-back-5" class="audio-skip-btn" title="Lùi lại 5 giây">⏪ -5s</button>
+          <button id="audio-fwd-5" class="audio-skip-btn" title="Tiến lên 5 giây">+5s ⏩</button>
+          <div class="audio-speed-chips">
+            <div class="speed-chip" data-speed="0.8" title="Tốc độ 0.8x cho dễ nghe">0.8x</div>
+            <div class="speed-chip active" data-speed="1.0" title="Tốc độ chuẩn">1.0x</div>
+            <div class="speed-chip" data-speed="1.25" title="Tốc độ nhanh hơn">1.25x</div>
+          </div>
         </div>
       </div>
-      <div class="actions-group">
-        <button id="btn-reset-exam" class="btn btn-secondary" title="Làm lại bài thi này từ đầu">
-          🔄 Làm lại
-        </button>
+
+      <!-- Active Exam Header -->
+      <div class="active-exam-header">
+        <div class="active-title-group">
+          <h2 id="active-exam-title">Đang tải bài thi...</h2>
+          <div class="active-exam-stats">
+            <span id="active-exam-skill">Skill</span>
+            <span>•</span>
+            <span id="active-exam-count">25 câu hỏi</span>
+            <span>•</span>
+            <span id="active-exam-time">30 phút</span>
+          </div>
+          <div class="exam-target-badge" id="exam-target-info">
+            🎯 Mục tiêu: Đạt A2 (≥ 13 câu) 🌸 | Đạt B1 (≥ 18 câu) 🏆
+          </div>
+        </div>
+        <div class="actions-group">
+          <button id="btn-reset-exam" class="btn btn-secondary" title="Làm lại bài thi này từ đầu">
+            🔄 Làm lại
+          </button>
+        </div>
+      </div>
+
+      <!-- Post-submission Filter Bar -->
+      <div id="review-filter-bar" class="review-filter-bar">
+        <div style="font-size: 0.86rem; font-weight: 700; color: #475569;">🔍 Lọc câu hỏi:</div>
+        <div class="filter-chips">
+          <div class="filter-chip active" data-filter="all">Tất cả</div>
+          <div class="filter-chip" data-filter="wrong">❌ Câu chưa đúng</div>
+          <div class="filter-chip" data-filter="correct">✅ Câu đúng</div>
+        </div>
+      </div>
+
+      <!-- Exam Layout: Sidebar (Passages/Images) + Questions Column -->
+      <div id="exam-layout" class="exam-layout">
+        <aside id="passage-sidebar" class="passage-sidebar">
+          <!-- Passages and image notices inserted dynamically -->
+        </aside>
+        <div id="questions-container" class="questions-col">
+          <!-- Questions rendered dynamically -->
+        </div>
       </div>
     </div>
 
-    <!-- Post-submission Filter Bar -->
-    <div id="review-filter-bar" class="review-filter-bar">
-      <div style="font-size: 0.86rem; font-weight: 700; color: #475569;">🔍 Lọc câu hỏi:</div>
-      <div class="filter-chips">
-        <div class="filter-chip active" data-filter="all">Tất cả</div>
-        <div class="filter-chip" data-filter="wrong">❌ Câu chưa đúng</div>
-        <div class="filter-chip" data-filter="correct">✅ Câu đúng</div>
+    <!-- ==================== VIEW 2: TRỌNG TÂM ÔN LUYỆN A2 - B1 ==================== -->
+    <div id="view-a2b1" style="display: none;">
+      <div class="a2b1-container">
+        <!-- Banner Intro A2-B1 -->
+        <div class="info-banner" style="border-left-color: var(--secondary);">
+          <div class="banner-icon">🎯</div>
+          <div class="banner-text">
+            <h3>Cẩm Nang Trọng Tâm Ôn Luyện A2 - B1 (Phenikaa)</h3>
+            <p>
+              Hệ thống tiêu chuẩn điểm qua môn (Bậc 2) và chuẩn đầu ra (Bậc 3), tóm tắt <strong>10 chuyên đề ngữ pháp vàng</strong>, bộ từ vựng cốt lõi phân theo chủ đề và chiến thuật vượt bẫy đề thi. Nắm chắc phần này là tự tin 100% đi thi nha! 🌸
+            </p>
+          </div>
+        </div>
+
+        <!-- Section 1: Tiêu Chuẩn Điểm A2 vs B1 -->
+        <section>
+          <div class="a2b1-section-title">
+            <span>🎯</span> Tiêu Chuẩn Điểm Chuẩn A2 vs B1 Phenikaa
+          </div>
+          <div class="standards-grid" id="standards-grid">
+            <!-- Rendered by app.js -->
+          </div>
+        </section>
+
+        <!-- Section 2: 10 Chuyên Đề Ngữ Pháp Cốt Lõi -->
+        <section>
+          <div class="a2b1-section-title">
+            <span>📘</span> 10 Chuyên Đề Ngữ Pháp Vàng Hay Gài Bẫy Nhất
+          </div>
+          <div class="grammar-list" id="grammar-list">
+            <!-- Rendered by app.js -->
+          </div>
+        </section>
+
+        <!-- Section 3: Sổ Tay Từ Vựng Vàng A2 - B1 -->
+        <section>
+          <div class="a2b1-section-title">
+            <span>🗂️</span> Sổ Tay Từ Vựng Cốt Lõi Theo Chủ Đề
+          </div>
+          <div class="vocab-controls">
+            <input type="text" class="vocab-search-input" id="vocab-search-input" 
+                   placeholder="🔍 Tìm từ vựng (ví dụ: delay, discount, tiền vé, giảm giá...)" 
+                   oninput="handleVocabSearch(this.value)" />
+            <div class="vocab-topic-chips" id="vocab-topic-chips">
+              <!-- Rendered by app.js -->
+            </div>
+          </div>
+          <div class="vocab-cards-grid" id="vocab-cards-grid">
+            <!-- Rendered by app.js -->
+          </div>
+        </section>
+
+        <!-- Section 4: Mẹo & Chiến Thuật Vượt Bẫy Đề Thi -->
+        <section>
+          <div class="a2b1-section-title">
+            <span>💡</span> Chiến Thuật Vượt Bẫy Đề Thi (Test Tactics)
+          </div>
+          <div class="tactics-grid" id="tactics-grid">
+            <!-- Rendered by app.js -->
+          </div>
+        </section>
       </div>
     </div>
 
-    <!-- Exam Layout: Sidebar (Passages/Images) + Questions Column -->
-    <div id="exam-layout" class="exam-layout">
-      <aside id="passage-sidebar" class="passage-sidebar">
-        <!-- Passages and image notices inserted dynamically -->
-      </aside>
-      <div id="questions-container" class="questions-col">
-        <!-- Questions rendered dynamically -->
-      </div>
-    </div>
   </main>
 
   <!-- Floating Liquid Glass Bottom Submit Bar -->
-  <div class="bottom-submit-bar">
+  <div class="bottom-submit-bar" id="bottom-submit-bar">
     <div class="progress-info">
       Tiến độ: <span id="progress-count">0/25</span> câu
     </div>
@@ -145,6 +233,10 @@
     <div class="score-modal-card">
       <div id="modal-mascot" class="modal-mascot">🌸</div>
       <div id="modal-title" class="modal-title">Kết Quả Bài Thi</div>
+      
+      <!-- Level Badge (A2 / B1 Evaluation) -->
+      <div id="modal-level-badge" class="modal-level-badge a2">ĐẠT CHUẨN A2</div>
+
       <div class="score-big-circle">
         <div id="modal-score-num" class="score-num">0</div>
         <div id="modal-score-total" class="score-total">/ 10 pts</div>
@@ -169,6 +261,7 @@
 
   <!-- Scripts -->
   <script src="data.js"></script>
+  <script src="a2_b1_data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
