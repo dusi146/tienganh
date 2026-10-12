@@ -11,6 +11,7 @@ const AppState = {
   timerInterval: null,
   timeRemaining: 0,
   reviewFilter: 'all', // 'all', 'wrong', 'correct'
+  selectedDifficulty: 'all', // 'all', 'easy', 'medium', 'hard'
   audioPlayer: null,
   currentAudioSrc: '',
   currentAudioPart: ''
@@ -67,6 +68,16 @@ function setupEventListeners() {
       chip.classList.add('active');
       AppState.reviewFilter = chip.dataset.filter;
       applyReviewFilter();
+    });
+  });
+
+  const diffPills = document.querySelectorAll('.diff-filter-pill');
+  diffPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      diffPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      AppState.selectedDifficulty = pill.dataset.difficulty;
+      renderExamCards();
     });
   });
 
@@ -127,27 +138,45 @@ function renderExamCards() {
   const container = document.getElementById('exam-cards-container');
   if (!container) return;
 
-  container.innerHTML = EXAM_DATABASE.map(exam => {
+  const currentFilter = AppState.selectedDifficulty || 'all';
+  const filteredExams = currentFilter === 'all'
+    ? EXAM_DATABASE
+    : EXAM_DATABASE.filter(e => e.difficulty === currentFilter);
+
+  container.innerHTML = filteredExams.map(exam => {
     const isListening = exam.skill === 'listening';
-    const iconClass = isListening ? 'listening' : 'reading';
-    const iconEmoji = isListening ? '🎧' : '📖';
+    const isMixed = exam.skill === 'mixed';
+    const iconClass = isListening ? 'listening' : (isMixed ? 'mixed' : 'reading');
+    const iconEmoji = isListening ? '🎧' : (isMixed ? '✨' : '📖');
     const savedScore = localStorage.getItem(STORAGE_PREFIX + 'score_' + exam.id);
-    const scoreText = savedScore ? `Điểm cao: ${savedScore}/${exam.total_pts}` : 'Chưa thi';
+    const scoreText = savedScore ? `Điểm: ${savedScore}/${exam.total_pts}` : 'Chưa thi';
     const hasScoreClass = savedScore ? 'has-score' : '';
+    const diffBadge = exam.difficulty_badge || '🟢 Dễ (A2)';
+    const diffClass = exam.difficulty || 'easy';
+    const isCurated = exam.id.startsWith('test_');
+    const curatedBadge = isCurated ? '<span class="curated-pill">🌟 Đề chắt lọc</span>' : '';
+    const isActive = AppState.currentExam && AppState.currentExam.id === exam.id ? 'active' : '';
 
     return `
-      <div class="exam-card" data-exam-id="${exam.id}" onclick="selectExam('${exam.id}')">
+      <div class="exam-card ${isActive}" data-exam-id="${exam.id}" onclick="selectExam('${exam.id}')">
+        <div class="exam-card-header-bar">
+          <div class="diff-and-curated">
+            <span class="exam-diff-tag diff-${diffClass}">${diffBadge}</span>
+            ${curatedBadge}
+          </div>
+          <div class="exam-badge-score ${hasScoreClass}" id="score-badge-${exam.id}">
+            ${scoreText}
+          </div>
+        </div>
         <div class="exam-info">
           <div class="exam-icon ${iconClass}">
             ${iconEmoji}
           </div>
-          <div>
+          <div class="exam-details">
             <div class="exam-name">${exam.title}</div>
             <div class="exam-meta">${exam.skill_vn} • ${exam.total_questions} câu • ${exam.duration_minutes} phút</div>
+            ${exam.target_desc ? `<div class="exam-target-tip">${exam.target_desc}</div>` : ''}
           </div>
-        </div>
-        <div class="exam-badge-score ${hasScoreClass}" id="score-badge-${exam.id}">
-          ${scoreText}
         </div>
       </div>
     `;
@@ -201,10 +230,20 @@ function selectExam(examId) {
 
 function updateExamHeaderUI() {
   const exam = AppState.currentExam;
+  if (!exam) return;
   document.getElementById('active-exam-title').innerText = exam.title;
   document.getElementById('active-exam-skill').innerText = exam.skill_vn;
   document.getElementById('active-exam-count').innerText = `${exam.total_questions} câu hỏi`;
   document.getElementById('active-exam-time').innerText = `${exam.duration_minutes} phút`;
+
+  const targetInfoElem = document.getElementById('exam-target-info');
+  if (targetInfoElem) {
+    if (exam.target_desc) {
+      targetInfoElem.innerHTML = `🎯 ${exam.target_desc}`;
+    } else {
+      targetInfoElem.innerHTML = `🎯 Mục tiêu: Đạt A2 (≥ 13 câu) 🌸 | Đạt B1 (≥ 18 câu) 🏆`;
+    }
+  }
 }
 
 function toggleMode() {
@@ -233,8 +272,11 @@ function setupExamAudio() {
   const audioBox = document.getElementById('sticky-audio-box');
   const audioElem = AppState.audioPlayer;
   const exam = AppState.currentExam;
+  if (!exam) return;
 
-  if (exam.skill === 'listening') {
+  const hasAudio = exam.skill === 'listening' || (exam.questions && exam.questions.some(q => !!q.audio));
+
+  if (hasAudio) {
     audioBox.classList.add('show');
     renderAudioPartsNav(exam);
 
@@ -339,8 +381,7 @@ function renderExamContent() {
   let currentPart = '';
   let html = '';
 
-  const isReading = exam.skill === 'reading';
-  const hasReadingPassages = isReading && exam.questions.some(q => q.passage || q.image);
+  const hasReadingPassages = exam.questions.some(q => (q.passage && !q.audio) || q.image);
 
   if (hasReadingPassages) {
     layout.classList.add('with-passage');
@@ -377,7 +418,7 @@ function renderExamContent() {
       }
 
       let listenNoteCard = '';
-      if (exam.skill === 'listening' && q.passage) {
+      if ((exam.skill === 'listening' || q.audio) && q.passage) {
         listenNoteCard = `
           <div class="listen-note-card">
             <div class="note-card-header">📋 Biểu mẫu thông tin (Nghe audio để điền vào các câu bên dưới):</div>
@@ -737,7 +778,7 @@ function jumpToQuestion(qId) {
   const exam = AppState.currentExam;
   const q = exam ? exam.questions.find(i => i.id === qId) : null;
 
-  if (q && q.audio && exam.skill === 'listening') {
+  if (q && q.audio) {
     switchAudioPart(q.part, q.audio, false);
   }
 

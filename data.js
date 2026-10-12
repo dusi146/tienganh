@@ -1,6 +1,1594 @@
 // EXAM_DATABASE - Bộ đề thi tiếng Anh (Phenikaa Practice Tests)
 const EXAM_DATABASE = [
   {
+    "id": "test_a2_core",
+    "exam_num": 101,
+    "skill": "mixed",
+    "skill_vn": "Tổng Hợp A2 (Nghe & Đọc)",
+    "title": "Bộ Đề Chắt Lọc A2 - Cốt Lõi Qua Môn (20 Câu)",
+    "duration_minutes": 20,
+    "total_questions": 20,
+    "total_pts": 10,
+    "difficulty": "easy",
+    "level_code": "A2",
+    "level_title": "Cấp Độ: Dễ (Chuẩn A2 Cơ Bản)",
+    "difficulty_badge": "🟢 Dễ (A2)",
+    "target_desc": "Mục tiêu: Đạt ≥ 13/20 câu (5.0+ điểm). Chắt lọc 20 câu hỏi cốt lõi, cơ bản và dễ lấy điểm nhất để tự tin qua môn A2!",
+    "questions": [
+      {
+        "id": "a2_core_l_1",
+        "number": 1,
+        "part": "Part 1 - Nghe",
+        "part_title": "🎧 Phần 1: Nghe 5 Thông Báo Đời Sống",
+        "part_instruction": "Nghe 5 thông báo/lời dặn hằng ngày. Mỗi câu nghe 2 lần và chọn đáp án đúng A, B hoặc C.",
+        "type": "mcq",
+        "audio": "audio/de1_part1_de1_audio_1.mp3",
+        "image": "",
+        "passage": "",
+        "question": "1. Who makes the phone call?",
+        "options": [
+          "Ms. Proctor.",
+          "Mr. Gale.",
+          "Mr. Kale."
+        ],
+        "correct_answer": "Mr. Kale.",
+        "explanation": {
+          "msg": "Xác định người thực hiện cuộc gọi dựa vào lời xưng hô mở đầu.",
+          "trans_q": "Ai là người gọi điện thoại?",
+          "trans_opts": [
+            "Ms. Proctor (Cô Proctor)",
+            "Mr. Gale (Ông Gale)",
+            "Mr. Kale (Ông Kale)"
+          ],
+          "clue": "Người gọi giới thiệu: 'Hello, this is Mr. Kale calling for Ms. Proctor...'",
+          "why_right": "Người đàn ông tự xưng tên mình là 'Mr. Kale'.",
+          "trap": "Người ta nhắc tới 'Ms. Proctor' nhưng đó là người nhận cuộc gọi, không phải người gọi đâu!",
+          "vocab": [
+            {
+              "word": "make a phone call",
+              "phonetic": "/meɪk ə fəʊn kɔːl/",
+              "meaning": "gọi điện thoại"
+            },
+            {
+              "word": "calling for",
+              "phonetic": "/ˈkɔːlɪŋ fɔːr/",
+              "meaning": "gọi điện để gặp ai"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_l_2",
+        "number": 2,
+        "part": "Part 1 - Nghe",
+        "part_title": "🎧 Phần 1: Nghe 5 Thông Báo Đời Sống",
+        "part_instruction": "Nghe 5 thông báo/lời dặn hằng ngày. Mỗi câu nghe 2 lần và chọn đáp án đúng A, B hoặc C.",
+        "type": "mcq",
+        "audio": "audio/de1_part1_de1_audio_1.mp3",
+        "image": "",
+        "passage": "",
+        "question": "2. When is the party at Bob’s house?",
+        "options": [
+          "On Monday.",
+          "On Saturday.",
+          "On Sunday."
+        ],
+        "correct_answer": "On Sunday.",
+        "explanation": {
+          "msg": "Chú ý các ngày trong tuần: người nói thường nhắc đến cả thứ Bảy và Chủ Nhật để gài bẫy.",
+          "trans_q": "Bữa tiệc ở nhà Bob diễn ra khi nào?",
+          "trans_opts": [
+            "On Monday (Vào thứ Hai)",
+            "On Saturday (Vào thứ Bảy)",
+            "On Sunday (Vào Chủ Nhật)"
+          ],
+          "clue": "Đoạn băng nói: 'Bob is having a party at his house on Sunday evening...'",
+          "why_right": "Bữa tiệc được tổ chức chính xác vào Chủ Nhật ('on Sunday').",
+          "trap": "Có thể trong băng nhắc tới Saturday để dọn dẹp hoặc chuẩn bị, chú ý nghe kỹ từ 'party' đi liền với ngày nào!",
+          "vocab": [
+            {
+              "word": "party",
+              "phonetic": "/ˈpɑːti/",
+              "meaning": "bữa tiệc"
+            },
+            {
+              "word": "have a party",
+              "phonetic": "/hæv ə ˈpɑːti/",
+              "meaning": "tổ chức tiệc"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_l_3",
+        "number": 3,
+        "part": "Part 1 - Nghe",
+        "part_title": "🎧 Phần 1: Nghe 5 Thông Báo Đời Sống",
+        "part_instruction": "Nghe 5 thông báo/lời dặn hằng ngày. Mỗi câu nghe 2 lần và chọn đáp án đúng A, B hoặc C.",
+        "type": "mcq",
+        "audio": "audio/de1_part1_de1_audio_1.mp3",
+        "image": "",
+        "passage": "",
+        "question": "3. Who makes the phone call?",
+        "options": [
+          "David Pell.",
+          "David Bell.",
+          "David Dell."
+        ],
+        "correct_answer": "David Bell.",
+        "explanation": {
+          "msg": "Lưu ý phát âm các chữ cái dễ nhầm lẫn (P, B, D) khi đánh vần tên riêng.",
+          "trans_q": "Ai là người gọi điện thoại?",
+          "trans_opts": [
+            "David Pell",
+            "David Bell",
+            "David Dell"
+          ],
+          "clue": "Người nói phát âm rõ âm /b/: 'My name is David Bell, B-E-double L...'",
+          "why_right": "Họ đánh vần chữ cái 'B' (phát âm /biː/) trong Bell.",
+          "trap": "Âm /p/ trong Pell sẽ bật hơi mạnh (pờ), còn /b/ trong Bell là âm rung môi. Chú ý nghe kỹ âm B!",
+          "vocab": [
+            {
+              "word": "spell",
+              "phonetic": "/spel/",
+              "meaning": "đánh vần chữ cái"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_l_4",
+        "number": 4,
+        "part": "Part 1 - Nghe",
+        "part_title": "🎧 Phần 1: Nghe 5 Thông Báo Đời Sống",
+        "part_instruction": "Nghe 5 thông báo/lời dặn hằng ngày. Mỗi câu nghe 2 lần và chọn đáp án đúng A, B hoặc C.",
+        "type": "mcq",
+        "audio": "audio/de1_part1_de1_audio_1.mp3",
+        "image": "",
+        "passage": "",
+        "question": "4. At what time will Rita have an appointment with the doctor?",
+        "options": [
+          "2:14.",
+          "2:40.",
+          "4:20."
+        ],
+        "correct_answer": "2:40.",
+        "explanation": {
+          "msg": "Mẹo nghe giờ giấc: chú ý cấu trúc giờ kém [số phút] + to + [giờ tới].",
+          "trans_q": "Rita có hẹn với bác sĩ lúc mấy giờ?",
+          "trans_opts": [
+            "2:14",
+            "2:40 (3 giờ kém 20)",
+            "4:20 (4 giờ 20)"
+          ],
+          "clue": "Người thông báo nói: 'Rita, your appointment with Dr. Brown is at twenty to three (2:40)...'",
+          "why_right": "'Twenty to three' có nghĩa là 20 phút nữa đến 3 giờ, tức là 2 giờ 40 phút (2:40)!",
+          "trap": "Rất nhiều bạn nghe thấy 'twenty' với 'three' hay bị nhầm sang 3:20 hoặc nhìn lướt thành 4:20. Công thức: [Số phút] + TO + [Giờ sau] = Giờ kém đó!",
+          "vocab": [
+            {
+              "word": "appointment",
+              "phonetic": "/əˈpɔɪntmənt/",
+              "meaning": "cuộc hẹn (bác sĩ, công việc)"
+            },
+            {
+              "word": "twenty to three",
+              "phonetic": "/ˈtwenti tuː θriː/",
+              "meaning": "3 giờ kém 20 (2:40)"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_l_5",
+        "number": 5,
+        "part": "Part 1 - Nghe",
+        "part_title": "🎧 Phần 1: Nghe 5 Thông Báo Đời Sống",
+        "part_instruction": "Nghe 5 thông báo/lời dặn hằng ngày. Mỗi câu nghe 2 lần và chọn đáp án đúng A, B hoặc C.",
+        "type": "mcq",
+        "audio": "audio/de1_part1_de1_audio_1.mp3",
+        "image": "",
+        "passage": "",
+        "question": "5. What is Mr Priest’s telephone number?",
+        "options": [
+          "421 7896.",
+          "241 8796.",
+          "421 8769."
+        ],
+        "correct_answer": "421 7896.",
+        "explanation": {
+          "msg": "Mẹo nghe số điện thoại: chuẩn bị sẵn nháp để ghi từng cụm số (3-4 số một lần).",
+          "trans_q": "Số điện thoại của ông Priest là số nào?",
+          "trans_opts": [
+            "421 7896",
+            "241 8796",
+            "421 8769"
+          ],
+          "clue": "Băng đọc rõ: 'You can reach Mr Priest on four-two-one, seven-eight-nine-six.'",
+          "why_right": "4-2-1 rồi đến 7-8-9-6 đúng y hệt phương án A.",
+          "trap": "Các phương án B và C đảo vị trí giữa 421 thành 241, và 896 thành 769. Nghe từng cụm 3-4 số là chuẩn luôn!",
+          "vocab": [
+            {
+              "word": "telephone number",
+              "phonetic": "/ˈtelɪfəʊn ˈnʌmbər/",
+              "meaning": "số điện thoại"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_r_1",
+        "number": 6,
+        "part": "Part 2 - Điền Từ",
+        "part_title": "📖 Phần 2: Đọc Điền Từ Cơ Bản (A2)",
+        "part_instruction": "Chọn từ thích hợp nhất (A, B hoặc C) để hoàn thành câu/đoạn văn.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "Today I went through a change that will make my life different. I left my home and went across the country with my mom and dad to go off to college. Some people might (1) ……….. it is not a big thing, but it is the most (2) ……….. thing that I have ever had to do. I hated leaving my family, but I am happy to live in a new home and (3) ……….. out new things. I have lived in the same house for eighteen years. I am from North Carolina, and I love everything about it. Now I am going to college in California. I think I can do it. I think I can go and live away from all my family and friends, but I am still (4) ……….. I met the girl I am (5) ……….. my room with, and she seems very nice. Her name is Macy. She is from California and she can show me all the good things about it. We found out that we had lots of things in (6) ……….. We both love books and want to study English in college. We both do not like country music and dogs, even though everyone from North Carolina and California does. I think we will get (7) ……….. very well. My mom and dad thought that Macy was very nice, and told me that they were (8) ……….. I was living with someone like her.",
+        "question": "1. Some people might ( 1 ) ……….. it is not a big thing...",
+        "options": [
+          "tell",
+          "think",
+          "wonder"
+        ],
+        "correct_answer": "think",
+        "explanation": {
+          "msg": "Chọn động từ phù hợp với ngữ cảnh chỉ nhận thức, suy nghĩ.",
+          "trans_q": "Một số người có thể (1)... rằng đó chẳng phải là chuyện gì to tát...",
+          "trans_opts": [
+            "tell (kể, bảo)",
+            "think (nghĩ rằng)",
+            "wonder (băn khoăn, tự hỏi)"
+          ],
+          "clue": "Ngữ cảnh: Người ta 'nghĩ rằng' (think that) việc đi học xa nhà không có gì to tát.",
+          "why_right": "Cấu trúc 'think (that) + mệnh đề': nghĩ rằng điều gì đó. 'Tell' phải có tân ngữ chỉ người (tell someone sth).",
+          "trap": "'Tell' cần người nhận tin (ví dụ: tell me), còn 'wonder' là tự hỏi chuyện chưa biết.",
+          "vocab": [
+            {
+              "word": "think",
+              "phonetic": "/θɪŋk/",
+              "meaning": "suy nghĩ, cho rằng"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_r_2",
+        "number": 7,
+        "part": "Part 2 - Điền Từ",
+        "part_title": "📖 Phần 2: Đọc Điền Từ Cơ Bản (A2)",
+        "part_instruction": "Chọn từ thích hợp nhất (A, B hoặc C) để hoàn thành câu/đoạn văn.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "Today I went through a change that will make my life different. I left my home and went across the country with my mom and dad to go off to college. Some people might (1) ……….. it is not a big thing, but it is the most (2) ……….. thing that I have ever had to do. I hated leaving my family, but I am happy to live in a new home and (3) ……….. out new things. I have lived in the same house for eighteen years. I am from North Carolina, and I love everything about it. Now I am going to college in California. I think I can do it. I think I can go and live away from all my family and friends, but I am still (4) ……….. I met the girl I am (5) ……….. my room with, and she seems very nice. Her name is Macy. She is from California and she can show me all the good things about it. We found out that we had lots of things in (6) ……….. We both love books and want to study English in college. We both do not like country music and dogs, even though everyone from North Carolina and California does. I think we will get (7) ……….. very well. My mom and dad thought that Macy was very nice, and told me that they were (8) ……….. I was living with someone like her.",
+        "question": "2. ...but it is the most ( 2 ) ……….. thing that I have ever had to do.",
+        "options": [
+          "difficult",
+          "comfortable",
+          "memorable"
+        ],
+        "correct_answer": "difficult",
+        "explanation": {
+          "msg": "Chú ý từ 'hated leaving my family' ở câu sau: rời xa gia đình là một trải nghiệm như thế nào?",
+          "trans_q": "...nhưng đó là điều (2)... nhất mà tôi từng phải làm.",
+          "trans_opts": [
+            "difficult (khó khăn)",
+            "comfortable (thoải mái, dễ chịu)",
+            "memorable (đáng nhớ)"
+          ],
+          "clue": "Câu liền sau nói: 'I hated leaving my family' (Tôi ghét phải rời xa gia đình) -> chứng tỏ việc này rất KHÓ KHĂN đối với bạn ấy!",
+          "why_right": "Difficult = khó khăn. Rời xa tổ ấm 18 năm là việc khó khăn nhất ('the most difficult thing').",
+          "trap": "Rời xa người thân thì không thể là 'comfortable' (thoải mái) được đúng không nè!",
+          "vocab": [
+            {
+              "word": "difficult",
+              "phonetic": "/ˈdɪfɪkəlt/",
+              "meaning": "khó khăn"
+            },
+            {
+              "word": "leave",
+              "phonetic": "/liːv/",
+              "meaning": "rời bỏ, rời xa"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_r_3",
+        "number": 8,
+        "part": "Part 2 - Điền Từ",
+        "part_title": "📖 Phần 2: Đọc Điền Từ Cơ Bản (A2)",
+        "part_instruction": "Chọn từ thích hợp nhất (A, B hoặc C) để hoàn thành câu/đoạn văn.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "Today I went through a change that will make my life different. I left my home and went across the country with my mom and dad to go off to college. Some people might (1) ……….. it is not a big thing, but it is the most (2) ……….. thing that I have ever had to do. I hated leaving my family, but I am happy to live in a new home and (3) ……….. out new things. I have lived in the same house for eighteen years. I am from North Carolina, and I love everything about it. Now I am going to college in California. I think I can do it. I think I can go and live away from all my family and friends, but I am still (4) ……….. I met the girl I am (5) ……….. my room with, and she seems very nice. Her name is Macy. She is from California and she can show me all the good things about it. We found out that we had lots of things in (6) ……….. We both love books and want to study English in college. We both do not like country music and dogs, even though everyone from North Carolina and California does. I think we will get (7) ……….. very well. My mom and dad thought that Macy was very nice, and told me that they were (8) ……….. I was living with someone like her.",
+        "question": "3. ...happy to live in a new home and ( 3 ) ……….. out new things.",
+        "options": [
+          "try",
+          "turn",
+          "put"
+        ],
+        "correct_answer": "try",
+        "explanation": {
+          "msg": "Đây là cụm từ cố định (collocation) thường gặp trong tiếng Anh.",
+          "trans_q": "...vui vẻ sống ở nơi ở mới và (3)... những điều mới mẻ.",
+          "trans_opts": [
+            "try (try out = thử nghiệm)",
+            "turn (turn out = hóa ra)",
+            "put (put out = dập tắt)"
+          ],
+          "clue": "Cụm 'try out new things' = thử nghiệm, trải nghiệm những điều mới.",
+          "why_right": "Chỉ có 'try out' mới mang nghĩa là thử trải nghiệm điều mới mẻ.",
+          "trap": "'Turn out' là hóa ra là, 'Put out' là dập lửa, không hợp nghĩa.",
+          "vocab": [
+            {
+              "word": "try out",
+              "phonetic": "/traɪ aʊt/",
+              "meaning": "thử nghiệm, trải nghiệm cái mới"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_r_4",
+        "number": 9,
+        "part": "Part 2 - Điền Từ",
+        "part_title": "📖 Phần 2: Đọc Điền Từ Cơ Bản (A2)",
+        "part_instruction": "Chọn từ thích hợp nhất (A, B hoặc C) để hoàn thành câu/đoạn văn.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "Today I went through a change that will make my life different. I left my home and went across the country with my mom and dad to go off to college. Some people might (1) ……….. it is not a big thing, but it is the most (2) ……….. thing that I have ever had to do. I hated leaving my family, but I am happy to live in a new home and (3) ……….. out new things. I have lived in the same house for eighteen years. I am from North Carolina, and I love everything about it. Now I am going to college in California. I think I can do it. I think I can go and live away from all my family and friends, but I am still (4) ……….. I met the girl I am (5) ……….. my room with, and she seems very nice. Her name is Macy. She is from California and she can show me all the good things about it. We found out that we had lots of things in (6) ……….. We both love books and want to study English in college. We both do not like country music and dogs, even though everyone from North Carolina and California does. I think we will get (7) ……….. very well. My mom and dad thought that Macy was very nice, and told me that they were (8) ……….. I was living with someone like her.",
+        "question": "4. ...live away from all my family and friends, but I am still ( 4 ) ………..",
+        "options": [
+          "proud",
+          "confident",
+          "scared"
+        ],
+        "correct_answer": "scared",
+        "explanation": {
+          "msg": "Có từ nối 'BUT' (nhưng) thể hiện sự tương phản cảm xúc!",
+          "trans_q": "...tôi nghĩ mình có thể sống xa gia đình bạn bè, nhưng tôi vẫn thấy (4)...",
+          "trans_opts": [
+            "proud (tự hào)",
+            "confident (tự tin)",
+            "scared (lo sợ, sợ hãi)"
+          ],
+          "clue": "Vế trước: 'I think I can do it' (nghĩ là làm được), vế sau: 'BUT I am still scared' (nhưng vẫn thấy sợ).",
+          "why_right": "'Scared' thể hiện cảm xúc lo sợ khi phải sống tự lập một mình ở nơi xa lạ.",
+          "trap": "Vì có chữ 'BUT' nên không thể chọn từ tích cực như 'confident' hay 'proud' được.",
+          "vocab": [
+            {
+              "word": "scared",
+              "phonetic": "/skeəd/",
+              "meaning": "lo sợ, hoảng sợ"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_r_5",
+        "number": 10,
+        "part": "Part 2 - Điền Từ",
+        "part_title": "📖 Phần 2: Đọc Điền Từ Cơ Bản (A2)",
+        "part_instruction": "Chọn từ thích hợp nhất (A, B hoặc C) để hoàn thành câu/đoạn văn.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "Today I went through a change that will make my life different. I left my home and went across the country with my mom and dad to go off to college. Some people might (1) ……….. it is not a big thing, but it is the most (2) ……….. thing that I have ever had to do. I hated leaving my family, but I am happy to live in a new home and (3) ……….. out new things. I have lived in the same house for eighteen years. I am from North Carolina, and I love everything about it. Now I am going to college in California. I think I can do it. I think I can go and live away from all my family and friends, but I am still (4) ……….. I met the girl I am (5) ……….. my room with, and she seems very nice. Her name is Macy. She is from California and she can show me all the good things about it. We found out that we had lots of things in (6) ……….. We both love books and want to study English in college. We both do not like country music and dogs, even though everyone from North Carolina and California does. I think we will get (7) ……….. very well. My mom and dad thought that Macy was very nice, and told me that they were (8) ……….. I was living with someone like her.",
+        "question": "5. I met the girl I am ( 5 ) ……….. my room with...",
+        "options": [
+          "living",
+          "sharing",
+          "having"
+        ],
+        "correct_answer": "sharing",
+        "explanation": {
+          "msg": "Ở chung phòng ký túc xá thì dùng từ gì nè?",
+          "trans_q": "Tôi đã gặp bạn nữ mà tôi sẽ (5)... phòng cùng...",
+          "trans_opts": [
+            "living (sống)",
+            "sharing (chia sẻ, ở chung)",
+            "having (có)"
+          ],
+          "clue": "Cấu trúc: 'share something WITH someone' = chia sẻ / ở chung cái gì với ai.",
+          "why_right": "'Share my room with' = ở chung phòng với ai. Nếu dùng 'live' thì phải là 'living with', không có 'my room'.",
+          "trap": "Nhiều bạn quen miệng 'living with' nhưng ở đây có tân ngữ 'my room' nên bắt buộc phải dùng 'sharing my room with'!",
+          "vocab": [
+            {
+              "word": "share a room with",
+              "phonetic": "/ʃeər ə ruːm wɪð/",
+              "meaning": "ở chung phòng với ai"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_match_9",
+        "number": 11,
+        "part": "Part 3 - Biển Báo",
+        "part_title": "🪧 Phần 3: Nhận Biết Biển Báo Hằng Ngày",
+        "part_instruction": "Đọc câu mô tả và chọn chữ cái tương ứng với biển báo đúng (A - H).",
+        "type": "matching",
+        "audio": "",
+        "image": "images/question_766649_Reading_1.1.png",
+        "passage": "",
+        "question": "9. You cannot travel by railway until tomorrow.",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K"
+        ],
+        "correct_answer": "D",
+        "explanation": {
+          "msg": "Để ý từ khóa 'cannot travel by railway' (không đi tàu hỏa được)!",
+          "trans_q": "Bạn không thể di chuyển bằng đường sắt cho đến tận ngày mai.",
+          "trans_opts": [],
+          "clue": "Biển D ghi: 'NO TRAINS TODAY BECAUSE OF VERY HIGH WINDS' (Hôm nay không có chuyến tàu nào vì gió rất lớn).",
+          "why_right": "No trains today = hôm nay không có tàu -> phải đợi đến mai mới đi được!",
+          "trap": "Biển F là tàu bị trễ (delayed) chứ không phải hủy cả ngày như biển D.",
+          "vocab": [
+            {
+              "word": "railway",
+              "phonetic": "/ˈreɪlweɪ/",
+              "meaning": "đường sắt, tàu hỏa"
+            },
+            {
+              "word": "high winds",
+              "phonetic": "/haɪ wɪndz/",
+              "meaning": "gió lớn"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_match_10",
+        "number": 12,
+        "part": "Part 3 - Biển Báo",
+        "part_title": "🪧 Phần 3: Nhận Biết Biển Báo Hằng Ngày",
+        "part_instruction": "Đọc câu mô tả và chọn chữ cái tương ứng với biển báo đúng (A - H).",
+        "type": "matching",
+        "audio": "",
+        "image": "images/question_766649_Reading_1.1.png",
+        "passage": "",
+        "question": "10. Children and parents travel for less with this.",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K"
+        ],
+        "correct_answer": "C",
+        "explanation": {
+          "msg": "Bố mẹ và con cái đi lại rẻ hơn: Bố mẹ + con cái chính là GIA ĐÌNH (Family)!",
+          "trans_q": "Trẻ em và cha mẹ đi lại với giá rẻ hơn nhờ cái này.",
+          "trans_opts": [],
+          "clue": "Biển C ghi: 'GET CHEAPER TICKET WITH A FAMILY RAILCARD' (Mua vé rẻ hơn với thẻ tàu gia đình).",
+          "why_right": "Children and parents = Family; travel for less = cheaper ticket!",
+          "trap": "Biển A là miễn phí cho trẻ em ở viện bảo tàng, nhưng câu này nói về việc đi lại (travel).",
+          "vocab": [
+            {
+              "word": "travel for less",
+              "phonetic": "/ˈtrævl fɔː les/",
+              "meaning": "đi lại tốn ít tiền hơn / rẻ hơn"
+            },
+            {
+              "word": "railcard",
+              "phonetic": "/ˈreɪlkɑːd/",
+              "meaning": "thẻ giảm giá tàu hỏa"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_match_11",
+        "number": 13,
+        "part": "Part 3 - Biển Báo",
+        "part_title": "🪧 Phần 3: Nhận Biết Biển Báo Hằng Ngày",
+        "part_instruction": "Đọc câu mô tả và chọn chữ cái tương ứng với biển báo đúng (A - H).",
+        "type": "matching",
+        "audio": "",
+        "image": "images/question_766649_Reading_1.1.png",
+        "passage": "",
+        "question": "11. You must pay before you travel on this.",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K"
+        ],
+        "correct_answer": "G",
+        "explanation": {
+          "msg": "Phải trả tiền (mua vé) trước khi lên tàu nha!",
+          "trans_q": "Bạn phải trả tiền trước khi bạn đi trên phương tiện này.",
+          "trans_opts": [],
+          "clue": "Biển G ghi: 'DO NOT GET ON THE TRAIN WITHOUT A TICKET' (Không được lên tàu nếu không có vé).",
+          "why_right": "Không được lên tàu nếu không có vé nghĩa là bắt buộc phải mua vé (pay) trước khi lên!",
+          "trap": "Biển H ngược lại: phòng vé đóng cửa, lên tàu mới mua vé (buy your ticket on the train). Cẩn thận kẻo nhầm lẫn giữa G và H!",
+          "vocab": [
+            {
+              "word": "without a ticket",
+              "phonetic": "/wɪˈðaʊt ə ˈtɪkɪt/",
+              "meaning": "không có vé"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_match_12",
+        "number": 14,
+        "part": "Part 3 - Biển Báo",
+        "part_title": "🪧 Phần 3: Nhận Biết Biển Báo Hằng Ngày",
+        "part_instruction": "Đọc câu mô tả và chọn chữ cái tương ứng với biển báo đúng (A - H).",
+        "type": "matching",
+        "audio": "",
+        "image": "images/question_766649_Reading_1.1.png",
+        "passage": "",
+        "question": "12. Only adults pay to go in here.",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K"
+        ],
+        "correct_answer": "A",
+        "explanation": {
+          "msg": "Chỉ người lớn phải trả tiền, tức là trẻ em được MIỄN PHÍ!",
+          "trans_q": "Chỉ người lớn mới phải trả tiền để vào đây.",
+          "trans_opts": [],
+          "clue": "Biển A ghi: 'MUSEUM OF TRAVEL AND TRANSPORT - Entrance free for children' (Miễn phí vé vào cho trẻ em).",
+          "why_right": "Trẻ em miễn phí đồng nghĩa với việc chỉ có người lớn mới phải mua vé vào cửa.",
+          "trap": "Biển C là giảm giá vé tàu cho cả nhà, không phải miễn phí vé vào cổng.",
+          "vocab": [
+            {
+              "word": "adult",
+              "phonetic": "/ˈædʌlt/",
+              "meaning": "người lớn"
+            },
+            {
+              "word": "entrance free",
+              "phonetic": "/ˈentrəns friː/",
+              "meaning": "vào cửa miễn phí"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_match_13",
+        "number": 15,
+        "part": "Part 3 - Biển Báo",
+        "part_title": "🪧 Phần 3: Nhận Biết Biển Báo Hằng Ngày",
+        "part_instruction": "Đọc câu mô tả và chọn chữ cái tương ứng với biển báo đúng (A - H).",
+        "type": "matching",
+        "audio": "",
+        "image": "images/question_766649_Reading_1.1.png",
+        "passage": "",
+        "question": "13. This is late because of bad weather.",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K"
+        ],
+        "correct_answer": "F",
+        "explanation": {
+          "msg": "Xác định thông tin về sự chậm trễ của chuyến tàu do ảnh hưởng thời tiết.",
+          "trans_q": "Chuyến này bị muộn do thời tiết xấu.",
+          "trans_opts": [],
+          "clue": "Biển F ghi: '8:30 LONDON TRAIN delayed because of fog' (Chuyến tàu London lúc 8:30 bị hoãn/trễ do sương mù).",
+          "why_right": "Delayed = late (bị trễ/muộn); fog (sương mù) = bad weather (thời tiết xấu)!",
+          "trap": "Biển D là 'No trains' (hủy chuyến luôn), còn biển F là 'delayed' (chỉ bị trễ giờ thôi).",
+          "vocab": [
+            {
+              "word": "delayed",
+              "phonetic": "/dɪˈleɪd/",
+              "meaning": "bị hoãn, bị muộn (late)"
+            },
+            {
+              "word": "fog",
+              "phonetic": "/fɒɡ/",
+              "meaning": "sương mù dày đặc"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_form_17",
+        "number": 16,
+        "part": "Part 4 - Điền Form",
+        "part_title": "📝 Phần 4: Đọc Ghi Chú & Điền Biểu Mẫu",
+        "part_instruction": "Đọc đoạn ghi chú và điền thông tin ngắn (1-2 từ hoặc số) vào phiếu.",
+        "type": "fill",
+        "audio": "",
+        "image": "images/question_766658_Reading_1.2.png",
+        "passage": "<strong>MINH’s Notes</strong><br>Date: 15th May<br>Name of guest speaker: (17) [.....]<br>Collection time: (18) [.....]<br>Meeting place: (19) [.....]<br>Take him to: (20) [.....]<br>His phone number: (21) [.....]<br>Subject of talk: (22) [.....]<br>Wear: (23) [.....]",
+        "question": "17. Name of guest speaker (Tên diễn giả khách mời):",
+        "options": [],
+        "correct_answer": "Ryan Maidstone",
+        "explanation": {
+          "msg": "Bẫy siêu to khổng lồ câu này nè đọc kỹ email nha!",
+          "trans_q": "Tên của diễn giả khách mời là ai?",
+          "trans_opts": [],
+          "clue": "Tờ poster ghi Steve Smith, NHƯNG email của Tuấn bảo: 'Steve Smith can't come... Dr. Hai is sending Ryan Maidstone instead.'",
+          "why_right": "Vì Steve Smith bận không đến được nên người đến thay là Ryan Maidstone!",
+          "trap": "Nếu chỉ nhìn poster bên trái là sẽ bị chọn nhầm Steve Smith ngay. Luôn đọc kỹ email cập nhật để lấy thông tin mới nhất!",
+          "vocab": [
+            {
+              "word": "guest speaker",
+              "phonetic": "/ɡest ˈspiːkər/",
+              "meaning": "diễn giả khách mời"
+            },
+            {
+              "word": "instead",
+              "phonetic": "/ɪnˈsted/",
+              "meaning": "thay thế vào đó"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_form_18",
+        "number": 17,
+        "part": "Part 4 - Điền Form",
+        "part_title": "📝 Phần 4: Đọc Ghi Chú & Điền Biểu Mẫu",
+        "part_instruction": "Đọc đoạn ghi chú và điền thông tin ngắn (1-2 từ hoặc số) vào phiếu.",
+        "type": "fill",
+        "audio": "",
+        "image": "images/question_766658_Reading_1.2.png",
+        "passage": "<strong>MINH’s Notes</strong><br>Date: 15th May<br>Name of guest speaker: (17) [.....]<br>Collection time: (18) [.....]<br>Meeting place: (19) [.....]<br>Take him to: (20) [.....]<br>His phone number: (21) [.....]<br>Subject of talk: (22) [.....]<br>Wear: (23) [.....]",
+        "question": "18. Collection time (Giờ đi đón diễn giả):",
+        "options": [],
+        "correct_answer": "7.30 p.m.",
+        "explanation": {
+          "msg": "Tính giờ đón khách nè: Buổi nói chuyện lúc 8.00 p.m., Tuấn bảo đón trước 30 phút!",
+          "trans_q": "Thời gian đi đón là mấy giờ?",
+          "trans_opts": [],
+          "clue": "Poster ghi giờ bắt đầu: '8.00 p.m.'. Email Tuấn dặn: 'pick him up... thirty minutes before the start of the talk'.",
+          "why_right": "8 giờ tối trừ đi 30 phút là 7 giờ 30 tối: 7.30 p.m. (hoặc 7:30 p.m. / 7.30 / 19:30).",
+          "trap": "Không được điền 8.00 p.m. nha vì 8 giờ là giờ bắt đầu nói chuyện rồi!",
+          "vocab": [
+            {
+              "word": "pick up / collect",
+              "phonetic": "/pɪk ʌp/",
+              "meaning": "đón (ai đó)"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_form_19",
+        "number": 18,
+        "part": "Part 4 - Điền Form",
+        "part_title": "📝 Phần 4: Đọc Ghi Chú & Điền Biểu Mẫu",
+        "part_instruction": "Đọc đoạn ghi chú và điền thông tin ngắn (1-2 từ hoặc số) vào phiếu.",
+        "type": "fill",
+        "audio": "",
+        "image": "images/question_766658_Reading_1.2.png",
+        "passage": "<strong>MINH’s Notes</strong><br>Date: 15th May<br>Name of guest speaker: (17) [.....]<br>Collection time: (18) [.....]<br>Meeting place: (19) [.....]<br>Take him to: (20) [.....]<br>His phone number: (21) [.....]<br>Subject of talk: (22) [.....]<br>Wear: (23) [.....]",
+        "question": "19. Meeting place (Địa điểm đón / gặp nhau):",
+        "options": [],
+        "correct_answer": "train station",
+        "explanation": {
+          "msg": "Minh phải ra đâu để đón chú diễn giả nè?",
+          "trans_q": "Địa điểm đón diễn giả ở đâu?",
+          "trans_opts": [],
+          "clue": "Email viết rõ: 'Can you pick him up at the train station...'",
+          "why_right": "Đáp án: train station (hoặc the train station).",
+          "trap": "Đừng nhầm với office nha, đón ở ga tàu xong mới dẫn về văn phòng.",
+          "vocab": [
+            {
+              "word": "train station",
+              "phonetic": "/treɪn ˈsteɪʃn/",
+              "meaning": "ga xe lửa / ga tàu hỏa"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_form_20",
+        "number": 19,
+        "part": "Part 4 - Điền Form",
+        "part_title": "📝 Phần 4: Đọc Ghi Chú & Điền Biểu Mẫu",
+        "part_instruction": "Đọc đoạn ghi chú và điền thông tin ngắn (1-2 từ hoặc số) vào phiếu.",
+        "type": "fill",
+        "audio": "",
+        "image": "images/question_766658_Reading_1.2.png",
+        "passage": "<strong>MINH’s Notes</strong><br>Date: 15th May<br>Name of guest speaker: (17) [.....]<br>Collection time: (18) [.....]<br>Meeting place: (19) [.....]<br>Take him to: (20) [.....]<br>His phone number: (21) [.....]<br>Subject of talk: (22) [.....]<br>Wear: (23) [.....]",
+        "question": "20. Take him to (Dẫn diễn giả đến đâu?):",
+        "options": [],
+        "correct_answer": "Tuan's office",
+        "explanation": {
+          "msg": "Đón xong thì đưa khách về đâu nè?",
+          "trans_q": "Dẫn ông ấy tới đâu?",
+          "trans_opts": [],
+          "clue": "Tuấn dặn trong email: 'Bring him to my office.'",
+          "why_right": "Vì Tuấn viết email dặn 'my office' nên trong sổ ghi chép của Minh sẽ là 'Tuan's office' (hoặc office / my office).",
+          "trap": "Không dẫn thẳng vào hội trường English Club mà qua văn phòng trước.",
+          "vocab": [
+            {
+              "word": "office",
+              "phonetic": "/ˈɒfɪs/",
+              "meaning": "văn phòng làm việc"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a2_core_form_21",
+        "number": 20,
+        "part": "Part 4 - Điền Form",
+        "part_title": "📝 Phần 4: Đọc Ghi Chú & Điền Biểu Mẫu",
+        "part_instruction": "Đọc đoạn ghi chú và điền thông tin ngắn (1-2 từ hoặc số) vào phiếu.",
+        "type": "fill",
+        "audio": "",
+        "image": "images/question_766658_Reading_1.2.png",
+        "passage": "<strong>MINH’s Notes</strong><br>Date: 15th May<br>Name of guest speaker: (17) [.....]<br>Collection time: (18) [.....]<br>Meeting place: (19) [.....]<br>Take him to: (20) [.....]<br>His phone number: (21) [.....]<br>Subject of talk: (22) [.....]<br>Wear: (23) [.....]",
+        "question": "21. His phone number (Số điện thoại của diễn giả):",
+        "options": [],
+        "correct_answer": "0972 000 899",
+        "explanation": {
+          "msg": "Số điện thoại để Minh liên lạc nếu không thấy diễn giả ở ga tàu nè!",
+          "trans_q": "Số điện thoại của Ryan là số nào?",
+          "trans_opts": [],
+          "clue": "Tuấn viết: 'If you can't find Ryan then, phone him at 0972 000 899.'",
+          "why_right": "Điền chính xác số điện thoại: 0972 000 899 (hoặc 0972000899).",
+          "trap": "Ghi đúng từng chữ số, kiểm tra lại cẩn thận nhé!",
+          "vocab": []
+        }
+      }
+    ]
+  },
+  {
+    "id": "test_b1_challenge",
+    "exam_num": 102,
+    "skill": "mixed",
+    "skill_vn": "Tổng Hợp B1 (Nghe & Đọc)",
+    "title": "Bộ Đề Thử Thách B1 - Bứt Phá Đầu Ra (20 Câu)",
+    "duration_minutes": 25,
+    "total_questions": 20,
+    "total_pts": 10,
+    "difficulty": "hard",
+    "level_code": "B1",
+    "level_title": "Cấp Độ: Nâng Cao (Chuẩn B1 Thử Thách)",
+    "difficulty_badge": "🔴 Khó (B1)",
+    "target_desc": "Mục tiêu: Đạt ≥ 14/20 câu (7.0+ điểm). Chắt lọc 20 câu hỏi bẫy lắt léo và từ vựng nâng cao nhất để chinh phục chuẩn B1!",
+    "questions": [
+      {
+        "id": "b1_chal_l_16",
+        "number": 1,
+        "part": "Part 1 - Nghe Bẫy B1",
+        "part_title": "🎧 Phần 1: Nghe Bẫy Số Liệu & Đổi Ý (B1 Trap)",
+        "part_instruction": "Nghe cuộc hội thoại về chuyến đi Mill Street. Cẩn thận các bẫy đổi giá vé và giờ giấc!",
+        "type": "mcq",
+        "audio": "audio/de2_part4_de2_audio_4.mp3",
+        "image": "",
+        "passage": "",
+        "question": "16. The plane leaves at……",
+        "options": [
+          "12 a.m.",
+          "2 p.m.",
+          "3 p.m."
+        ],
+        "correct_answer": "2 p.m.",
+        "explanation": {
+          "msg": "Chuyến bay cất cánh lúc mấy giờ nè bạn?",
+          "trans_q": "Máy bay khởi hành lúc mấy giờ?",
+          "trans_opts": [
+            "12 a.m. (12 giờ đêm)",
+            "2 p.m. (2 giờ chiều)",
+            "3 p.m. (3 giờ chiều)"
+          ],
+          "clue": "Nhân viên đại lý báo: 'The flight departs at 2 p.m. in the afternoon.'",
+          "why_right": "Chuyến bay cất cánh vào lúc 2 giờ chiều ('2 p.m.').",
+          "trap": "3 p.m. có thể là giờ hạ cánh hoặc một chuyến khác.",
+          "vocab": [
+            {
+              "word": "plane leaves / departs",
+              "phonetic": "/pleɪn liːvz/ /dɪˈpɑːts/",
+              "meaning": "máy bay khởi hành, cất cánh"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_l_17",
+        "number": 2,
+        "part": "Part 1 - Nghe Bẫy B1",
+        "part_title": "🎧 Phần 1: Nghe Bẫy Số Liệu & Đổi Ý (B1 Trap)",
+        "part_instruction": "Nghe cuộc hội thoại về chuyến đi Mill Street. Cẩn thận các bẫy đổi giá vé và giờ giấc!",
+        "type": "mcq",
+        "audio": "audio/de2_part4_de2_audio_4.mp3",
+        "image": "",
+        "passage": "",
+        "question": "17. The bus station is in……",
+        "options": [
+          "Bill Street.",
+          "Hill Street.",
+          "Mill Street."
+        ],
+        "correct_answer": "Mill Street.",
+        "explanation": {
+          "msg": "Xác định tên con đường nơi có trạm dừng xe buýt.",
+          "trans_q": "Bến xe buýt nằm trên đường nào?",
+          "trans_opts": [
+            "Đường Bill",
+            "Đường Hill",
+            "Đường Mill"
+          ],
+          "clue": "Nhân viên hướng dẫn: 'The bus station is on Mill Street, M-I-double L.'",
+          "why_right": "Mill Street (chữ cái M đứng đầu).",
+          "trap": "Bill, Hill, Mill phát âm có vần 'ill' giống nhau, nghe kỹ phụ âm đầu /m/ (bặm môi mở ra) nhé!",
+          "vocab": [
+            {
+              "word": "bus station",
+              "phonetic": "/bʌs ˈsteɪʃn/",
+              "meaning": "bến xe buýt"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_l_18",
+        "number": 3,
+        "part": "Part 1 - Nghe Bẫy B1",
+        "part_title": "🎧 Phần 1: Nghe Bẫy Số Liệu & Đổi Ý (B1 Trap)",
+        "part_instruction": "Nghe cuộc hội thoại về chuyến đi Mill Street. Cẩn thận các bẫy đổi giá vé và giờ giấc!",
+        "type": "mcq",
+        "audio": "audio/de2_part4_de2_audio_4.mp3",
+        "image": "",
+        "passage": "",
+        "question": "18. The journey to the airport takes……",
+        "options": [
+          "1 hour 15 minutes.",
+          "1 hour 30 minutes.",
+          "1 hour 45 minutes."
+        ],
+        "correct_answer": "1 hour 30 minutes.",
+        "explanation": {
+          "msg": "Thời gian đi xe buýt ra sân bay mất bao lâu nè?",
+          "trans_q": "Hành trình ra sân bay mất bao lâu?",
+          "trans_opts": [
+            "1 tiếng 15 phút",
+            "1 tiếng 30 phút",
+            "1 tiếng 45 phút"
+          ],
+          "clue": "'The coach ride to the airport takes about an hour and a half (1 hour 30 minutes).'",
+          "why_right": "'An hour and a half' = 1 tiếng rưỡi = 1 hour 30 minutes!",
+          "trap": "Nghe thấy 'half' là biết 30 phút rồi đó bạn!",
+          "vocab": [
+            {
+              "word": "an hour and a half",
+              "phonetic": "/ən ˈaʊər ənd ə hɑːf/",
+              "meaning": "một tiếng rưỡi (90 phút)"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_l_19",
+        "number": 4,
+        "part": "Part 1 - Nghe Bẫy B1",
+        "part_title": "🎧 Phần 1: Nghe Bẫy Số Liệu & Đổi Ý (B1 Trap)",
+        "part_instruction": "Nghe cuộc hội thoại về chuyến đi Mill Street. Cẩn thận các bẫy đổi giá vé và giờ giấc!",
+        "type": "mcq",
+        "audio": "audio/de2_part4_de2_audio_4.mp3",
+        "image": "",
+        "passage": "",
+        "question": "19. The man’s ticket to Buenos Aires will cost……",
+        "options": [
+          "£240.",
+          "£300.",
+          "£320."
+        ],
+        "correct_answer": "£240.",
+        "explanation": {
+          "msg": "Giá vé máy bay sau khi có thẻ sinh viên!",
+          "trans_q": "Vé máy bay của người đàn ông có giá bao nhiêu?",
+          "trans_opts": [
+            "£240",
+            "£300",
+            "£320"
+          ],
+          "clue": "Nhân viên: 'The normal fare is 300 pounds, but with your student card it's only 240 pounds.'",
+          "why_right": "Anh ấy có thẻ sinh viên nên giá vé thực trả là £240.",
+          "trap": "300 bảng là giá vé người bình thường (normal fare), anh ấy được giảm giá sinh viên!",
+          "vocab": [
+            {
+              "word": "fare / ticket",
+              "phonetic": "/feər/ /ˈtɪkɪt/",
+              "meaning": "tiền vé / vé"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_l_20",
+        "number": 5,
+        "part": "Part 1 - Nghe Bẫy B1",
+        "part_title": "🎧 Phần 1: Nghe Bẫy Số Liệu & Đổi Ý (B1 Trap)",
+        "part_instruction": "Nghe cuộc hội thoại về chuyến đi Mill Street. Cẩn thận các bẫy đổi giá vé và giờ giấc!",
+        "type": "mcq",
+        "audio": "audio/de2_part4_de2_audio_4.mp3",
+        "image": "",
+        "passage": "",
+        "question": "20. The coach costs……",
+        "options": [
+          "£13.50.",
+          "£14.50.",
+          "£30.50."
+        ],
+        "correct_answer": "£13.50.",
+        "explanation": {
+          "msg": "Tiền vé xe khách ra sân bay nè bạn!",
+          "trans_q": "Vé xe khách giá bao nhiêu?",
+          "trans_opts": [
+            "£13.50",
+            "£14.50",
+            "£30.50"
+          ],
+          "clue": "'A return coach ticket to the airport is thirteen pounds fifty (£13.50).'",
+          "why_right": "Thirteen pounds fifty = £13.50.",
+          "trap": "Thirteen (13) chứ không phải Thirty (30) nhé!",
+          "vocab": [
+            {
+              "word": "coach costs",
+              "phonetic": "/kəʊtʃ kɒsts/",
+              "meaning": "giá vé xe khách"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_r_1",
+        "number": 6,
+        "part": "Part 2 - Điền Từ Everest",
+        "part_title": "🏔️ Phần 2: Đọc Điền Từ Học Thuật (Everest)",
+        "part_instruction": "Điền từ vựng học thuật thích hợp vào đoạn văn về đỉnh Everest.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "Amazing adventurers<br>Do you ever dream about climbing Mount Everest or visiting Antarctica? If so, you’re not alone. Every year, thousands of people try to climb the world’s ( 1 )………… mountains or walk across continents. Let’s take a ( 2 )………….at some of the 21st century’s greatest adventurers.<br>Ed Stafford from the UK is the first person to walk along the Amazon River from the mountains of Peru to the mouth of the river in Brazil. His amazing journey ( 3 )…………. two years and four months. There are many dangerous animals in the rainforest, like snakes and crocodiles, but Ed was ( 4 ) ………..; he was only bitten by ants and mosquitoes. On his trip, Ed had to find fruit and nuts or ( 5 )………… fish each morning. Sometimes food was ( 6 )……….. to find and Ed was often tired and hungry. While he walked, Ed wrote a blog to tell the world about climate change and destruction of the rainforest.<br>Gerlinde Kaltenbrunner from Austria is one among more than 4,000 people who have climbed Everest. She is one of the world’s ( 7 )…………. climbers and has climbed all the world’s mountains over 8,000 metres. It’s very difficult to climb in cold weather and storms, but Gerlinde loves it. Now she ( 8 )…………… her time climbing and helping a charity for poor children in Nepal.",
+        "question": "1. ...climb the world’s ( 1 )………… mountains or walk across continents.",
+        "options": [
+          "tallest",
+          "highest",
+          "shortest"
+        ],
+        "correct_answer": "highest",
+        "explanation": {
+          "msg": "Nói về độ cao của ngọn núi thì người ta dùng từ gì nè?",
+          "trans_q": "...leo lên những ngọn núi (1)... nhất thế giới hoặc đi bộ qua các lục địa.",
+          "trans_opts": [
+            "tallest (cao - hay dùng cho người/tòa nhà)",
+            "highest (cao nhất - chuyên dùng cho núi non)",
+            "shortest (thấp nhất)"
+          ],
+          "clue": "Đang nói về đỉnh Everest ('Mount Everest') - ngọn núi cao nhất thế giới.",
+          "why_right": "Trong tiếng Anh địa lý, núi cao luôn đi với 'high / highest mountains'!",
+          "trap": "'Tall' thường dùng cho chiều cao thẳng đứng của người, cái cây, cột cờ. Núi non hùng vĩ so với mực nước biển luôn dùng 'high'!",
+          "vocab": [
+            {
+              "word": "highest mountains",
+              "phonetic": "/ˈhaɪɪst ˈmaʊntɪnz/",
+              "meaning": "những ngọn núi cao nhất"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_r_2",
+        "number": 7,
+        "part": "Part 2 - Điền Từ Everest",
+        "part_title": "🏔️ Phần 2: Đọc Điền Từ Học Thuật (Everest)",
+        "part_instruction": "Điền từ vựng học thuật thích hợp vào đoạn văn về đỉnh Everest.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "Amazing adventurers<br>Do you ever dream about climbing Mount Everest or visiting Antarctica? If so, you’re not alone. Every year, thousands of people try to climb the world’s ( 1 )………… mountains or walk across continents. Let’s take a ( 2 )………….at some of the 21st century’s greatest adventurers.<br>Ed Stafford from the UK is the first person to walk along the Amazon River from the mountains of Peru to the mouth of the river in Brazil. His amazing journey ( 3 )…………. two years and four months. There are many dangerous animals in the rainforest, like snakes and crocodiles, but Ed was ( 4 ) ………..; he was only bitten by ants and mosquitoes. On his trip, Ed had to find fruit and nuts or ( 5 )………… fish each morning. Sometimes food was ( 6 )……….. to find and Ed was often tired and hungry. While he walked, Ed wrote a blog to tell the world about climate change and destruction of the rainforest.<br>Gerlinde Kaltenbrunner from Austria is one among more than 4,000 people who have climbed Everest. She is one of the world’s ( 7 )…………. climbers and has climbed all the world’s mountains over 8,000 metres. It’s very difficult to climb in cold weather and storms, but Gerlinde loves it. Now she ( 8 )…………… her time climbing and helping a charity for poor children in Nepal.",
+        "question": "2. Let’s take a ( 2 )………….at some of the 21st century’s greatest adventurers.",
+        "options": [
+          "look",
+          "see",
+          "ride"
+        ],
+        "correct_answer": "look",
+        "explanation": {
+          "msg": "Cụm thành ngữ siêu quen thuộc: 'Take a look at' = Hãy cùng nhìn qua/xem qua!",
+          "trans_q": "Hãy cùng (2)... qua một số nhà thám hiểm vĩ đại nhất của thế kỷ 21.",
+          "trans_opts": [
+            "look (take a look = nhìn qua, xem qua)",
+            "see (thấy)",
+            "ride (cưỡi xe/ngựa)"
+          ],
+          "clue": "Cấu trúc cố định: 'take a look AT something'!",
+          "why_right": "Chỉ có danh từ 'look' mới kết hợp với 'take a... at'.",
+          "trap": "Không bao giờ nói 'take a see' hay 'take a ride at' trong ngữ cảnh này.",
+          "vocab": [
+            {
+              "word": "take a look at",
+              "phonetic": "/teɪk ə lʊk æt/",
+              "meaning": "nhìn vào, xem qua cái gì"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_r_3",
+        "number": 8,
+        "part": "Part 2 - Điền Từ Everest",
+        "part_title": "🏔️ Phần 2: Đọc Điền Từ Học Thuật (Everest)",
+        "part_instruction": "Điền từ vựng học thuật thích hợp vào đoạn văn về đỉnh Everest.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "Amazing adventurers<br>Do you ever dream about climbing Mount Everest or visiting Antarctica? If so, you’re not alone. Every year, thousands of people try to climb the world’s ( 1 )………… mountains or walk across continents. Let’s take a ( 2 )………….at some of the 21st century’s greatest adventurers.<br>Ed Stafford from the UK is the first person to walk along the Amazon River from the mountains of Peru to the mouth of the river in Brazil. His amazing journey ( 3 )…………. two years and four months. There are many dangerous animals in the rainforest, like snakes and crocodiles, but Ed was ( 4 ) ………..; he was only bitten by ants and mosquitoes. On his trip, Ed had to find fruit and nuts or ( 5 )………… fish each morning. Sometimes food was ( 6 )……….. to find and Ed was often tired and hungry. While he walked, Ed wrote a blog to tell the world about climate change and destruction of the rainforest.<br>Gerlinde Kaltenbrunner from Austria is one among more than 4,000 people who have climbed Everest. She is one of the world’s ( 7 )…………. climbers and has climbed all the world’s mountains over 8,000 metres. It’s very difficult to climb in cold weather and storms, but Gerlinde loves it. Now she ( 8 )…………… her time climbing and helping a charity for poor children in Nepal.",
+        "question": "3. His amazing journey ( 3 )…………. two years and four months.",
+        "options": [
+          "made",
+          "spent",
+          "took"
+        ],
+        "correct_answer": "took",
+        "explanation": {
+          "msg": "Chuyến đi 'kéo dài mất' bao nhiêu thời gian!",
+          "trans_q": "Hành trình kỳ diệu của anh ấy đã (3)... 2 năm 4 tháng.",
+          "trans_opts": [
+            "made (làm ra)",
+            "spent (dành - chủ ngữ phải là người)",
+            "took (take time = mất bao nhiêu thời gian)"
+          ],
+          "clue": "Chủ ngữ là chuyến đi 'His amazing journey', tân ngữ là khoảng thời gian 'two years and four months'.",
+          "why_right": "Cấu trúc: 'Something + TAKE + time' = Chuyến đi/công việc tiêu tốn/kéo dài mất bao nhiêu thời gian. Quá khứ của take là 'took'!",
+          "trap": "'Spend' chỉ dùng khi chủ ngữ là người (ví dụ: Ed spent 2 years...); còn chủ ngữ là chuyến đi thì bắt buộc dùng 'took'!",
+          "vocab": [
+            {
+              "word": "journey took ... time",
+              "phonetic": "/ˈdʒɜːni tʊk/",
+              "meaning": "chuyến đi kéo dài mất bao lâu"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_r_4",
+        "number": 9,
+        "part": "Part 2 - Điền Từ Everest",
+        "part_title": "🏔️ Phần 2: Đọc Điền Từ Học Thuật (Everest)",
+        "part_instruction": "Điền từ vựng học thuật thích hợp vào đoạn văn về đỉnh Everest.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "Amazing adventurers<br>Do you ever dream about climbing Mount Everest or visiting Antarctica? If so, you’re not alone. Every year, thousands of people try to climb the world’s ( 1 )………… mountains or walk across continents. Let’s take a ( 2 )………….at some of the 21st century’s greatest adventurers.<br>Ed Stafford from the UK is the first person to walk along the Amazon River from the mountains of Peru to the mouth of the river in Brazil. His amazing journey ( 3 )…………. two years and four months. There are many dangerous animals in the rainforest, like snakes and crocodiles, but Ed was ( 4 ) ………..; he was only bitten by ants and mosquitoes. On his trip, Ed had to find fruit and nuts or ( 5 )………… fish each morning. Sometimes food was ( 6 )……….. to find and Ed was often tired and hungry. While he walked, Ed wrote a blog to tell the world about climate change and destruction of the rainforest.<br>Gerlinde Kaltenbrunner from Austria is one among more than 4,000 people who have climbed Everest. She is one of the world’s ( 7 )…………. climbers and has climbed all the world’s mountains over 8,000 metres. It’s very difficult to climb in cold weather and storms, but Gerlinde loves it. Now she ( 8 )…………… her time climbing and helping a charity for poor children in Nepal.",
+        "question": "4. ...like snakes and crocodiles, but Ed was ( 4 ) ………..; he was only bitten by ants and mosquitoes.",
+        "options": [
+          "lucky",
+          "unlucky",
+          "happy"
+        ],
+        "correct_answer": "lucky",
+        "explanation": {
+          "msg": "Gặp bao nhiêu rắn và cá sấu ăn thịt nhưng chỉ bị kiến cắn thì quá may mắn đúng không!",
+          "trans_q": "...như rắn và cá sấu, nhưng Ed đã rất (4)...; anh ấy chỉ bị kiến và muỗi đốt.",
+          "trans_opts": [
+            "lucky (may mắn)",
+            "unlucky (xui xẻo)",
+            "happy (vui vẻ)"
+          ],
+          "clue": "Rừng nhiệt đới đầy thú dữ ăn thịt, nhưng Ed chỉ bị muỗi cắn qua loa -> Ed quá MAY MẮN ('lucky')!",
+          "why_right": "Lucky = may mắn thoát khỏi hiểm nguy.",
+          "trap": "Không hề xui xẻo vì không bị cá sấu hay rắn độc tấn công.",
+          "vocab": [
+            {
+              "word": "lucky",
+              "phonetic": "/ˈlʌki/",
+              "meaning": "may mắn"
+            },
+            {
+              "word": "crocodile",
+              "phonetic": "/ˈkrɒkədaɪl/",
+              "meaning": "con cá sấu"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_r_5",
+        "number": 10,
+        "part": "Part 2 - Điền Từ Everest",
+        "part_title": "🏔️ Phần 2: Đọc Điền Từ Học Thuật (Everest)",
+        "part_instruction": "Điền từ vựng học thuật thích hợp vào đoạn văn về đỉnh Everest.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "Amazing adventurers<br>Do you ever dream about climbing Mount Everest or visiting Antarctica? If so, you’re not alone. Every year, thousands of people try to climb the world’s ( 1 )………… mountains or walk across continents. Let’s take a ( 2 )………….at some of the 21st century’s greatest adventurers.<br>Ed Stafford from the UK is the first person to walk along the Amazon River from the mountains of Peru to the mouth of the river in Brazil. His amazing journey ( 3 )…………. two years and four months. There are many dangerous animals in the rainforest, like snakes and crocodiles, but Ed was ( 4 ) ………..; he was only bitten by ants and mosquitoes. On his trip, Ed had to find fruit and nuts or ( 5 )………… fish each morning. Sometimes food was ( 6 )……….. to find and Ed was often tired and hungry. While he walked, Ed wrote a blog to tell the world about climate change and destruction of the rainforest.<br>Gerlinde Kaltenbrunner from Austria is one among more than 4,000 people who have climbed Everest. She is one of the world’s ( 7 )…………. climbers and has climbed all the world’s mountains over 8,000 metres. It’s very difficult to climb in cold weather and storms, but Gerlinde loves it. Now she ( 8 )…………… her time climbing and helping a charity for poor children in Nepal.",
+        "question": "5. ...find fruit and nuts or ( 5 )………… fish each morning.",
+        "options": [
+          "bring",
+          "catch",
+          "hold"
+        ],
+        "correct_answer": "catch",
+        "explanation": {
+          "msg": "Đi bắt cá ở sông Amazon nè bạn!",
+          "trans_q": "...tìm hoa quả, hạt hoặc (5)... cá vào mỗi buổi sáng.",
+          "trans_opts": [
+            "bring (mang theo)",
+            "catch (bắt, câu cá)",
+            "hold (cầm, nắm)"
+          ],
+          "clue": "Cụm từ cố định: 'catch fish' = bắt cá, câu cá để làm thức ăn sinh tồn.",
+          "why_right": "Catch fish là cụm từ chuẩn xác nhất chỉ việc đánh bắt cá.",
+          "trap": "Trong rừng hoang dã thì phải tự bắt cá (catch) chứ không có sẵn mà đem theo (bring).",
+          "vocab": [
+            {
+              "word": "catch fish",
+              "phonetic": "/kætʃ fɪʃ/",
+              "meaning": "bắt cá, câu cá"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_match_9",
+        "number": 11,
+        "part": "Part 3 - Biển Báo B1",
+        "part_title": "🪧 Phần 3: Nối Biển Báo & Quy Định Công Cộng",
+        "part_instruction": "Ghép câu thông báo với biển báo quy định công cộng tương ứng (A - K).",
+        "type": "matching",
+        "audio": "",
+        "image": "images/question_767496_Reading_3.1.jpg",
+        "passage": "",
+        "question": "9. Not all drivers can stop here.",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K"
+        ],
+        "correct_answer": "D",
+        "explanation": {
+          "msg": "Không phải tài xế nào cũng được đỗ xe ở đây nè!",
+          "trans_q": "Không phải tài xế nào cũng có thể dừng/đỗ xe ở đây.",
+          "trans_opts": [],
+          "clue": "Biển D ghi: 'PARKING FOR POLICE CARS ONLY' (Chỉ đỗ xe dành riêng cho xe cảnh sát).",
+          "why_right": "Chỉ xe cảnh sát mới được đỗ, nghĩa là các tài xế khác (not all drivers) không được dừng đỗ ở đây!",
+          "trap": "Biển D chỉ cho phép cảnh sát.",
+          "vocab": [
+            {
+              "word": "police car",
+              "phonetic": "/pəˈliːs kɑːr/",
+              "meaning": "xe ô tô của cảnh sát"
+            },
+            {
+              "word": "parking",
+              "phonetic": "/ˈpɑːkɪŋ/",
+              "meaning": "bãi đỗ xe"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_match_10",
+        "number": 12,
+        "part": "Part 3 - Biển Báo B1",
+        "part_title": "🪧 Phần 3: Nối Biển Báo & Quy Định Công Cộng",
+        "part_instruction": "Ghép câu thông báo với biển báo quy định công cộng tương ứng (A - K).",
+        "type": "matching",
+        "audio": "",
+        "image": "images/question_767496_Reading_3.1.jpg",
+        "passage": "",
+        "question": "10. Children cannot come here in the evening.",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K"
+        ],
+        "correct_answer": "A",
+        "explanation": {
+          "msg": "Bể bơi buổi tối chỉ dành riêng cho người lớn!",
+          "trans_q": "Trẻ em không thể đến đây vào buổi tối.",
+          "trans_opts": [],
+          "clue": "Biển A ghi: 'SWIMMING POOL - ADULTS ONLY 6-8 p.m' (Bể bơi - Chỉ dành cho người lớn từ 6h đến 8h tối).",
+          "why_right": "Khung 6-8h tối là buổi tối (in the evening), chỉ người lớn (adults only) -> Trẻ em không được vào (children cannot come)!",
+          "trap": "Biển E là Lâu đài miễn phí cho trẻ em, không cấm buổi tối.",
+          "vocab": [
+            {
+              "word": "adults only",
+              "phonetic": "/əˈdʌlts ˈəʊnli/",
+              "meaning": "chỉ dành riêng cho người lớn"
+            },
+            {
+              "word": "swimming pool",
+              "phonetic": "/ˈswɪmɪŋ puːl/",
+              "meaning": "bể bơi, hồ bơi"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_match_11",
+        "number": 13,
+        "part": "Part 3 - Biển Báo B1",
+        "part_title": "🪧 Phần 3: Nối Biển Báo & Quy Định Công Cộng",
+        "part_instruction": "Ghép câu thông báo với biển báo quy định công cộng tương ứng (A - K).",
+        "type": "matching",
+        "audio": "",
+        "image": "images/question_767496_Reading_3.1.jpg",
+        "passage": "",
+        "question": "11. Drivers must be careful.",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K"
+        ],
+        "correct_answer": "C",
+        "explanation": {
+          "msg": "Biển cảnh báo nguy hiểm trên đường đi!",
+          "trans_q": "Các tài xế lái xe phải hết sức cẩn thận.",
+          "trans_opts": [],
+          "clue": "Biển C ghi: 'DANGER! No Traffic Lights Ahead' (NGUY HIỂM! Phía trước không có đèn giao thông).",
+          "why_right": "Danger = nguy hiểm -> Bắt buộc tài xế phải chú ý cẩn thận (must be careful)!",
+          "trap": "Cứ thấy chữ DANGER to đùng là biết cần phải cẩn thận rồi nhé!",
+          "vocab": [
+            {
+              "word": "danger",
+              "phonetic": "/ˈdeɪndʒər/",
+              "meaning": "nguy hiểm"
+            },
+            {
+              "word": "traffic lights",
+              "phonetic": "/ˈtræfɪk laɪts/",
+              "meaning": "cột đèn giao thông"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_match_12",
+        "number": 14,
+        "part": "Part 3 - Biển Báo B1",
+        "part_title": "🪧 Phần 3: Nối Biển Báo & Quy Định Công Cộng",
+        "part_instruction": "Ghép câu thông báo với biển báo quy định công cộng tương ứng (A - K).",
+        "type": "matching",
+        "audio": "",
+        "image": "images/question_767496_Reading_3.1.jpg",
+        "passage": "",
+        "question": "12. Not everyone can make a call from here.",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K"
+        ],
+        "correct_answer": "B",
+        "explanation": {
+          "msg": "Điện thoại này chỉ dành riêng cho khách hàng của quán nè!",
+          "trans_q": "Không phải ai cũng có thể gọi điện từ nơi này.",
+          "trans_opts": [],
+          "clue": "Biển B ghi: 'TELEPHONE for customers' use only' (Điện thoại chỉ dành riêng cho khách hàng sử dụng).",
+          "why_right": "Chỉ khách mua hàng (customers) mới được dùng -> Người ngoài không được dùng (not everyone can make a call)!",
+          "trap": "Make a call = gọi điện thoại.",
+          "vocab": [
+            {
+              "word": "customer",
+              "phonetic": "/ˈkʌstəmər/",
+              "meaning": "khách hàng"
+            },
+            {
+              "word": "make a call",
+              "phonetic": "/meɪk ə kɔːl/",
+              "meaning": "gọi điện thoại"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_match_13",
+        "number": 15,
+        "part": "Part 3 - Biển Báo B1",
+        "part_title": "🪧 Phần 3: Nối Biển Báo & Quy Định Công Cộng",
+        "part_instruction": "Ghép câu thông báo với biển báo quy định công cộng tương ứng (A - K).",
+        "type": "matching",
+        "audio": "",
+        "image": "images/question_767496_Reading_3.1.jpg",
+        "passage": "",
+        "question": "13. Only adults have to pay here.",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K"
+        ],
+        "correct_answer": "E",
+        "explanation": {
+          "msg": "Chỉ người lớn phải trả tiền vé, tức là trẻ em được MIỄN PHÍ nè!",
+          "trans_q": "Chỉ người lớn mới phải trả tiền ở đây.",
+          "trans_opts": [],
+          "clue": "Biển E ghi: 'LEEDS CASTLE - FREE FOR CHILDREN' (Lâu đài Leeds - Miễn phí cho trẻ em).",
+          "why_right": "Trẻ em được miễn phí vé (free for children) đồng nghĩa với việc chỉ người lớn mới phải mua vé!",
+          "trap": "Biển K là giảm nửa giá (half price), chứ không phải miễn phí hoàn toàn.",
+          "vocab": [
+            {
+              "word": "castle",
+              "phonetic": "/ˈkɑːsl/",
+              "meaning": "lâu đài (âm t câm nha)"
+            },
+            {
+              "word": "free",
+              "phonetic": "/friː/",
+              "meaning": "miễn phí, không mất tiền"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_read_24",
+        "number": 16,
+        "part": "Part 4 - Đọc Hiểu Dany",
+        "part_title": "🚒 Phần 4: Đọc Hiểu Chuyên Sâu (Nữ Cứu Hỏa Dany)",
+        "part_instruction": "Đọc bài báo dài về công việc cứu hỏa của Dany và trả lời 5 câu hỏi suy luận.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "People who think firefighting is a job for men would be surprised to learn that there are now over 230 women in the London Fire Brigade...",
+        "question": "24. Dany has worked for the fire service",
+        "options": [
+          "for nearly twenty years.",
+          "for more than twenty years.",
+          "since she was twenty-two years old."
+        ],
+        "correct_answer": "for more than twenty years.",
+        "explanation": {
+          "msg": "Số năm cống hiến cho ngành cứu hỏa của Dany!",
+          "trans_q": "Dany đã làm việc cho sở cứu hỏa được bao lâu?",
+          "trans_opts": [
+            "gần 20 năm",
+            "hơn 20 năm (for more than twenty years)",
+            "từ khi cô ấy 22 tuổi"
+          ],
+          "clue": "Đoạn 1 ghi rõ: '...who has been with the fire service for OVER 22 YEARS.'",
+          "why_right": "22 năm chính là nhiều hơn 20 năm ('over 22 years' = more than twenty years)!",
+          "trap": "Số 22 là số năm làm việc chứ không phải tuổi của cô ấy, đừng nhầm sang 'twenty-two years old' nha!",
+          "vocab": [
+            {
+              "word": "firefighter",
+              "phonetic": "/ˈfaɪəfaɪtər/",
+              "meaning": "lính cứu hỏa"
+            },
+            {
+              "word": "fire service",
+              "phonetic": "/ˈfaɪə sɜːvɪs/",
+              "meaning": "ngành / lực lượng cứu hỏa"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_read_25",
+        "number": 17,
+        "part": "Part 4 - Đọc Hiểu Dany",
+        "part_title": "🚒 Phần 4: Đọc Hiểu Chuyên Sâu (Nữ Cứu Hỏa Dany)",
+        "part_instruction": "Đọc bài báo dài về công việc cứu hỏa của Dany và trả lời 5 câu hỏi suy luận.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "People who think firefighting is a job for men would be surprised to learn that there are now over 230 women in the London Fire Brigade...",
+        "question": "25. Dany worked on a campaign to",
+        "options": [
+          "encourage girls to train to become firefighters.",
+          "explain the training and assessment needs for firefighters.",
+          "advise girls at secondary school to keep fit and stay healthy."
+        ],
+        "correct_answer": "encourage girls to train to become firefighters.",
+        "explanation": {
+          "msg": "Chiến dịch mà Dany tham gia nhằm mục đích gì?",
+          "trans_q": "Dany đã tham gia vào một chiến dịch để:",
+          "trans_opts": [
+            "khuyến khích các bạn nữ rèn luyện để trở thành lính cứu hỏa",
+            "giải thích nhu cầu đào tạo và đánh giá cho lính cứu hỏa",
+            "khuyên các nữ sinh trung học giữ gìn vóc dáng và sức khỏe"
+          ],
+          "clue": "Đoạn 1: 'She took part in a national campaign promoting firefighting as a career for girls in secondary schools.'",
+          "why_right": "Promoting firefighting as a career = khuyến khích các bạn nữ theo đuổi nghề lính cứu hỏa (encourage girls to become firefighters)!",
+          "trap": "Khuyên tập thể dục chỉ là chi tiết phụ khi nói về tiêu chuẩn thể lực.",
+          "vocab": [
+            {
+              "word": "campaign",
+              "phonetic": "/kæmˈpeɪn/",
+              "meaning": "chiến dịch"
+            },
+            {
+              "word": "encourage",
+              "phonetic": "/ɪnˈkʌrɪdʒ/",
+              "meaning": "khuyến khích, động viên"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_read_26",
+        "number": 18,
+        "part": "Part 4 - Đọc Hiểu Dany",
+        "part_title": "🚒 Phần 4: Đọc Hiểu Chuyên Sâu (Nữ Cứu Hỏa Dany)",
+        "part_instruction": "Đọc bài báo dài về công việc cứu hỏa của Dany và trả lời 5 câu hỏi suy luận.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "People who think firefighting is a job for men would be surprised to learn that there are now over 230 women in the London Fire Brigade...",
+        "question": "26. Male firefighters",
+        "options": [
+          "have the same training as female firefighters.",
+          "often carry people down ladders in burning buildings.",
+          "have to be taller than female firefighters."
+        ],
+        "correct_answer": "have the same training as female firefighters.",
+        "explanation": {
+          "msg": "Các nam lính cứu hỏa có gì giống với các nữ lính cứu hỏa nè?",
+          "trans_q": "Các lính cứu hỏa nam:",
+          "trans_opts": [
+            "có cùng chương trình đào tạo như lính cứu hỏa nữ",
+            "thường cõng người xuống thang trong các tòa nhà cháy",
+            "phải cao hơn lính cứu hỏa nữ"
+          ],
+          "clue": "Đoạn 2: '...women do the SAME training and assessment as men and they are expected to do the same jobs.'",
+          "why_right": "Cả nam và nữ đều trải qua cùng một chương trình huấn luyện và kiểm tra đánh giá ('same training as female firefighters').",
+          "trap": "Đoạn văn ghi rõ 'height is not important' (chiều cao không quan trọng), nên phương án C sai.",
+          "vocab": [
+            {
+              "word": "the same training",
+              "phonetic": "/ðə seɪm ˈtreɪnɪŋ/",
+              "meaning": "cùng một chương trình huấn luyện"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_read_27",
+        "number": 19,
+        "part": "Part 4 - Đọc Hiểu Dany",
+        "part_title": "🚒 Phần 4: Đọc Hiểu Chuyên Sâu (Nữ Cứu Hỏa Dany)",
+        "part_instruction": "Đọc bài báo dài về công việc cứu hỏa của Dany và trả lời 5 câu hỏi suy luận.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "People who think firefighting is a job for men would be surprised to learn that there are now over 230 women in the London Fire Brigade...",
+        "question": "27. Dany has never",
+        "options": [
+          "seen a woman carry a man from a burning building.",
+          "been trained to carry a man from a burning building.",
+          "worked in a team to rescue people."
+        ],
+        "correct_answer": "seen a woman carry a man from a burning building.",
+        "explanation": {
+          "msg": "Dany CHƯA BAO GIỜ (never) chứng kiến cảnh tượng nào ngoài đời thực?",
+          "trans_q": "Dany chưa bao giờ:",
+          "trans_opts": [
+            "nhìn thấy một phụ nữ cõng một người đàn ông ra khỏi tòa nhà cháy",
+            "được huấn luyện để cõng người",
+            "làm việc theo nhóm để giải cứu mọi người"
+          ],
+          "clue": "Đoạn 2: 'She says that in all her years of firefighting, she has NEVER SEEN anyone try this... she describes this as something we only see in films.'",
+          "why_right": "Cô ấy chưa từng thấy ai cõng người từ trên thang xuống trong thực tế, cảnh đó chỉ có trên phim ảnh thôi!",
+          "trap": "Cô ấy ĐÃ TỪNG được huấn luyện ('although she was trained to do it'), nhưng chưa từng thấy ngoài đời thật.",
+          "vocab": [
+            {
+              "word": "rescue",
+              "phonetic": "/ˈreskjuː/",
+              "meaning": "giải cứu, cứu hộ"
+            }
+          ]
+        }
+      },
+      {
+        "id": "b1_chal_read_28",
+        "number": 20,
+        "part": "Part 4 - Đọc Hiểu Dany",
+        "part_title": "🚒 Phần 4: Đọc Hiểu Chuyên Sâu (Nữ Cứu Hỏa Dany)",
+        "part_instruction": "Đọc bài báo dài về công việc cứu hỏa của Dany và trả lời 5 câu hỏi suy luận.",
+        "type": "mcq",
+        "audio": "",
+        "image": "",
+        "passage": "People who think firefighting is a job for men would be surprised to learn that there are now over 230 women in the London Fire Brigade...",
+        "question": "28. Firefighters can save people’s lives by",
+        "options": [
+          "visiting houses.",
+          "doing business.",
+          "giving advice."
+        ],
+        "correct_answer": "giving advice.",
+        "explanation": {
+          "msg": "Lính cứu hỏa cứu sống tính mạng mọi người bằng cách nào trong cộng đồng nè?",
+          "trans_q": "Lính cứu hỏa có thể cứu sống nhiều sinh mạng bằng cách:",
+          "trans_opts": [
+            "đến thăm các ngôi nhà",
+            "làm kinh doanh",
+            "đưa ra lời khuyên / tư vấn phòng cháy"
+          ],
+          "clue": "Đoạn 3: 'Fire officers visit homes, businesses and schools GIVING ADVICE that can often save lives.'",
+          "why_right": "Họ đưa ra những lời khuyên hữu ích về an toàn phòng cháy chữa cháy để cứu người ('giving advice that can save lives').",
+          "trap": "Họ đến nhà là để 'đưa ra lời khuyên' (giving advice), chính lời khuyên đó mới là thứ cứu sống tính mạng!",
+          "vocab": [
+            {
+              "word": "give advice",
+              "phonetic": "/ɡɪv ədˈvaɪs/",
+              "meaning": "đưa ra lời khuyên, hướng dẫn"
+            },
+            {
+              "word": "save lives",
+              "phonetic": "/seɪv laɪvz/",
+              "meaning": "cứu mạng người"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
     "id": "de1_nghe",
     "exam_num": 1,
     "skill": "listening",
@@ -899,7 +2487,12 @@ const EXAM_DATABASE = [
           ]
         }
       }
-    ]
+    ],
+    "difficulty": "easy",
+    "level_code": "A2",
+    "level_title": "Cấp Độ: Dễ (Chuẩn A2 Cơ Bản)",
+    "difficulty_badge": "🟢 Dễ (A2)",
+    "target_desc": "Mục tiêu: Đạt 13 - 18 câu (5.0 - 7.0 điểm). Lời thoại rõ ràng, hội thoại đời sống, bẫy cơ bản."
   },
   {
     "id": "de1_doc",
@@ -2038,7 +3631,12 @@ const EXAM_DATABASE = [
           ]
         }
       }
-    ]
+    ],
+    "difficulty": "easy",
+    "level_code": "A2",
+    "level_title": "Cấp Độ: Dễ (Chuẩn A2 Cơ Bản)",
+    "difficulty_badge": "🟢 Dễ (A2)",
+    "target_desc": "Mục tiêu: Đạt 15 - 20 câu (5.0 - 6.5 điểm). Từ vựng quen thuộc (sinh viên, chuyển nhà, câu lạc bộ, chiếc răng sữa)."
   },
   {
     "id": "de2_nghe",
@@ -2934,7 +4532,12 @@ const EXAM_DATABASE = [
           "vocab": []
         }
       }
-    ]
+    ],
+    "difficulty": "medium",
+    "level_code": "A2_PLUS",
+    "level_title": "Cấp Độ: Trung Bình (A2+ Tiền B1)",
+    "difficulty_badge": "🟡 Vừa (A2+)",
+    "target_desc": "Mục tiêu: Đạt 16 - 21 câu (6.5 - 8.0 điểm). Tốc độ nói nhanh hơn, xuất hiện bẫy giờ giấc, giá vé sinh viên và đổi ý."
   },
   {
     "id": "de2_doc",
@@ -4078,7 +5681,12 @@ const EXAM_DATABASE = [
           ]
         }
       }
-    ]
+    ],
+    "difficulty": "medium",
+    "level_code": "A2_PLUS",
+    "level_title": "Cấp Độ: Trung Bình (A2+ Tiền B1)",
+    "difficulty_badge": "🟡 Vừa (A2+)",
+    "target_desc": "Mục tiêu: Đạt 18 - 24 câu (6.0 - 8.0 điểm). Đề thi có bài đọc về Taekwondo, cắt giảm khí thải bệnh viện và quy định đỗ xe."
   },
   {
     "id": "de3_nghe",
@@ -4970,7 +6578,12 @@ const EXAM_DATABASE = [
           ]
         }
       }
-    ]
+    ],
+    "difficulty": "hard",
+    "level_code": "B1",
+    "level_title": "Cấp Độ: Nâng Cao (Chuẩn B1 Thử Thách)",
+    "difficulty_badge": "🔴 Khó (B1)",
+    "target_desc": "Mục tiêu: Đạt 18 - 25 câu (7.0 - 10 điểm). Đề nâng cao chuẩn B1, nhiều bẫy đánh vần, bài tập sinh học và công viên tự nhiên."
   },
   {
     "id": "de3_doc",
@@ -6135,6 +7748,11 @@ const EXAM_DATABASE = [
           ]
         }
       }
-    ]
+    ],
+    "difficulty": "hard",
+    "level_code": "B1",
+    "level_title": "Cấp Độ: Nâng Cao (Chuẩn B1 Thử Thách)",
+    "difficulty_badge": "🔴 Khó (B1)",
+    "target_desc": "Mục tiêu: Đạt 21 - 30 câu (7.0 - 10 điểm). Chứa các bài đọc dài về nhà thám hiểm Everest/Nam Cực và nữ lính cứu hỏa Dany."
   }
 ];

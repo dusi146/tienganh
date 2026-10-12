@@ -68,7 +68,15 @@
 
       <!-- Exam Selector Cards -->
       <section class="exam-selector">
-        <div class="selector-title">📚 Chọn đề thi để luyện tập:</div>
+        <div class="selector-header-row">
+          <div class="selector-title">📚 Chọn đề thi để luyện tập:</div>
+          <div class="exam-difficulty-filters" id="exam-difficulty-filters">
+            <button class="diff-filter-pill active" data-difficulty="all">✨ Tất cả (8)</button>
+            <button class="diff-filter-pill diff-pill-easy" data-difficulty="easy">🟢 Dễ • A2 Cốt Lõi (3)</button>
+            <button class="diff-filter-pill diff-pill-medium" data-difficulty="medium">🟡 Vừa • A2+ Vững Vàng (2)</button>
+            <button class="diff-filter-pill diff-pill-hard" data-difficulty="hard">🔴 Khó • B1 Bứt Phá (3)</button>
+          </div>
+        </div>
         <div id="exam-cards-container" class="exam-cards-grid">
           <!-- Rendered by app.js -->
         </div>
