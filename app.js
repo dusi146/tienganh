@@ -46,6 +46,7 @@ function initApp() {
 
   setupEventListeners();
   updateHighScores();
+  updateMistakesBadge();
 }
 
 function setupEventListeners() {
@@ -566,7 +567,22 @@ function renderPassageSidebar(exam) {
     }
   });
 
-  sidebar.innerHTML = contentHtml || '<p class="text-muted">Không có bài đọc cho phần này.</p>';
+  if (!contentHtml) {
+    sidebar.innerHTML = '<p class="text-muted">Không có bài đọc cho phần này.</p>';
+    return;
+  }
+
+  sidebar.innerHTML = `
+    <div class="passage-toggle-header" onclick="togglePassageCollapse()">
+      <span>📖 Bài đọc &amp; Tài liệu đề thi</span>
+      <button class="btn-toggle-passage">
+        <span id="passage-toggle-icon">▲</span> <span id="passage-toggle-text">Thu gọn</span>
+      </button>
+    </div>
+    <div id="passage-content-collapsible" class="passage-content-collapsible">
+      ${contentHtml}
+    </div>
+  `;
 }
 
 function renderQuestionCard(q, displayNum) {
@@ -925,6 +941,7 @@ function gradeExam() {
   }
 
   updateHighScores();
+  saveMistakesFromExam(exam);
   renderExamContent();
   renderPalette();
 
@@ -1169,16 +1186,25 @@ let currentVocabSearch = '';
 function switchMainTab(tab) {
   const viewPicker = document.getElementById('view-exam-picker');
   const viewActive = document.getElementById('view-active-exam');
+  const viewCram = document.getElementById('view-cram');
   const viewA2B1 = document.getElementById('view-a2b1');
   const btnExams = document.getElementById('tab-btn-exams');
+  const btnCram = document.getElementById('tab-btn-cram');
   const btnA2B1 = document.getElementById('tab-btn-a2b1');
   const bottomBar = document.getElementById('bottom-submit-bar');
   const headerControls = document.getElementById('exam-header-controls');
 
+  // Deactivate all buttons
+  if (btnExams) btnExams.classList.remove('active');
+  if (btnCram) btnCram.classList.remove('active');
+  if (btnA2B1) btnA2B1.classList.remove('active');
+
+  // Hide cram and a2b1 views by default
+  if (viewCram) viewCram.style.display = 'none';
+  if (viewA2B1) viewA2B1.style.display = 'none';
+
   if (tab === 'exams') {
     if (btnExams) btnExams.classList.add('active');
-    if (btnA2B1) btnA2B1.classList.remove('active');
-    if (viewA2B1) viewA2B1.style.display = 'none';
 
     if (AppState.examStarted && AppState.currentExam) {
       if (viewPicker) viewPicker.style.display = 'none';
@@ -1191,8 +1217,15 @@ function switchMainTab(tab) {
       if (headerControls) headerControls.style.display = 'none';
       if (bottomBar) bottomBar.style.display = 'none';
     }
+  } else if (tab === 'cram') {
+    if (btnCram) btnCram.classList.add('active');
+    if (viewPicker) viewPicker.style.display = 'none';
+    if (viewActive) viewActive.style.display = 'none';
+    if (viewCram) viewCram.style.display = 'block';
+    if (headerControls) headerControls.style.display = 'none';
+    if (bottomBar) bottomBar.style.display = 'none';
+    initCramView();
   } else {
-    if (btnExams) btnExams.classList.remove('active');
     if (btnA2B1) btnA2B1.classList.add('active');
     if (viewPicker) viewPicker.style.display = 'none';
     if (viewActive) viewActive.style.display = 'none';
@@ -1448,4 +1481,592 @@ function speakWord(text, btn) {
       }
     });
   });
+}
+
+// ===================================================================
+// MOBILE TOGGLES (COLLAPSIBLE AUDIO & PASSAGE)
+// ===================================================================
+
+function toggleAudioCollapse() {
+  const box = document.getElementById('sticky-audio-box');
+  const icon = document.getElementById('audio-collapse-icon');
+  const text = document.getElementById('audio-collapse-text');
+  if (!box) return;
+  const isCollapsed = box.classList.toggle('collapsed');
+  if (icon) icon.textContent = isCollapsed ? '▲' : '🔽';
+  if (text) text.textContent = isCollapsed ? 'Mở rộng' : 'Thu gọn';
+}
+
+function togglePassageCollapse() {
+  const sidebar = document.getElementById('passage-sidebar');
+  const icon = document.getElementById('passage-toggle-icon');
+  const text = document.getElementById('passage-toggle-text');
+  if (!sidebar) return;
+  const isCollapsed = sidebar.classList.toggle('collapsed');
+  if (icon) icon.textContent = isCollapsed ? '▼' : '▲';
+  if (text) text.textContent = isCollapsed ? 'Mở rộng' : 'Thu gọn';
+}
+
+
+// ===================================================================
+// CRAM HUB & RAPID MEMORIZATION LOGIC (STUDY WITH LÂM ✨)
+// ===================================================================
+
+let currentCramSub = 'rules';
+let currentRuleCategory = 'all';
+
+// Flashcard state
+let fcDeck = [];
+let fcCurIndex = 0;
+let fcLearnedSet = new Set();
+
+// Reflex quiz state
+let rqQuestions = [];
+let rqCurIndex = 0;
+let rqStreak = 0;
+let rqAnswered = false;
+
+function initCramView() {
+  if (typeof CRAM_DATA === 'undefined') return;
+  
+  // Load learned flashcards from localStorage
+  try {
+    const savedLearned = JSON.parse(localStorage.getItem('study_lam_learned_cards') || '[]');
+    fcLearnedSet = new Set(savedLearned);
+  } catch (e) {
+    fcLearnedSet = new Set();
+  }
+
+  // Init deck if empty
+  if (fcDeck.length === 0 && CRAM_DATA.flashcards) {
+    fcDeck = [...CRAM_DATA.flashcards];
+  }
+
+  // Init quiz if empty
+  if (rqQuestions.length === 0 && CRAM_DATA.reflexQuiz) {
+    rqQuestions = [...CRAM_DATA.reflexQuiz];
+  }
+
+  updateMistakesBadge();
+  switchCramSub(currentCramSub);
+}
+
+function switchCramSub(sub) {
+  currentCramSub = sub;
+
+  // Update nav buttons
+  const subBtns = document.querySelectorAll('.cram-subnav-btn');
+  subBtns.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.sub === sub);
+  });
+
+  // Toggle sections
+  const sections = ['rules', 'flashcards', 'quiz', 'paraphrase', 'mistakes'];
+  sections.forEach(s => {
+    const el = document.getElementById(`cram-sub-${s}`);
+    if (el) el.style.display = (s === sub) ? 'flex' : 'none';
+  });
+
+  // Render content
+  if (sub === 'rules') {
+    renderCramRules();
+  } else if (sub === 'flashcards') {
+    renderFlashcardUI();
+  } else if (sub === 'quiz') {
+    if (rqCurIndex === 0 && !rqAnswered) {
+      renderReflexQuestion();
+    }
+  } else if (sub === 'paraphrase') {
+    renderParaphrase();
+  } else if (sub === 'mistakes') {
+    renderMistakesSection();
+  }
+}
+
+// -------------------------------------------------------------
+// 1. Mẹo Bấm Nhanh 3 Giây
+// -------------------------------------------------------------
+function renderCramRules() {
+  if (typeof CRAM_DATA === 'undefined' || !CRAM_DATA.rules) return;
+
+  const filtersContainer = document.getElementById('cram-rules-filters');
+  const grid = document.getElementById('cram-rules-grid');
+  if (!grid) return;
+
+  const categories = [
+    { id: 'all', label: '✨ Tất cả mẹo (15)' },
+    { id: 'tenses', label: '⏱️ Dấu Hiệu Thì' },
+    { id: 'conditionals', label: '🔗 Câu Điều Kiện & If' },
+    { id: 'verbs', label: '🎯 Động Từ V-ing / To V' },
+    { id: 'comparisons', label: '📊 Cấu Trúc So Sánh' },
+    { id: 'signs', label: '🪧 Biển Báo Thần Tốc' },
+    { id: 'listening', label: '🎧 Bắt Bẫy Bài Nghe' },
+    { id: 'grammar', label: '📘 Đại Từ Quan Hệ' }
+  ];
+
+  if (filtersContainer) {
+    filtersContainer.innerHTML = categories.map(cat => `
+      <button class="cram-filter-pill ${currentRuleCategory === cat.id ? 'active' : ''}" 
+              onclick="selectRuleCategory('${cat.id}')">
+        ${cat.label}
+      </button>
+    `).join('');
+  }
+
+  const filteredRules = CRAM_DATA.rules.filter(r => 
+    currentRuleCategory === 'all' || r.category === currentRuleCategory
+  );
+
+  grid.innerHTML = filteredRules.map(r => `
+    <div class="cram-rule-card">
+      <div class="rule-card-top">
+        <span class="rule-cat-badge">${r.categoryName}</span>
+      </div>
+      <div class="rule-title">${r.title}</div>
+      <div class="rule-box-trigger">
+        🔍 <strong>Dấu hiệu trong đề:</strong><br>${escapeHtml(r.trigger)}
+      </div>
+      <div class="rule-box-action">
+        ⚡ <strong>Phản xạ khoanh đáp án:</strong><br>${escapeHtml(r.action)}
+      </div>
+      ${r.trap ? `
+        <div class="rule-box-trap">
+          ⚠️ <strong>Bẫy cần tránh:</strong><br>${escapeHtml(r.trap)}
+        </div>
+      ` : ''}
+      <div class="rule-box-example">
+        💡 <strong>Ví dụ đề thi:</strong><br>${escapeHtml(r.example)}
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectRuleCategory(catId) {
+  currentRuleCategory = catId;
+  renderCramRules();
+}
+
+// -------------------------------------------------------------
+// 2. Interactive 3D Flashcards
+// -------------------------------------------------------------
+function renderFlashcardUI() {
+  if (fcDeck.length === 0) return;
+
+  const card = fcDeck[fcCurIndex];
+  if (!card) return;
+
+  // Unflip card when rendering new card
+  const cardElem = document.getElementById('flashcard-elem');
+  if (cardElem) cardElem.classList.remove('flipped');
+
+  // Update counter
+  const curIndexEl = document.getElementById('fc-current-index');
+  const totalCountEl = document.getElementById('fc-total-count');
+  if (curIndexEl) curIndexEl.textContent = fcCurIndex + 1;
+  if (totalCountEl) totalCountEl.textContent = fcDeck.length;
+
+  // Update learned progress
+  const progressFill = document.getElementById('fc-progress-bar-fill');
+  const progressText = document.getElementById('fc-progress-text');
+  const learnedCount = fcLearnedSet.size;
+  const pct = Math.round((learnedCount / fcDeck.length) * 100);
+
+  if (progressFill) progressFill.style.width = `${pct}%`;
+  if (progressText) progressText.textContent = `Đã thuộc: ${learnedCount}/${fcDeck.length} (${pct}%)`;
+
+  // Update card content (Front)
+  const badgeEl = document.getElementById('fc-type-badge');
+  const wordEl = document.getElementById('fc-word-text');
+  const phoneticEl = document.getElementById('fc-phonetic-text');
+
+  if (badgeEl) {
+    const isLearned = fcLearnedSet.has(card.id);
+    badgeEl.textContent = isLearned ? '✅ Đã thuộc' : (card.type || 'Từ vựng');
+    badgeEl.style.background = isLearned ? '#ecfdf5' : '#ffe4e6';
+    badgeEl.style.color = isLearned ? '#065f46' : '#be123c';
+  }
+  if (wordEl) wordEl.textContent = card.word;
+  if (phoneticEl) phoneticEl.textContent = card.phonetic || '';
+
+  // Update card content (Back)
+  const meaningEl = document.getElementById('fc-meaning-text');
+  const mnemonicEl = document.getElementById('fc-mnemonic-box');
+  const exampleEl = document.getElementById('fc-example-box');
+
+  if (meaningEl) meaningEl.textContent = card.meaning;
+  if (mnemonicEl) mnemonicEl.textContent = card.mnemonic || '';
+  if (exampleEl) exampleEl.textContent = card.example ? `"${card.example}"` : '';
+}
+
+function flipFlashcard() {
+  const cardElem = document.getElementById('flashcard-elem');
+  if (cardElem) cardElem.classList.toggle('flipped');
+}
+
+function nextFlashcard() {
+  if (fcDeck.length === 0) return;
+  fcCurIndex = (fcCurIndex + 1) % fcDeck.length;
+  renderFlashcardUI();
+}
+
+function prevFlashcard() {
+  if (fcDeck.length === 0) return;
+  fcCurIndex = (fcCurIndex - 1 + fcDeck.length) % fcDeck.length;
+  renderFlashcardUI();
+}
+
+function markCardLearned() {
+  const card = fcDeck[fcCurIndex];
+  if (!card) return;
+
+  fcLearnedSet.add(card.id);
+  localStorage.setItem('study_lam_learned_cards', JSON.stringify(Array.from(fcLearnedSet)));
+
+  // If completed 100%, trigger confetti!
+  if (fcLearnedSet.size === fcDeck.length) {
+    if (typeof triggerConfetti === 'function') triggerConfetti();
+  }
+
+  nextFlashcard();
+}
+
+function markCardReview() {
+  const card = fcDeck[fcCurIndex];
+  if (!card) return;
+
+  fcLearnedSet.delete(card.id);
+  localStorage.setItem('study_lam_learned_cards', JSON.stringify(Array.from(fcLearnedSet)));
+
+  nextFlashcard();
+}
+
+function shuffleFlashcards() {
+  for (let i = fcDeck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [fcDeck[i], fcDeck[j]] = [fcDeck[j], fcDeck[i]];
+  }
+  fcCurIndex = 0;
+  renderFlashcardUI();
+}
+
+function speakCurrentFlashcard(btn) {
+  const card = fcDeck[fcCurIndex];
+  if (card) {
+    speakWord(card.word, btn);
+  }
+}
+
+// -------------------------------------------------------------
+// 3. Phản Xạ 3 Giây Mini Quiz
+// -------------------------------------------------------------
+function initReflexQuiz() {
+  if (rqQuestions.length === 0 && CRAM_DATA && CRAM_DATA.reflexQuiz) {
+    rqQuestions = [...CRAM_DATA.reflexQuiz];
+  }
+  renderReflexQuestion();
+}
+
+function renderReflexQuestion() {
+  if (rqQuestions.length === 0) return;
+
+  const card = document.querySelector('.reflex-quiz-card');
+  if (!card) return;
+
+  if (rqCurIndex >= rqQuestions.length) {
+    // Finished Quiz
+    card.innerHTML = `
+      <div style="text-align: center; padding: 20px 10px;">
+        <div style="font-size: 2.8rem; margin-bottom: 10px;">🏆🌸</div>
+        <h3 style="font-size: 1.3rem; font-weight: 800; color: #0f172a; margin-bottom: 8px;">
+          Xuất Sắc Quá Lâm Ơi!
+        </h3>
+        <p style="font-size: 0.9rem; color: #475569; margin-bottom: 16px; line-height: 1.6;">
+          Bạn đã hoàn thành toàn bộ ${rqQuestions.length} câu phản xạ tốc độ! Chuỗi đúng kỷ lục: <strong>🔥 ${rqStreak} câu liên tiếp</strong>.
+        </p>
+        <button class="btn btn-primary" onclick="restartReflexQuiz()" style="margin: 0 auto;">
+          🔄 Luyện Lại Thử Thách
+        </button>
+      </div>
+    `;
+    if (typeof triggerConfetti === 'function') triggerConfetti();
+    return;
+  }
+
+  const q = rqQuestions[rqCurIndex];
+  rqAnswered = false;
+
+  const curQEl = document.getElementById('rq-cur-q');
+  const totalQEl = document.getElementById('rq-total-q');
+  const streakEl = document.getElementById('rq-streak-badge');
+  const promptEl = document.getElementById('rq-prompt-text');
+  const optionsContainer = document.getElementById('rq-options-container');
+  const feedbackBox = document.getElementById('rq-feedback-box');
+  const btnNext = document.getElementById('btn-rq-next');
+  const btnRestart = document.getElementById('btn-rq-restart');
+
+  if (curQEl) curQEl.textContent = rqCurIndex + 1;
+  if (totalQEl) totalQEl.textContent = rqQuestions.length;
+  if (streakEl) streakEl.textContent = `🔥 Chuỗi đúng: ${rqStreak}`;
+  if (promptEl) promptEl.textContent = q.prompt;
+  if (feedbackBox) {
+    feedbackBox.style.display = 'none';
+    feedbackBox.className = 'rq-feedback-box';
+  }
+  if (btnNext) btnNext.style.display = 'none';
+  if (btnRestart) btnRestart.style.display = 'none';
+
+  if (optionsContainer) {
+    optionsContainer.innerHTML = q.options.map((opt, idx) => `
+      <button class="rq-option-btn" id="rq-opt-${idx}" onclick="chooseReflexOption(${idx})">
+        <span>${String.fromCharCode(65 + idx)}. ${escapeHtml(opt)}</span>
+        <span class="rq-opt-icon">👉</span>
+      </button>
+    `).join('');
+  }
+}
+
+function chooseReflexOption(chosenIdx) {
+  if (rqAnswered) return;
+  rqAnswered = true;
+
+  const q = rqQuestions[rqCurIndex];
+  if (!q) return;
+
+  const isCorrect = (chosenIdx === q.correct);
+  const chosenBtn = document.getElementById(`rq-opt-${chosenIdx}`);
+  const correctBtn = document.getElementById(`rq-opt-${q.correct}`);
+  const feedbackBox = document.getElementById(`rq-feedback-box`);
+  const streakEl = document.getElementById('rq-streak-badge');
+  const btnNext = document.getElementById('btn-rq-next');
+
+  if (isCorrect) {
+    rqStreak++;
+    if (chosenBtn) chosenBtn.classList.add('correct-choice');
+    if (feedbackBox) {
+      feedbackBox.className = 'rq-feedback-box correct';
+      feedbackBox.innerHTML = `✅ <strong>Chính xác!</strong> ${escapeHtml(q.rule)}`;
+      feedbackBox.style.display = 'block';
+    }
+  } else {
+    rqStreak = 0;
+    if (chosenBtn) chosenBtn.classList.add('wrong-choice');
+    if (correctBtn) correctBtn.classList.add('correct-choice');
+    if (feedbackBox) {
+      feedbackBox.className = 'rq-feedback-box wrong';
+      feedbackBox.innerHTML = `❌ <strong>Chưa đúng rồi!</strong> Đáp án đúng là <strong>${String.fromCharCode(65 + q.correct)}. ${escapeHtml(q.options[q.correct])}</strong>.<br>${escapeHtml(q.rule)}`;
+      feedbackBox.style.display = 'block';
+    }
+  }
+
+  if (streakEl) streakEl.textContent = `🔥 Chuỗi đúng: ${rqStreak}`;
+  if (btnNext) btnNext.style.display = 'inline-flex';
+}
+
+function nextReflexQuestion() {
+  rqCurIndex++;
+  renderReflexQuestion();
+}
+
+function restartReflexQuiz() {
+  rqCurIndex = 0;
+  rqStreak = 0;
+  rqAnswered = false;
+
+  // Restore container markup if finished
+  const card = document.querySelector('.reflex-quiz-card');
+  if (card && !document.getElementById('rq-prompt-text')) {
+    card.innerHTML = `
+      <div class="rq-header">
+        <div class="rq-counter">Câu hỏi <span id="rq-cur-q">1</span> / <span id="rq-total-q">15</span></div>
+        <div class="rq-streak" id="rq-streak-badge">🔥 Chuỗi đúng: 0</div>
+      </div>
+      <div class="rq-prompt-box">
+        <div class="rq-prompt-label">⚡ Dấu hiệu nhận biết:</div>
+        <div id="rq-prompt-text" class="rq-prompt-text">Đang tải câu hỏi...</div>
+      </div>
+      <div id="rq-options-container" class="rq-options-list"></div>
+      <div id="rq-feedback-box" class="rq-feedback-box" style="display: none;"></div>
+      <div class="rq-footer-row">
+        <button id="btn-rq-next" class="btn btn-primary" onclick="nextReflexQuestion()" style="display: none;">
+          Câu tiếp theo ➔
+        </button>
+        <button id="btn-rq-restart" class="btn btn-secondary" onclick="restartReflexQuiz()" style="display: none;">
+          🔄 Làm lại từ đầu
+        </button>
+      </div>
+    `;
+  }
+
+  renderReflexQuestion();
+}
+
+// -------------------------------------------------------------
+// 4. Cặp Từ Đồng Nghĩa Thần Thánh (Paraphrasing)
+// -------------------------------------------------------------
+let currentParaQuery = '';
+
+function renderParaphrase() {
+  if (typeof CRAM_DATA === 'undefined' || !CRAM_DATA.paraphrasePairs) return;
+
+  const grid = document.getElementById('paraphrase-cards-grid');
+  if (!grid) return;
+
+  let list = CRAM_DATA.paraphrasePairs;
+  if (currentParaQuery) {
+    list = list.filter(p => 
+      p.word1.toLowerCase().includes(currentParaQuery) ||
+      p.word2.toLowerCase().includes(currentParaQuery) ||
+      (p.note && p.note.toLowerCase().includes(currentParaQuery))
+    );
+  }
+
+  if (list.length === 0) {
+    grid.innerHTML = '<p class="text-muted" style="padding: 20px; text-align: center; grid-column: 1 / -1;">Không tìm thấy cặp từ đồng nghĩa phù hợp.</p>';
+    return;
+  }
+
+  grid.innerHTML = list.map(p => `
+    <div class="paraphrase-card">
+      <div class="para-words-row">
+        <span class="para-word-1">${escapeHtml(p.word1)}</span>
+        <span class="para-arrow">⇄</span>
+        <span class="para-word-2">${escapeHtml(p.word2)}</span>
+      </div>
+      ${p.note ? `<div class="para-note">💡 ${escapeHtml(p.note)}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function filterParaphrase(query) {
+  currentParaQuery = query.trim().toLowerCase();
+  renderParaphrase();
+}
+
+// -------------------------------------------------------------
+// 5. Sổ Câu Sai Tự Động (Mistake Bank)
+// -------------------------------------------------------------
+function saveMistakesFromExam(exam) {
+  if (!exam || !exam.questions) return;
+  let mistakes = [];
+  try {
+    mistakes = JSON.parse(localStorage.getItem('study_lam_mistakes') || '[]');
+  } catch (e) {
+    mistakes = [];
+  }
+
+  const mistakeMap = new Map();
+  mistakes.forEach(m => mistakeMap.set(m.id, m));
+
+  exam.questions.forEach(q => {
+    const uAns = AppState.userAnswers[q.id];
+    if (!checkAnswer(q, uAns)) {
+      mistakeMap.set(q.id, {
+        id: q.id,
+        examId: exam.id,
+        examTitle: exam.title,
+        number: q.number,
+        part: q.part,
+        part_title: q.part_title,
+        question: q.question,
+        type: q.type,
+        options: q.options || [],
+        userAnswer: uAns || '(Chưa điền)',
+        correctAnswer: q.correct_answer,
+        explanation: q.explanation || {},
+        timestamp: Date.now()
+      });
+    } else {
+      // If user got it right this time, remove it from mistakes!
+      mistakeMap.delete(q.id);
+    }
+  });
+
+  const updated = Array.from(mistakeMap.values());
+  localStorage.setItem('study_lam_mistakes', JSON.stringify(updated));
+  updateMistakesBadge();
+}
+
+function updateMistakesBadge() {
+  let count = 0;
+  try {
+    const mistakes = JSON.parse(localStorage.getItem('study_lam_mistakes') || '[]');
+    count = mistakes.length;
+  } catch (e) {}
+
+  const badge = document.getElementById('cram-mistakes-badge');
+  if (badge) {
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'inline-block' : 'none';
+  }
+}
+
+function renderMistakesSection() {
+  const countEl = document.getElementById('mistakes-count-info');
+  const container = document.getElementById('mistakes-cards-container');
+  if (!container) return;
+
+  let mistakes = [];
+  try {
+    mistakes = JSON.parse(localStorage.getItem('study_lam_mistakes') || '[]');
+  } catch (e) {
+    mistakes = [];
+  }
+
+  if (countEl) {
+    countEl.textContent = `❌ Đang có ${mistakes.length} câu cần ôn lại`;
+  }
+
+  if (mistakes.length === 0) {
+    container.innerHTML = `
+      <div style="background: rgba(255,255,255,0.8); border-radius: 16px; padding: 30px 20px; text-align: center; border: 1px solid rgba(255,255,255,0.9);">
+        <div style="font-size: 2.4rem; margin-bottom: 8px;">🌸✨</div>
+        <div style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">
+          Tuyệt vời quá Lâm ơi!
+        </div>
+        <div style="font-size: 0.86rem; color: #64748b;">
+          Hiện bạn không có câu sai nào cần ôn lại. Khi bạn làm đề thi thử và nộp bài, các câu chưa đúng sẽ tự động được ghi nhớ vào đây nha.
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = mistakes.map(m => `
+    <div class="mistake-card" id="mistake-card-${m.id}">
+      <div class="mistake-top">
+        <span class="mistake-exam-title">📝 ${escapeHtml(m.examTitle)} • ${escapeHtml(m.part || '')} Câu ${m.number}</span>
+        <button class="btn-remove-mistake" onclick="removeSingleMistake('${m.id}')" title="Đã hiểu câu này và xóa khỏi sổ">
+          ✅ Đã hiểu (Xóa)
+        </button>
+      </div>
+      <div class="mistake-question-text">${escapeHtml(m.question)}</div>
+      <div class="mistake-answer-row">
+        <span class="mistake-ans-user">Bạn chọn: ${escapeHtml(m.userAnswer)} ❌</span>
+        <span class="mistake-ans-correct">Đáp án đúng: ${escapeHtml(m.correctAnswer)} ✅</span>
+      </div>
+      ${m.explanation && m.explanation.clue ? `
+        <div class="mistake-explanation-snippet">
+          🔍 <strong>Manh mối vàng:</strong> ${escapeHtml(m.explanation.clue)}
+          ${m.explanation.trap ? `<br>⚠️ <strong>Bẫy cần nhớ:</strong> ${escapeHtml(m.explanation.trap)}` : ''}
+        </div>
+      ` : ''}
+    </div>
+  `).join('');
+}
+
+function removeSingleMistake(qId) {
+  try {
+    let mistakes = JSON.parse(localStorage.getItem('study_lam_mistakes') || '[]');
+    mistakes = mistakes.filter(m => m.id !== qId);
+    localStorage.setItem('study_lam_mistakes', JSON.stringify(mistakes));
+    updateMistakesBadge();
+    renderMistakesSection();
+  } catch (e) {}
+}
+
+function clearAllMistakes() {
+  if (!confirm("Lâm có chắc muốn xóa toàn bộ câu sai trong sổ tay không nè? 🌸")) return;
+  localStorage.removeItem('study_lam_mistakes');
+  updateMistakesBadge();
+  renderMistakesSection();
 }

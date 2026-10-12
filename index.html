@@ -42,14 +42,17 @@
     </div>
   </header>
 
-  <!-- Segmented Control Navigation: Luyện Đề vs Trọng Tâm A2-B1 -->
+  <!-- Segmented Control Navigation: Luyện Đề vs Học Cấp Tốc vs Trọng Tâm A2-B1 -->
   <div class="main-nav-tabs-wrapper" id="main-nav-tabs-bar">
     <div class="main-nav-tabs">
       <button class="nav-tab-btn active" id="tab-btn-exams" onclick="switchMainTab('exams')">
-        <span>📝</span> Luyện Đề Thi Thử
+        <span>📝</span> Luyện Đề
+      </button>
+      <button class="nav-tab-btn" id="tab-btn-cram" onclick="switchMainTab('cram')">
+        <span>⚡</span> Học Cấp Tốc &amp; Mẹo Vẹt
       </button>
       <button class="nav-tab-btn" id="tab-btn-a2b1" onclick="switchMainTab('a2b1')">
-        <span>🌟</span> Trọng Tâm A2 - B1
+        <span>📘</span> Trọng Tâm A2 - B1
       </button>
     </div>
   </div>
@@ -109,20 +112,27 @@
       <!-- Sticky Audio Player for Listening Tests -->
       <div id="sticky-audio-box" class="audio-sticky-box">
         <div class="audio-header">
-          <span id="current-audio-title">🎧 Đang phát bài nghe</span>
-          <span>Chạm nút để tua hoặc đổi tốc độ 👇</span>
-        </div>
-        <div id="audio-parts-nav" class="audio-parts-nav"></div>
-        <div class="audio-controls-row">
-          <div class="audio-elem-wrapper">
-            <audio id="main-audio" controls preload="metadata"></audio>
+          <div class="audio-header-left">
+            <span id="current-audio-title">🎧 Đang phát bài nghe</span>
+            <span class="audio-hint-text">Chạm nút để tua hoặc đổi tốc độ 👇</span>
           </div>
-          <button id="audio-back-5" class="audio-skip-btn" title="Lùi lại 5 giây">⏪ -5s</button>
-          <button id="audio-fwd-5" class="audio-skip-btn" title="Tiến lên 5 giây">+5s ⏩</button>
-          <div class="audio-speed-chips">
-            <div class="speed-chip" data-speed="0.8" title="Tốc độ 0.8x cho dễ nghe">0.8x</div>
-            <div class="speed-chip active" data-speed="1.0" title="Tốc độ chuẩn">1.0x</div>
-            <div class="speed-chip" data-speed="1.25" title="Tốc độ nhanh hơn">1.25x</div>
+          <button id="btn-toggle-audio-collapse" class="btn-toggle-audio" onclick="toggleAudioCollapse()" title="Thu gọn / Mở rộng trình phát âm">
+            <span id="audio-collapse-icon">🔽</span> <span id="audio-collapse-text">Thu gọn</span>
+          </button>
+        </div>
+        <div id="audio-collapsible-body">
+          <div id="audio-parts-nav" class="audio-parts-nav"></div>
+          <div class="audio-controls-row">
+            <div class="audio-elem-wrapper">
+              <audio id="main-audio" controls preload="metadata"></audio>
+            </div>
+            <button id="audio-back-5" class="audio-skip-btn" title="Lùi lại 5 giây">⏪ -5s</button>
+            <button id="audio-fwd-5" class="audio-skip-btn" title="Tiến lên 5 giây">+5s ⏩</button>
+            <div class="audio-speed-chips">
+              <div class="speed-chip" data-speed="0.8" title="Tốc độ 0.8x cho dễ nghe">0.8x</div>
+              <div class="speed-chip active" data-speed="1.0" title="Tốc độ chuẩn">1.0x</div>
+              <div class="speed-chip" data-speed="1.25" title="Tốc độ nhanh hơn">1.25x</div>
+            </div>
           </div>
         </div>
       </div>
@@ -212,6 +222,180 @@
       </div>
     </div>
 
+    <!-- ==================== VIEW 4: HỌC CẤP TỐC & MẸO VẸT THÔNG MINH ==================== -->
+    <div id="view-cram" class="tab-view-section" style="display: none;">
+      <div class="cram-container">
+        <!-- Cram Top Banner -->
+        <div class="cram-intro-card">
+          <div class="cram-intro-header">
+            <div class="cram-intro-icon">⚡</div>
+            <div>
+              <h2 class="cram-intro-title">Học Cấp Tốc &amp; Mẹo Vẹt Thông Minh 🌸</h2>
+              <p class="cram-intro-desc">
+                Bí kíp phản xạ 3 giây, thẻ flashcards lật thông minh và sổ câu sai giúp bạn nhớ siêu nhanh, bắt trọn điểm thi A2 - B1!
+              </p>
+            </div>
+          </div>
+
+          <!-- Cram Sub Navigation Pills -->
+          <div class="cram-subnav-pills" id="cram-subnav-bar">
+            <button class="cram-subnav-btn active" data-sub="rules" onclick="switchCramSub('rules')">
+              💡 Mẹo Bấm 3 Giây
+            </button>
+            <button class="cram-subnav-btn" data-sub="flashcards" onclick="switchCramSub('flashcards')">
+              🗂️ Flashcard Lật Thẻ
+            </button>
+            <button class="cram-subnav-btn" data-sub="quiz" onclick="switchCramSub('quiz')">
+              🎯 Phản Xạ 3 Giây
+            </button>
+            <button class="cram-subnav-btn" data-sub="paraphrase" onclick="switchCramSub('paraphrase')">
+              🔤 Từ Đồng Nghĩa
+            </button>
+            <button class="cram-subnav-btn" data-sub="mistakes" onclick="switchCramSub('mistakes')">
+              ❌ Sổ Câu Sai <span id="cram-mistakes-badge" class="badge-count" style="display: none;">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sub-section 1: Mẹo Bấm 3 Giây -->
+        <div id="cram-sub-rules" class="cram-sub-section">
+          <div class="cram-filter-row" id="cram-rules-filters">
+            <!-- Rendered by app.js -->
+          </div>
+          <div id="cram-rules-grid" class="cram-rules-grid">
+            <!-- Rendered by app.js -->
+          </div>
+        </div>
+
+        <!-- Sub-section 2: Flashcards Lật Thẻ -->
+        <div id="cram-sub-flashcards" class="cram-sub-section" style="display: none;">
+          <div class="flashcards-wrapper">
+            <div class="flashcard-toolbar">
+              <div class="flashcard-stats-text">
+                Thẻ <span id="fc-current-index">1</span> / <span id="fc-total-count">20</span>
+              </div>
+              <div class="flashcard-learned-progress">
+                <div class="fc-progress-bar-bg">
+                  <div id="fc-progress-bar-fill" class="fc-progress-bar-fill" style="width: 0%;"></div>
+                </div>
+                <span id="fc-progress-text">Đã thuộc: 0/20 (0%)</span>
+              </div>
+              <button class="btn-fc-shuffle" onclick="shuffleFlashcards()" title="Xáo trộn thứ tự thẻ">
+                🎲 Xáo trộn
+              </button>
+            </div>
+
+            <!-- 3D Flip Card Scene -->
+            <div class="flashcard-scene" onclick="flipFlashcard()">
+              <div id="flashcard-elem" class="flashcard-3d">
+                <!-- Front -->
+                <div class="flashcard-face flashcard-front">
+                  <div class="fc-front-top">
+                    <span id="fc-type-badge" class="fc-badge">Từ vựng</span>
+                    <button class="btn-audio-speak" id="btn-fc-audio" onclick="event.stopPropagation(); speakCurrentFlashcard(this);" title="Nghe phát âm chuẩn">
+                      🔊
+                    </button>
+                  </div>
+                  <div class="fc-front-main">
+                    <div id="fc-word-text" class="fc-word">word</div>
+                    <div id="fc-phonetic-text" class="fc-phonetic">/phonetic/</div>
+                  </div>
+                  <div class="fc-flip-hint">Chạm thẻ để lật xem mẹo nhớ 🔄</div>
+                </div>
+
+                <!-- Back -->
+                <div class="flashcard-face flashcard-back">
+                  <div class="fc-back-header">
+                    <span class="fc-back-title">🌸 Ý Nghĩa &amp; Mẹo Nhớ:</span>
+                  </div>
+                  <div id="fc-meaning-text" class="fc-meaning">Nghĩa tiếng Việt</div>
+                  <div id="fc-mnemonic-box" class="fc-mnemonic-box">Mẹo vẹt</div>
+                  <div id="fc-example-box" class="fc-example-box">Ví dụ</div>
+                  <div class="fc-flip-hint">Chạm thẻ để quay lại mặt trước 🔄</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Controls -->
+            <div class="flashcard-controls-row">
+              <button class="btn-fc-nav" onclick="prevFlashcard()" title="Thẻ trước">
+                ⬅️ Trước
+              </button>
+              <div class="flashcard-action-btns">
+                <button class="btn-fc-mark btn-fc-review" onclick="markCardReview()">
+                  🔄 Cần học lại
+                </button>
+                <button class="btn-fc-mark btn-fc-learned" onclick="markCardLearned()">
+                  ✅ Đã thuộc!
+                </button>
+              </div>
+              <button class="btn-fc-nav" onclick="nextFlashcard()" title="Thẻ tiếp">
+                Tiếp ➡️
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-section 3: Phản Xạ 3 Giây Mini Quiz -->
+        <div id="cram-sub-quiz" class="cram-sub-section" style="display: none;">
+          <div class="reflex-quiz-container">
+            <div class="reflex-quiz-card">
+              <div class="rq-header">
+                <div class="rq-counter">Câu hỏi <span id="rq-cur-q">1</span> / <span id="rq-total-q">15</span></div>
+                <div class="rq-streak" id="rq-streak-badge">🔥 Chuỗi đúng: 0</div>
+              </div>
+              <div class="rq-prompt-box">
+                <div class="rq-prompt-label">⚡ Dấu hiệu nhận biết:</div>
+                <div id="rq-prompt-text" class="rq-prompt-text">Đang tải câu hỏi...</div>
+              </div>
+              <div id="rq-options-container" class="rq-options-list">
+                <!-- Options rendered by app.js -->
+              </div>
+              <div id="rq-feedback-box" class="rq-feedback-box" style="display: none;">
+                <!-- Feedback with reflex rule -->
+              </div>
+              <div class="rq-footer-row">
+                <button id="btn-rq-next" class="btn btn-primary" onclick="nextReflexQuestion()" style="display: none;">
+                  Câu tiếp theo ➔
+                </button>
+                <button id="btn-rq-restart" class="btn btn-secondary" onclick="restartReflexQuiz()" style="display: none;">
+                  🔄 Làm lại từ đầu
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-section 4: Cặp Từ Đồng Nghĩa -->
+        <div id="cram-sub-paraphrase" class="cram-sub-section" style="display: none;">
+          <div class="paraphrase-header-row">
+            <input type="text" id="paraphrase-search-input" class="vocab-search-input"
+                   placeholder="🔍 Tìm cặp từ đồng nghĩa (ví dụ: free, shut, delay, discount...)"
+                   oninput="filterParaphrase(this.value)" />
+          </div>
+          <div id="paraphrase-cards-grid" class="paraphrase-cards-grid">
+            <!-- Rendered by app.js -->
+          </div>
+        </div>
+
+        <!-- Sub-section 5: Sổ Câu Sai -->
+        <div id="cram-sub-mistakes" class="cram-sub-section" style="display: none;">
+          <div class="mistakes-toolbar">
+            <div class="mistakes-count-info" id="mistakes-count-info">
+              ❌ Đang có 0 câu cần ôn lại
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="clearAllMistakes()" id="btn-clear-mistakes">
+              🗑️ Xóa toàn bộ sổ câu sai
+            </button>
+          </div>
+          <div id="mistakes-cards-container" class="mistakes-cards-grid">
+            <!-- Rendered by app.js -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </main>
 
   <!-- Floating Liquid Glass Bottom Submit Bar -->
@@ -272,6 +456,7 @@
   <!-- Scripts -->
   <script src="data.js"></script>
   <script src="a2_b1_data.js"></script>
+  <script src="cram_data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
