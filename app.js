@@ -47,6 +47,9 @@ function initApp() {
   setupEventListeners();
   updateHighScores();
   updateMistakesBadge();
+  initTheme();
+  updateGreetingCard();
+  setupFlashcardSwipe();
 }
 
 function setupEventListeners() {
@@ -717,6 +720,14 @@ function renderExplanationBox(q, userAnswer) {
       <span class="expl-mascot">${isCorrect ? '🌸' : '💡'}</span>
       <span class="expl-title">${isCorrect ? 'Chính xác rồi nè! Cùng xem lại kiến thức nha' : 'Đừng lo nè, xem mẹo làm câu này nhé:'}</span>
     </div>
+
+    ${q.audio ? `
+      <div style="margin: 4px 0 10px 0;">
+        <button class="btn-replay-q" onclick="replayAudioForQuestion('${q.part}', '${q.audio}')" title="Nghe lại đoạn audio liên quan đến câu này">
+          🎧 Nghe lại đoạn audio (${q.part})
+        </button>
+      </div>
+    ` : ''}
 
     ${e.msg ? `<div class="expl-gentle-tip">💡 <strong>Mẹo nhỏ:</strong> ${e.msg}</div>` : ''}
 
@@ -1823,11 +1834,18 @@ function renderReflexQuestion() {
       </button>
     `).join('');
   }
+
+  if (typeof startReflexTimer === 'function') {
+    startReflexTimer();
+  }
 }
 
 function chooseReflexOption(chosenIdx) {
   if (rqAnswered) return;
   rqAnswered = true;
+  if (typeof rqTimerTimeout !== 'undefined') clearTimeout(rqTimerTimeout);
+  const fill = document.getElementById('rq-timer-bar-fill');
+  if (fill) fill.classList.remove('ticking');
 
   const q = rqQuestions[rqCurIndex];
   if (!q) return;
@@ -2069,4 +2087,229 @@ function clearAllMistakes() {
   localStorage.removeItem('study_lam_mistakes');
   updateMistakesBadge();
   renderMistakesSection();
+}
+
+// ===================================================================
+// PHASE 2 ENHANCEMENTS: DARK MODE, GREETING, AUDIO LOOP & SWIPE
+// ===================================================================
+
+// 1. Theme Management (Light / Dark Mode)
+function initTheme() {
+  const savedTheme = localStorage.getItem('study_lam_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateThemeIcon(savedTheme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const newTheme = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('study_lam_theme', newTheme);
+  updateThemeIcon(newTheme);
+}
+
+function updateThemeIcon(theme) {
+  const icon = document.getElementById('theme-icon');
+  if (icon) {
+    icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+}
+
+// 2. Personalized Greeting & Mini Study Dashboard for Lâm
+function updateGreetingCard() {
+  const titleEl = document.getElementById('greeting-title');
+  const subEl = document.getElementById('greeting-sub');
+  const examsCountEl = document.getElementById('stat-exams-count');
+  const cardsCountEl = document.getElementById('stat-cards-count');
+  const mistakesCountEl = document.getElementById('stat-mistakes-count');
+
+  const now = new Date();
+  const hour = now.getHours();
+
+  let greetingTitle = 'Chào Lâm ơi 🌸';
+  let greetingSub = 'Hôm nay cùng ôn luyện một chút để vững vàng đạt chuẩn B1 Phenikaa nhé!';
+
+  if (hour >= 5 && hour < 12) {
+    greetingTitle = 'Chào buổi sáng Lâm ơi 🌸';
+    greetingSub = 'Chúc Lâm một ngày mới ngập tràn năng lượng! Khởi động với 1 bài thi ngắn nhé!';
+  } else if (hour >= 12 && hour < 18) {
+    greetingTitle = 'Buổi chiều vui vẻ Lâm nha ✨';
+    greetingSub = 'Mỗi ngày tích lũy thêm vài từ vựng và mẹo bẫy là điểm chuẩn B1 trong tầm tay!';
+  } else if (hour >= 18 && hour < 23) {
+    greetingTitle = 'Buổi tối ấm áp Lâm ơi 🌙';
+    greetingSub = 'Luyện đề nhẹ nhàng hoặc lướt thẻ flashcards một chút rồi nghỉ ngơi sớm nha!';
+  } else {
+    greetingTitle = 'Khuya rồi đó Lâm ơi 💤';
+    greetingSub = 'Đừng thức khuya quá hại sức khỏe nha, ngủ sớm mai dậy ôn bài tiếp nhé 🌸';
+  }
+
+  if (titleEl) titleEl.textContent = greetingTitle;
+  if (subEl) subEl.textContent = greetingSub;
+
+  // Calculate completed exams
+  let completedExamsCount = 0;
+  if (typeof EXAM_DATABASE !== 'undefined') {
+    EXAM_DATABASE.forEach(e => {
+      if (localStorage.getItem(STORAGE_PREFIX + 'score_' + e.id)) {
+        completedExamsCount++;
+      }
+    });
+  }
+  if (examsCountEl) {
+    const totalExams = (typeof EXAM_DATABASE !== 'undefined') ? EXAM_DATABASE.length : 8;
+    examsCountEl.textContent = `${completedExamsCount}/${totalExams} đề đã luyện`;
+  }
+
+  // Calculate learned cards
+  let learnedCount = 0;
+  try {
+    const learnedArr = JSON.parse(localStorage.getItem('study_lam_learned_cards') || '[]');
+    learnedCount = learnedArr.length;
+  } catch (e) {}
+  if (cardsCountEl) {
+    cardsCountEl.textContent = `${learnedCount} từ đã thuộc`;
+  }
+
+  // Calculate mistakes
+  let mistakesCount = 0;
+  try {
+    const mistakesArr = JSON.parse(localStorage.getItem('study_lam_mistakes') || '[]');
+    mistakesCount = mistakesArr.length;
+  } catch (e) {}
+  if (mistakesCountEl) {
+    mistakesCountEl.textContent = `${mistakesCount} câu cần ôn`;
+  }
+}
+
+// 3. Audio Loop Toggle (Lặp Đoạn Bài Nghe)
+function toggleAudioLoop() {
+  const audio = AppState.audioPlayer;
+  const loopBtn = document.getElementById('btn-audio-loop');
+  if (!audio) return;
+
+  audio.loop = !audio.loop;
+  if (loopBtn) {
+    loopBtn.classList.toggle('looping', audio.loop);
+    loopBtn.title = audio.loop ? 'Đang bật lặp lại liên tục (Chạm để tắt)' : 'Lặp lại đoạn nghe này để luyện tai';
+  }
+}
+
+// 4. Replay Audio for Specific Question in Review
+function replayAudioForQuestion(part, audioSrc) {
+  if (!audioSrc) return;
+  switchAudioPart(part, audioSrc, false);
+}
+
+// 5. Swipe Gestures for Flashcard on Mobile (Swipe Left -> Next, Swipe Right -> Prev)
+let touchStartX = 0;
+let touchEndX = 0;
+
+function setupFlashcardSwipe() {
+  const scene = document.querySelector('.flashcard-scene');
+  if (!scene) return;
+
+  scene.addEventListener('touchstart', (e) => {
+    if (e.changedTouches && e.changedTouches[0]) {
+      touchStartX = e.changedTouches[0].screenX;
+    }
+  }, { passive: true });
+
+  scene.addEventListener('touchend', (e) => {
+    if (e.changedTouches && e.changedTouches[0]) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleFlashcardSwipeGesture();
+    }
+  }, { passive: true });
+}
+
+function handleFlashcardSwipeGesture() {
+  const deltaX = touchEndX - touchStartX;
+  // Threshold 50px
+  if (Math.abs(deltaX) > 50) {
+    if (deltaX < 0) {
+      // Swiped left -> Next card
+      nextFlashcard();
+    } else {
+      // Swiped right -> Prev card
+      prevFlashcard();
+    }
+  }
+}
+
+// 6. Reflex Countdown Timer Bar
+let rqTimerActive = true;
+let rqTimerTimeout = null;
+
+function toggleReflexTimer() {
+  rqTimerActive = !rqTimerActive;
+  localStorage.setItem('study_lam_rq_timer', rqTimerActive ? 'on' : 'off');
+
+  const btnText = document.getElementById('rq-timer-toggle-text');
+  const timerBarBg = document.querySelector('.rq-timer-bar-bg');
+
+  if (btnText) {
+    btnText.textContent = rqTimerActive ? 'Đếm ngược: Bật' : 'Đếm ngược: Tắt';
+  }
+  if (timerBarBg) {
+    timerBarBg.style.display = rqTimerActive ? 'block' : 'none';
+  }
+
+  if (rqTimerActive && !rqAnswered) {
+    startReflexTimer();
+  } else {
+    clearTimeout(rqTimerTimeout);
+    const fill = document.getElementById('rq-timer-bar-fill');
+    if (fill) fill.classList.remove('ticking');
+  }
+}
+
+function startReflexTimer() {
+  clearTimeout(rqTimerTimeout);
+  const fill = document.getElementById('rq-timer-bar-fill');
+  if (!fill) return;
+
+  fill.classList.remove('ticking');
+  fill.style.width = '100%';
+
+  if (!rqTimerActive || rqAnswered) return;
+
+  // Trigger animation next tick
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      if (rqTimerActive && !rqAnswered) {
+        fill.classList.add('ticking');
+      }
+    });
+  });
+
+  rqTimerTimeout = setTimeout(() => {
+    if (!rqAnswered && rqTimerActive) {
+      handleReflexTimeout();
+    }
+  }, 4000);
+}
+
+function handleReflexTimeout() {
+  if (rqAnswered) return;
+  rqAnswered = true;
+
+  rqStreak = 0;
+  const streakEl = document.getElementById('rq-streak-badge');
+  if (streakEl) streakEl.textContent = `🔥 Chuỗi đúng: ${rqStreak}`;
+
+  const q = rqQuestions[rqCurIndex];
+  if (!q) return;
+
+  const correctBtn = document.getElementById(`rq-opt-${q.correct}`);
+  if (correctBtn) correctBtn.classList.add('correct-choice');
+
+  const feedbackBox = document.getElementById('rq-feedback-box');
+  if (feedbackBox) {
+    feedbackBox.className = 'rq-feedback-box wrong';
+    feedbackBox.innerHTML = `⏰ <strong>Hết 4 giây phản xạ rồi!</strong> Đáp án đúng là <strong>${String.fromCharCode(65 + q.correct)}. ${escapeHtml(q.options[q.correct])}</strong>.<br>${escapeHtml(q.rule)}`;
+    feedbackBox.style.display = 'block';
+  }
+
+  const btnNext = document.getElementById('btn-rq-next');
+  if (btnNext) btnNext.style.display = 'inline-flex';
 }
