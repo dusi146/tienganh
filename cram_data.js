@@ -371,15 +371,15 @@ const CRAM_DATA = {
     {
       id: "sq_1",
       prompt: "I bought this new phone two days ______.",
-      options: ["ago", "since", "for"],
-      correct: 0,
+      options: ["since", "ago", "for"],
+      correct: 1,
       rule: "⚡ Thấy thì quá khứ đơn (bought) + khoảng thời gian (two days) ➔ Chọn ngay 'ago'!"
     },
     {
       id: "sq_2",
       prompt: "I really look forward to ______ from you soon.",
-      options: ["hearing", "hear", "heard"],
-      correct: 0,
+      options: ["hear", "heard", "hearing"],
+      correct: 2,
       rule: "⚡ Mẹo vẹt: Sau 'look forward to' bắt buộc là V-ING (hearing)!"
     },
     {
@@ -392,29 +392,29 @@ const CRAM_DATA = {
     {
       id: "sq_4",
       prompt: "If it ______ tomorrow, we will stay at home.",
-      options: ["rains", "will rain", "rained"],
-      correct: 0,
+      options: ["will rain", "rains", "rained"],
+      correct: 1,
       rule: "⚡ Vế sau có 'will stay' (If loại 1) ➔ Vế If chia hiện tại đơn (rains). Cấm dùng will sau If!"
     },
     {
       id: "sq_5",
       prompt: "She is much ______ than her older sister.",
-      options: ["taller", "tallest", "more tall"],
-      correct: 0,
+      options: ["tallest", "more tall", "taller"],
+      correct: 2,
       rule: "⚡ Thấy chữ 'than' ➔ Chọn tính từ ngắn đuôi '-er' (taller)!"
     },
     {
       id: "sq_6",
       prompt: "Biển báo ghi: 'NO PARKING BETWEEN 8 AM AND 6 PM'. Nghĩa là:",
-      options: ["You mustn't park here", "You can park for free", "You should park here"],
-      correct: 0,
+      options: ["You can park for free", "You mustn't park here", "You should park here"],
+      correct: 1,
       rule: "⚡ 'NO ...' = Biển báo CẤM ➔ Chọn 'You mustn't'!"
     },
     {
       id: "sq_7",
       prompt: "Thank you so much for ______ me with my homework.",
-      options: ["helping", "to help", "help"],
-      correct: 0,
+      options: ["to help", "help", "helping"],
+      correct: 2,
       rule: "⚡ Sau giới từ 'for' ➔ Động từ 100% thêm đuôi -ing (helping)!"
     },
     {
@@ -427,15 +427,15 @@ const CRAM_DATA = {
     {
       id: "sq_9",
       prompt: "Người nói trong bài nghe: 'I wanted coffee, but actually, tea sounds nicer.' Họ uống gì?",
-      options: ["Tea", "Coffee", "Water"],
-      correct: 0,
+      options: ["Coffee", "Tea", "Water"],
+      correct: 1,
       rule: "⚡ Bẫy đổi ý: 'Actually...' ➔ Đáp án đúng là thông tin ngay sau từ đổi ý (Tea)!"
     },
     {
       id: "sq_10",
       prompt: "She has studied English ______ 2021.",
-      options: ["since", "for", "in"],
-      correct: 0,
+      options: ["for", "in", "since"],
+      correct: 2,
       rule: "⚡ Thì HTHT (has studied) + mốc thời gian cụ thể (2021) ➔ Dùng 'since'!"
     },
     {
@@ -448,15 +448,15 @@ const CRAM_DATA = {
     {
       id: "sq_12",
       prompt: "The train departs at 'quarter to eight'. Mấy giờ tàu chạy?",
-      options: ["7:45", "8:15", "8:45"],
-      correct: 0,
+      options: ["8:15", "7:45", "8:45"],
+      correct: 1,
       rule: "⚡ 'Quarter to eight' = 8h kém 15 = 7:45!"
     },
     {
       id: "sq_13",
       prompt: "The girl ______ is talking to the teacher is my best friend.",
-      options: ["who", "which", "whose"],
-      correct: 0,
+      options: ["which", "whose", "who"],
+      correct: 2,
       rule: "⚡ Danh từ phía trước là Người ('The girl') ➔ Đại từ quan hệ là 'who'!"
     },
     {
@@ -469,8 +469,8 @@ const CRAM_DATA = {
     {
       id: "sq_15",
       prompt: "This is ______ hotel in the whole city.",
-      options: ["the most expensive", "more expensive", "expensive than"],
-      correct: 0,
+      options: ["more expensive", "the most expensive", "expensive than"],
+      correct: 1,
       rule: "⚡ Đứng trước chỗ trống có 'the' + so sánh cả thành phố ➔ So sánh nhất 'the most expensive'!"
     }
   ]

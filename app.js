@@ -1770,10 +1770,32 @@ function speakCurrentFlashcard(btn) {
 // -------------------------------------------------------------
 // 3. Phản Xạ 3 Giây Mini Quiz
 // -------------------------------------------------------------
+function prepareShuffledQuizList(questions) {
+  if (!questions) return [];
+  // Shuffle questions array and shuffle each question's options
+  const list = questions.map(q => {
+    const correctVal = q.options[q.correct];
+    const shuffledOpts = [...q.options];
+    for (let i = shuffledOpts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledOpts[i], shuffledOpts[j]] = [shuffledOpts[j], shuffledOpts[i]];
+    }
+    return {
+      ...q,
+      options: shuffledOpts,
+      correct: shuffledOpts.indexOf(correctVal)
+    };
+  });
+  return list;
+}
+
 function initReflexQuiz() {
-  if (rqQuestions.length === 0 && CRAM_DATA && CRAM_DATA.reflexQuiz) {
-    rqQuestions = [...CRAM_DATA.reflexQuiz];
+  if (CRAM_DATA && CRAM_DATA.reflexQuiz) {
+    rqQuestions = prepareShuffledQuizList(CRAM_DATA.reflexQuiz);
   }
+  rqCurIndex = 0;
+  rqStreak = 0;
+  rqAnswered = false;
   renderReflexQuestion();
 }
 
@@ -1886,6 +1908,9 @@ function nextReflexQuestion() {
 }
 
 function restartReflexQuiz() {
+  if (CRAM_DATA && CRAM_DATA.reflexQuiz) {
+    rqQuestions = prepareShuffledQuizList(CRAM_DATA.reflexQuiz);
+  }
   rqCurIndex = 0;
   rqStreak = 0;
   rqAnswered = false;

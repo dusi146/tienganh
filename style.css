@@ -3402,12 +3402,17 @@ body {
   box-shadow: 0 2px 8px rgba(244, 63, 94, 0.3);
 }
 
-/* ==================== DARK THEME DEFINITION ==================== */
+/* ==================== DARK THEME DEFINITION (FULLY SYNCHRONIZED) ==================== */
 [data-theme="dark"] {
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
   --text-light: #64748b;
-  
+
+  --glass-bg: rgba(15, 23, 42, 0.88);
+  --glass-bg-card: rgba(24, 33, 47, 0.92);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
   --primary-light: rgba(244, 63, 94, 0.18);
   --primary-border: rgba(244, 63, 94, 0.35);
 
@@ -3422,253 +3427,596 @@ body {
 
   --warning-light: rgba(245, 158, 11, 0.18);
   --warning-border: rgba(245, 158, 11, 0.35);
-
-  --glass-bg: rgba(15, 23, 42, 0.85);
-  --glass-bg-card: rgba(24, 32, 47, 0.88);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
 [data-theme="dark"] body {
   background: radial-gradient(circle at 10% 10%, #0f172a 0%, #0b0f19 50%, #07090e 100%) !important;
-  color: var(--text-main);
+  color: #f8fafc !important;
 }
 
+/* Header & Navigation */
 [data-theme="dark"] .app-header {
-  background: rgba(15, 23, 42, 0.85);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.88) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
 }
-
-[data-theme="dark"] .brand-title {
-  color: #f8fafc;
-}
-
+[data-theme="dark"] .brand-title { color: #f8fafc !important; }
+[data-theme="dark"] .brand-subtitle { color: #94a3b8 !important; }
 [data-theme="dark"] .main-nav-tabs {
-  background: rgba(15, 23, 42, 0.7);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.75) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
-
-[data-theme="dark"] .nav-tab-btn {
-  color: #94a3b8;
-}
-
+[data-theme="dark"] .nav-tab-btn { color: #94a3b8 !important; }
 [data-theme="dark"] .nav-tab-btn.active {
-  background: #1e293b;
-  color: #fb7185;
+  background: #1e293b !important;
+  color: #fb7185 !important;
+  box-shadow: 0 4px 14px rgba(244, 63, 94, 0.25) !important;
 }
-
 [data-theme="dark"] .btn-theme-toggle {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #fde68a !important;
 }
 
+/* Greeting Dashboard */
 [data-theme="dark"] .user-greeting-card {
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
-
-[data-theme="dark"] .greeting-title {
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .greeting-sub {
-  color: #94a3b8;
-}
-
+[data-theme="dark"] .greeting-title { color: #f8fafc !important; }
+[data-theme="dark"] .greeting-sub { color: #94a3b8 !important; }
 [data-theme="dark"] .greeting-stat-chip {
-  background: rgba(30, 41, 59, 0.85);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #e2e8f0;
+  background: rgba(15, 23, 42, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .greeting-mascot {
+  background: rgba(244, 63, 94, 0.2) !important;
+  box-shadow: 0 4px 14px rgba(244, 63, 94, 0.25) !important;
 }
 
+/* Picker & Exam Cards */
+[data-theme="dark"] .selector-title { color: #f8fafc !important; }
 [data-theme="dark"] .diff-filter-pill {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #94a3b8;
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #94a3b8 !important;
 }
-
+[data-theme="dark"] .diff-filter-pill:hover {
+  background: #334155 !important;
+  color: #f8fafc !important;
+}
 [data-theme="dark"] .exam-card {
-  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .exam-card-title { color: #f8fafc !important; }
+[data-theme="dark"] .exam-stat-item { color: #94a3b8 !important; }
+[data-theme="dark"] .exam-target-badge {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border-color: rgba(244, 63, 94, 0.3) !important;
+  color: #fb7185 !important;
 }
 
-[data-theme="dark"] .exam-card-title {
-  color: #f8fafc;
+/* Active Exam & Question Cards */
+[data-theme="dark"] .active-exam-header {
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] #active-exam-title { color: #f8fafc !important; }
+[data-theme="dark"] .active-exam-stats { color: #94a3b8 !important; }
+[data-theme="dark"] .btn-exit-exam,
+[data-theme="dark"] .btn-back-header {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .btn-exit-exam:hover,
+[data-theme="dark"] .btn-back-header:hover {
+  background: #334155 !important;
+  color: #f8fafc !important;
+}
+[data-theme="dark"] .mode-toggle-btn {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .timer-badge {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .btn-palette-toggle {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #e2e8f0 !important;
 }
 
+/* Audio Sticky Box */
 [data-theme="dark"] .audio-sticky-box {
-  background: rgba(15, 23, 42, 0.9);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+[data-theme="dark"] .audio-header { color: #fb7185 !important; }
+[data-theme="dark"] .audio-hint-text { color: #94a3b8 !important; }
+[data-theme="dark"] .btn-toggle-audio {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(244, 63, 94, 0.35) !important;
+  color: #fb7185 !important;
+}
+[data-theme="dark"] .audio-part-tab {
+  background: rgba(30, 41, 59, 0.7) !important;
+  color: #94a3b8 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .audio-part-tab.active {
+  background: var(--primary-gradient) !important;
+  color: #fff !important;
+}
+[data-theme="dark"] .audio-skip-btn {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .speed-chip {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #cbd5e1 !important;
+}
+[data-theme="dark"] .speed-chip.active {
+  background: var(--primary) !important;
+  color: #ffffff !important;
 }
 
+/* Question Cards & Options */
 [data-theme="dark"] .question-card {
-  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
-
-[data-theme="dark"] .question-text {
-  color: #f8fafc;
+[data-theme="dark"] .q-badge {
+  background: rgba(30, 41, 59, 0.8) !important;
+  color: #cbd5e1 !important;
 }
-
+[data-theme="dark"] .q-text { color: #f8fafc !important; }
+[data-theme="dark"] .part-banner {
+  background: rgba(30, 41, 59, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .part-banner h3 { color: #f8fafc !important; }
+[data-theme="dark"] .part-banner p { color: #94a3b8 !important; }
+[data-theme="dark"] .listen-note-card {
+  background: rgba(15, 23, 42, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .note-card-header { color: #fb7185 !important; }
+[data-theme="dark"] .note-card-body { color: #cbd5e1 !important; }
 [data-theme="dark"] .option-item {
-  background: rgba(30, 41, 59, 0.6);
-  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(30, 41, 59, 0.65) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
-
-[data-theme="dark"] .option-label {
-  color: #e2e8f0;
-}
-
 [data-theme="dark"] .option-item:hover {
-  background: rgba(30, 41, 59, 0.95);
+  background: rgba(30, 41, 59, 0.95) !important;
+  border-color: var(--primary-border) !important;
 }
-
+[data-theme="dark"] .option-letter {
+  background: rgba(51, 65, 85, 0.85) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .option-label { color: #e2e8f0 !important; }
 [data-theme="dark"] .option-item.selected {
-  background: rgba(244, 63, 94, 0.15);
-  border-color: var(--primary);
+  background: rgba(244, 63, 94, 0.16) !important;
+  border-color: var(--primary) !important;
 }
-
+[data-theme="dark"] .option-item.selected .option-label { color: #ffffff !important; }
 [data-theme="dark"] .fill-input {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(255, 255, 255, 0.15);
-  color: #f8fafc;
+  background: rgba(15, 23, 42, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #f8fafc !important;
+}
+[data-theme="dark"] .match-chip {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .match-chip.selected {
+  background: var(--primary) !important;
+  color: #fff !important;
 }
 
-[data-theme="dark"] .passage-block {
-  background: rgba(24, 32, 47, 0.88);
-  border-color: rgba(255, 255, 255, 0.08);
+/* Graded Question States in Dark Mode */
+[data-theme="dark"] .question-card.graded-correct {
+  background: rgba(6, 78, 59, 0.22) !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+}
+[data-theme="dark"] .question-card.graded-wrong {
+  background: rgba(127, 29, 29, 0.22) !important;
+  border-color: rgba(239, 68, 68, 0.45) !important;
 }
 
-[data-theme="dark"] .passage-body {
-  color: #cbd5e1;
-}
-
-[data-theme="dark"] .passage-toggle-header {
-  background: rgba(30, 41, 59, 0.9);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .bottom-submit-bar {
-  background: rgba(15, 23, 42, 0.9);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .palette-drawer {
-  background: rgba(15, 23, 42, 0.98);
-  border-left-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .cram-intro-card,
-[data-theme="dark"] .cram-rule-card,
-[data-theme="dark"] .reflex-quiz-card,
-[data-theme="dark"] .paraphrase-card,
-[data-theme="dark"] .mistake-card,
-[data-theme="dark"] .standard-card,
-[data-theme="dark"] .grammar-card,
-[data-theme="dark"] .a2b1-vocab-card,
-[data-theme="dark"] .tactic-card {
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-[data-theme="dark"] .cram-intro-title,
-[data-theme="dark"] .rule-title,
-[data-theme="dark"] .standard-title,
-[data-theme="dark"] .grammar-title,
-[data-theme="dark"] .a2b1-vocab-word,
-[data-theme="dark"] .tactic-part-title,
-[data-theme="dark"] .para-word-1,
-[data-theme="dark"] .mistake-question-text {
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .cram-subnav-btn,
-[data-theme="dark"] .cram-filter-pill {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #94a3b8;
-}
-
-[data-theme="dark"] .flashcard-toolbar {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .flashcard-front {
-  background: linear-gradient(145deg, #1e293b 0%, #1e1b2e 100%);
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-[data-theme="dark"] .flashcard-back {
-  background: linear-gradient(145deg, #1e293b 0%, #201e35 100%);
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-[data-theme="dark"] .fc-word,
-[data-theme="dark"] .fc-meaning,
-[data-theme="dark"] .flashcard-stats-text {
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .fc-mnemonic-box {
-  background: rgba(15, 23, 42, 0.8);
-  color: #fde68a;
-}
-
-[data-theme="dark"] .fc-example-box {
-  background: rgba(15, 23, 42, 0.6);
-  color: #cbd5e1;
-}
-
-[data-theme="dark"] .btn-fc-nav {
-  background: #1e293b;
-  border-color: rgba(255, 255, 255, 0.12);
-  color: #e2e8f0;
-}
-
-[data-theme="dark"] .rq-prompt-box {
-  background: #1e293b;
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .rq-prompt-text {
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .rq-option-btn {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .rule-box-example {
-  background: rgba(15, 23, 42, 0.7);
-  border-color: rgba(255, 255, 255, 0.08);
-  color: #cbd5e1;
-}
-
+/* Explanation Box in Dark Mode (Crystal Clear & Synchronized) */
 [data-theme="dark"] .explanation-box {
-  background: rgba(15, 23, 42, 0.8);
-  border-color: rgba(244, 63, 94, 0.25);
+  background: rgba(15, 23, 42, 0.88) !important;
+  border-color: rgba(244, 63, 94, 0.25) !important;
+}
+[data-theme="dark"] .expl-header { border-bottom-color: rgba(255, 255, 255, 0.08) !important; }
+[data-theme="dark"] .expl-title { color: #f8fafc !important; }
+[data-theme="dark"] .expl-gentle-tip {
+  background: rgba(245, 158, 11, 0.15) !important;
+  border-left-color: #fbbf24 !important;
+  color: #fde68a !important;
+}
+[data-theme="dark"] .expl-label { color: #94a3b8 !important; }
+[data-theme="dark"] .expl-text { color: #e2e8f0 !important; }
+[data-theme="dark"] .expl-clue {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: rgba(16, 185, 129, 0.35) !important;
+  color: #86efac !important;
+}
+[data-theme="dark"] .expl-trap {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+  color: #fca5a5 !important;
+}
+[data-theme="dark"] .vocab-box {
+  background: rgba(30, 41, 59, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .vocab-title { color: #f8fafc !important; }
+[data-theme="dark"] .vocab-item {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+[data-theme="dark"] .vocab-word { color: #f8fafc !important; }
+[data-theme="dark"] .vocab-meaning { color: #cbd5e1 !important; }
+[data-theme="dark"] .vocab-phonetic { color: #94a3b8 !important; }
+
+/* Passage Sidebar in Dark Mode */
+[data-theme="dark"] .passage-toggle-header {
+  background: rgba(30, 41, 59, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
+}
+[data-theme="dark"] .passage-block {
+  background: rgba(24, 32, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .passage-title { color: #f8fafc !important; }
+[data-theme="dark"] .passage-body { color: #cbd5e1 !important; }
+
+/* Review Filter Bar & Bottom Submit Bar */
+[data-theme="dark"] .review-filter-bar {
+  background: rgba(24, 32, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .filter-chip {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #94a3b8 !important;
+}
+[data-theme="dark"] .filter-chip:hover {
+  background: #334155 !important;
+  color: #f8fafc !important;
+}
+[data-theme="dark"] .filter-chip.active {
+  background: var(--primary-gradient) !important;
+  color: #ffffff !important;
+}
+[data-theme="dark"] .bottom-submit-bar {
+  background: rgba(15, 23, 42, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+[data-theme="dark"] .progress-info { color: #94a3b8 !important; }
+
+/* Palette Drawer in Dark Mode */
+[data-theme="dark"] .palette-drawer {
+  background: rgba(15, 23, 42, 0.98) !important;
+  border-left-color: rgba(255, 255, 255, 0.1) !important;
+}
+[data-theme="dark"] .palette-header h3 { color: #f8fafc !important; }
+[data-theme="dark"] .btn-close-palette { color: #94a3b8 !important; }
+[data-theme="dark"] .palette-item {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .palette-item.answered {
+  background: rgba(244, 63, 94, 0.22) !important;
+  border-color: #fb7185 !important;
+  color: #fb7185 !important;
+}
+[data-theme="dark"] .palette-item.correct {
+  background: rgba(16, 185, 129, 0.22) !important;
+  border-color: #10b981 !important;
+  color: #34d399 !important;
+}
+[data-theme="dark"] .palette-item.wrong {
+  background: rgba(239, 68, 68, 0.22) !important;
+  border-color: #ef4444 !important;
+  color: #f87171 !important;
 }
 
-[data-theme="dark"] .explanation-item {
-  color: #cbd5e1;
+/* Cram Hub & Rules in Dark Mode */
+[data-theme="dark"] .cram-intro-card {
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .cram-intro-title { color: #f8fafc !important; }
+[data-theme="dark"] .cram-intro-desc { color: #94a3b8 !important; }
+[data-theme="dark"] .cram-subnav-btn {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #94a3b8 !important;
+}
+[data-theme="dark"] .cram-subnav-btn:hover {
+  background: #334155 !important;
+  color: #f8fafc !important;
+}
+[data-theme="dark"] .cram-subnav-btn.active {
+  background: var(--primary-gradient) !important;
+  color: #ffffff !important;
+}
+[data-theme="dark"] .cram-filter-pill {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #94a3b8 !important;
+}
+[data-theme="dark"] .cram-filter-pill:hover {
+  background: #334155 !important;
+  color: #f8fafc !important;
+}
+[data-theme="dark"] .cram-filter-pill.active {
+  background: var(--primary-gradient) !important;
+  color: #ffffff !important;
+}
+[data-theme="dark"] .cram-rule-card {
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .rule-title { color: #f8fafc !important; }
+[data-theme="dark"] .rule-box-trigger {
+  background: rgba(59, 130, 246, 0.15) !important;
+  border-left-color: #60a5fa !important;
+  color: #bfdbfe !important;
+}
+[data-theme="dark"] .rule-box-action {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-left-color: #34d399 !important;
+  color: #a7f3d0 !important;
+}
+[data-theme="dark"] .rule-box-trap {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-left-color: #f87171 !important;
+  color: #fecaca !important;
+}
+[data-theme="dark"] .rule-box-example {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #cbd5e1 !important;
 }
 
+/* Flashcards in Dark Mode */
+[data-theme="dark"] .flashcard-toolbar {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+[data-theme="dark"] .flashcard-stats-text { color: #f8fafc !important; }
+[data-theme="dark"] .fc-progress-bar-bg { background: #334155 !important; }
+[data-theme="dark"] .flashcard-front {
+  background: linear-gradient(145deg, #1e293b 0%, #1e1b2e 100%) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45) !important;
+}
+[data-theme="dark"] .flashcard-back {
+  background: linear-gradient(145deg, #1e293b 0%, #201e35 100%) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45) !important;
+}
+[data-theme="dark"] .fc-word { color: #f8fafc !important; }
+[data-theme="dark"] .fc-phonetic { color: #94a3b8 !important; }
+[data-theme="dark"] .fc-flip-hint { color: #64748b !important; }
+[data-theme="dark"] .fc-back-title { color: #fb7185 !important; }
+[data-theme="dark"] .fc-meaning { color: #f8fafc !important; }
+[data-theme="dark"] .fc-mnemonic-box {
+  background: rgba(120, 53, 15, 0.22) !important;
+  border-left-color: #f59e0b !important;
+  color: #fde68a !important;
+}
+[data-theme="dark"] .fc-example-box {
+  background: rgba(15, 23, 42, 0.7) !important;
+  color: #cbd5e1 !important;
+}
+[data-theme="dark"] .btn-fc-nav {
+  background: #1e293b !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .btn-fc-nav:hover {
+  border-color: var(--primary) !important;
+  color: #fb7185 !important;
+}
+[data-theme="dark"] .btn-fc-review {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #fca5a5 !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+}
+
+/* Reflex Speed Quiz in Dark Mode */
+[data-theme="dark"] .reflex-quiz-card {
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .rq-counter { color: #94a3b8 !important; }
+[data-theme="dark"] .rq-streak {
+  background: rgba(244, 63, 94, 0.2) !important;
+  border-color: rgba(244, 63, 94, 0.35) !important;
+  color: #fb7185 !important;
+}
+[data-theme="dark"] .rq-timer-bar-bg { background: #334155 !important; }
+[data-theme="dark"] .btn-rq-timer-toggle { color: #94a3b8 !important; }
+[data-theme="dark"] .btn-rq-timer-toggle:hover { color: #fb7185 !important; }
+[data-theme="dark"] .rq-prompt-box {
+  background: rgba(15, 23, 42, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .rq-prompt-label { color: #fb7185 !important; }
+[data-theme="dark"] .rq-prompt-text { color: #f8fafc !important; }
+[data-theme="dark"] .rq-option-btn {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
+}
+[data-theme="dark"] .rq-option-btn:hover {
+  background: #334155 !important;
+  border-color: var(--primary-border) !important;
+}
+[data-theme="dark"] .rq-feedback-box.correct {
+  background: rgba(16, 185, 129, 0.18) !important;
+  border-color: rgba(16, 185, 129, 0.35) !important;
+  color: #a7f3d0 !important;
+}
+[data-theme="dark"] .rq-feedback-box.wrong {
+  background: rgba(239, 68, 68, 0.18) !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+  color: #fca5a5 !important;
+}
+
+/* Paraphrase & Mistakes in Dark Mode */
+[data-theme="dark"] .paraphrase-card {
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .para-word-1 { color: #f8fafc !important; }
+[data-theme="dark"] .para-arrow { color: #fb7185 !important; }
+[data-theme="dark"] .para-word-2 { color: #fb7185 !important; }
+[data-theme="dark"] .para-note { color: #94a3b8 !important; }
+[data-theme="dark"] .mistakes-count-info { color: #f8fafc !important; }
+[data-theme="dark"] .mistake-card {
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .mistake-exam-title { color: #94a3b8 !important; }
+[data-theme="dark"] .btn-remove-mistake {
+  background: rgba(51, 65, 85, 0.85) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .btn-remove-mistake:hover {
+  background: #475569 !important;
+  color: #ffffff !important;
+}
+[data-theme="dark"] .mistake-question-text { color: #f8fafc !important; }
+[data-theme="dark"] .mistake-ans-user { color: #f87171 !important; }
+[data-theme="dark"] .mistake-ans-correct { color: #34d399 !important; }
+[data-theme="dark"] .mistake-explanation-snippet {
+  background: rgba(15, 23, 42, 0.85) !important;
+  border-left-color: #fb7185 !important;
+  color: #cbd5e1 !important;
+}
+
+/* A2-B1 Knowledge Hub in Dark Mode */
+[data-theme="dark"] .info-banner {
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .info-banner h3 { color: #f8fafc !important; }
+[data-theme="dark"] .info-banner p { color: #cbd5e1 !important; }
+[data-theme="dark"] .a2b1-section-title { color: #f8fafc !important; }
+[data-theme="dark"] .standard-card {
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .standard-title { color: #f8fafc !important; }
+[data-theme="dark"] .standard-sub { color: #94a3b8 !important; }
+[data-theme="dark"] .score-req-box {
+  background: rgba(15, 23, 42, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .req-label { color: #94a3b8 !important; }
+[data-theme="dark"] .req-val { color: #f8fafc !important; }
+[data-theme="dark"] .standard-desc { color: #cbd5e1 !important; }
+[data-theme="dark"] .standard-tips-box {
+  background: rgba(15, 23, 42, 0.7) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .grammar-card {
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .grammar-title { color: #f8fafc !important; }
+[data-theme="dark"] .grammar-formula-box {
+  background: rgba(15, 23, 42, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .grammar-rule { color: #cbd5e1 !important; }
+[data-theme="dark"] .grammar-clues {
+  background: rgba(2, 132, 199, 0.18) !important;
+  color: #7dd3fc !important;
+  border-left-color: #38bdf8 !important;
+}
+[data-theme="dark"] .grammar-example {
+  background: rgba(15, 23, 42, 0.75) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #e2e8f0 !important;
+}
+[data-theme="dark"] .grammar-trap {
+  background: rgba(239, 68, 68, 0.18) !important;
+  color: #fca5a5 !important;
+  border-left-color: #ef4444 !important;
+}
+[data-theme="dark"] .a2b1-vocab-card {
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .a2b1-vocab-word { color: #f8fafc !important; }
+[data-theme="dark"] .a2b1-vocab-phonetic { color: #94a3b8 !important; }
+[data-theme="dark"] .a2b1-vocab-meaning { color: #fb7185 !important; }
+[data-theme="dark"] .a2b1-vocab-example {
+  background: rgba(15, 23, 42, 0.7) !important;
+  color: #cbd5e1 !important;
+  border-left-color: rgba(244, 63, 94, 0.45) !important;
+}
+[data-theme="dark"] .tactic-card {
+  background: rgba(24, 33, 47, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .tactic-part-title { color: #f8fafc !important; }
+[data-theme="dark"] .tactic-tip-text { color: #cbd5e1 !important; }
+[data-theme="dark"] .vocab-topic-chip {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #94a3b8 !important;
+}
+[data-theme="dark"] .vocab-topic-chip:hover {
+  background: #334155 !important;
+  color: #f8fafc !important;
+}
+[data-theme="dark"] .vocab-topic-chip.active {
+  background: var(--primary-gradient) !important;
+  color: #ffffff !important;
+}
+
+/* Score Modal & Lightbox in Dark Mode */
 [data-theme="dark"] .score-modal-card {
-  background: rgba(15, 23, 42, 0.95);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(15, 23, 42, 0.96) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
 }
-
 [data-theme="dark"] .modal-title,
-[data-theme="dark"] .score-num {
-  color: #f8fafc;
-}
-
-[data-theme="dark"] .modal-message {
-  color: #cbd5e1;
-}
-
+[data-theme="dark"] .score-num { color: #f8fafc !important; }
+[data-theme="dark"] .score-total { color: #94a3b8 !important; }
+[data-theme="dark"] .modal-message { color: #cbd5e1 !important; }
 [data-theme="dark"] .vocab-search-input {
-  background: rgba(30, 41, 59, 0.85);
-  border-color: rgba(255, 255, 255, 0.12);
-  color: #f8fafc;
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #f8fafc !important;
+}
+[data-theme="dark"] .vocab-search-input::placeholder {
+  color: #64748b !important;
+}
+[data-theme="dark"] .btn-replay-q {
+  background: rgba(244, 63, 94, 0.18) !important;
+  border-color: rgba(244, 63, 94, 0.35) !important;
+  color: #fb7185 !important;
+}
+[data-theme="dark"] .btn-replay-q:hover {
+  background: var(--primary) !important;
+  color: #ffffff !important;
 }
