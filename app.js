@@ -5,6 +5,8 @@
 const AppState = {
   currentExam: null,
   currentMode: 'exam', // 'exam' or 'practice'
+  currentView: 'picker', // 'picker', 'active_exam', 'a2b1'
+  examStarted: false,
   userAnswers: {},     // { [qId]: answer }
   graded: false,
   score: 0,
@@ -27,8 +29,20 @@ function initApp() {
   AppState.audioPlayer = document.getElementById('main-audio');
   renderExamCards();
 
-  const savedExamId = localStorage.getItem(STORAGE_PREFIX + 'last_exam') || EXAM_DATABASE[0].id;
-  selectExam(savedExamId);
+  // Pre-load speech synthesis voices for instant crisp pronunciation
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.getVoices();
+    };
+  }
+
+  // Ensure active exam controls and submit bar are hidden until an exam starts
+  const examHeaderControls = document.getElementById('exam-header-controls');
+  if (examHeaderControls) examHeaderControls.style.display = 'none';
+
+  const bottomSubmitBar = document.getElementById('bottom-submit-bar');
+  if (bottomSubmitBar) bottomSubmitBar.style.display = 'none';
 
   setupEventListeners();
   updateHighScores();
@@ -155,10 +169,9 @@ function renderExamCards() {
     const diffClass = exam.difficulty || 'easy';
     const isCurated = exam.id.startsWith('test_');
     const curatedBadge = isCurated ? '<span class="curated-pill">🌟 Đề chắt lọc</span>' : '';
-    const isActive = AppState.currentExam && AppState.currentExam.id === exam.id ? 'active' : '';
 
     return `
-      <div class="exam-card ${isActive}" data-exam-id="${exam.id}" onclick="selectExam('${exam.id}')">
+      <div class="exam-card" data-exam-id="${exam.id}" onclick="startExamSession('${exam.id}')">
         <div class="exam-card-header-bar">
           <div class="diff-and-curated">
             <span class="exam-diff-tag diff-${diffClass}">${diffBadge}</span>
@@ -178,25 +191,44 @@ function renderExamCards() {
             ${exam.target_desc ? `<div class="exam-target-tip">${exam.target_desc}</div>` : ''}
           </div>
         </div>
+        <div class="exam-card-cta">
+          <button class="btn-start-action" onclick="event.stopPropagation(); startExamSession('${exam.id}')">
+            <span>🚀 Bắt đầu làm bài</span>
+            <span class="cta-arrow">➔</span>
+          </button>
+        </div>
       </div>
     `;
   }).join('');
 }
 
-function selectExam(examId) {
+function startExamSession(examId) {
   const exam = EXAM_DATABASE.find(e => e.id === examId);
   if (!exam) return;
 
   AppState.currentExam = exam;
+  AppState.examStarted = true;
+  AppState.currentView = 'active_exam';
   localStorage.setItem(STORAGE_PREFIX + 'last_exam', examId);
 
-  document.querySelectorAll('.exam-card').forEach(card => {
-    if (card.dataset.examId === examId) {
-      card.classList.add('active');
-    } else {
-      card.classList.remove('active');
-    }
-  });
+  // Switch views cleanly: hide selector, show full-screen active exam
+  const pickerView = document.getElementById('view-exam-picker');
+  const activeExamView = document.getElementById('view-active-exam');
+  const a2b1View = document.getElementById('view-a2b1');
+  const tabsBar = document.getElementById('main-nav-tabs-bar');
+  const headerControls = document.getElementById('exam-header-controls');
+  const bottomSubmitBar = document.getElementById('bottom-submit-bar');
+
+  if (pickerView) pickerView.style.display = 'none';
+  if (a2b1View) a2b1View.style.display = 'none';
+  if (tabsBar) tabsBar.style.display = 'none';
+
+  if (activeExamView) {
+    activeExamView.style.display = 'block';
+  }
+
+  if (headerControls) headerControls.style.display = 'flex';
+  if (bottomSubmitBar) bottomSubmitBar.style.display = 'flex';
 
   AppState.userAnswers = {};
   AppState.graded = false;
@@ -226,6 +258,51 @@ function selectExam(examId) {
   });
 
   updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function selectExam(examId) {
+  startExamSession(examId);
+}
+
+function exitExamSession() {
+  const answeredCount = Object.keys(AppState.userAnswers).filter(k => AppState.userAnswers[k] && AppState.userAnswers[k].trim() !== '').length;
+  if (AppState.examStarted && !AppState.graded && answeredCount > 0) {
+    const ok = confirm("Bạn có muốn quay lại danh sách chọn đề không? Bài làm của bạn vẫn được lưu lại tự động nhé 🌸");
+    if (!ok) return;
+  }
+
+  stopTimer();
+  if (AppState.audioPlayer) {
+    AppState.audioPlayer.pause();
+  }
+
+  AppState.examStarted = false;
+  AppState.currentView = 'picker';
+
+  const pickerView = document.getElementById('view-exam-picker');
+  const activeExamView = document.getElementById('view-active-exam');
+  const tabsBar = document.getElementById('main-nav-tabs-bar');
+  const headerControls = document.getElementById('exam-header-controls');
+  const bottomSubmitBar = document.getElementById('bottom-submit-bar');
+
+  if (activeExamView) activeExamView.style.display = 'none';
+  if (headerControls) headerControls.style.display = 'none';
+  if (bottomSubmitBar) bottomSubmitBar.style.display = 'none';
+
+  if (tabsBar) tabsBar.style.display = 'block';
+  if (pickerView) pickerView.style.display = 'block';
+
+  renderExamCards();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function handleBrandClick() {
+  if (AppState.currentView === 'active_exam') {
+    exitExamSession();
+  } else {
+    switchMainTab('exams');
+  }
 }
 
 function updateExamHeaderUI() {
@@ -235,6 +312,12 @@ function updateExamHeaderUI() {
   document.getElementById('active-exam-skill').innerText = exam.skill_vn;
   document.getElementById('active-exam-count').innerText = `${exam.total_questions} câu hỏi`;
   document.getElementById('active-exam-time').innerText = `${exam.duration_minutes} phút`;
+
+  const levelTag = document.getElementById('active-exam-level-tag');
+  if (levelTag) {
+    levelTag.className = `exam-diff-tag diff-${exam.difficulty || 'easy'}`;
+    levelTag.innerText = exam.difficulty_badge || '🟢 Dễ (A2)';
+  }
 
   const targetInfoElem = document.getElementById('exam-target-info');
   if (targetInfoElem) {
@@ -596,12 +679,17 @@ function renderExplanationBox(q, userAnswer) {
   if (e.vocab && e.vocab.length > 0) {
     vocabHtml = `
       <div class="vocab-box">
-        <div class="vocab-title">📚 Sổ tay từ vựng trọng tâm:</div>
+        <div class="vocab-title">📚 Sổ tay từ vựng trọng tâm (Chạm 🔊 để nghe phát âm):</div>
         ${e.vocab.map(v => `
           <div class="vocab-item">
-            <span class="vocab-word">${v.word}</span>
-            <span class="vocab-phonetic">${v.phonetic || ''}</span>:
-            <span class="vocab-meaning">${v.meaning || ''}</span>
+            <div class="vocab-word-row">
+              <button class="btn-audio-speak-sm" onclick="speakWord('${escapeAttr(v.word)}', this)" title="Nghe phát âm chuẩn">
+                🔊
+              </button>
+              <span class="vocab-word">${v.word}</span>
+              <span class="vocab-phonetic">${v.phonetic || ''}</span>:
+            </div>
+            <div class="vocab-meaning">${v.meaning || ''}</div>
           </div>
         `).join('')}
       </div>
@@ -739,6 +827,11 @@ function updateProgress() {
   const countElem = document.getElementById('progress-count');
   if (countElem) {
     countElem.innerText = `${answeredCount}/${total}`;
+  }
+
+  const paletteSummary = document.getElementById('palette-count-summary');
+  if (paletteSummary) {
+    paletteSummary.innerText = `Câu ${answeredCount}/${total}`;
   }
 }
 
@@ -1074,23 +1167,37 @@ let currentVocabTopic = 'all';
 let currentVocabSearch = '';
 
 function switchMainTab(tab) {
-  const viewExams = document.getElementById('view-exams');
+  const viewPicker = document.getElementById('view-exam-picker');
+  const viewActive = document.getElementById('view-active-exam');
   const viewA2B1 = document.getElementById('view-a2b1');
   const btnExams = document.getElementById('tab-btn-exams');
   const btnA2B1 = document.getElementById('tab-btn-a2b1');
   const bottomBar = document.getElementById('bottom-submit-bar');
+  const headerControls = document.getElementById('exam-header-controls');
 
   if (tab === 'exams') {
-    if (viewExams) viewExams.style.display = 'block';
-    if (viewA2B1) viewA2B1.style.display = 'none';
     if (btnExams) btnExams.classList.add('active');
     if (btnA2B1) btnA2B1.classList.remove('active');
-    if (bottomBar) bottomBar.style.display = 'flex';
+    if (viewA2B1) viewA2B1.style.display = 'none';
+
+    if (AppState.examStarted && AppState.currentExam) {
+      if (viewPicker) viewPicker.style.display = 'none';
+      if (viewActive) viewActive.style.display = 'block';
+      if (headerControls) headerControls.style.display = 'flex';
+      if (bottomBar) bottomBar.style.display = 'flex';
+    } else {
+      if (viewPicker) viewPicker.style.display = 'block';
+      if (viewActive) viewActive.style.display = 'none';
+      if (headerControls) headerControls.style.display = 'none';
+      if (bottomBar) bottomBar.style.display = 'none';
+    }
   } else {
-    if (viewExams) viewExams.style.display = 'none';
-    if (viewA2B1) viewA2B1.style.display = 'block';
     if (btnExams) btnExams.classList.remove('active');
     if (btnA2B1) btnA2B1.classList.add('active');
+    if (viewPicker) viewPicker.style.display = 'none';
+    if (viewActive) viewActive.style.display = 'none';
+    if (viewA2B1) viewA2B1.style.display = 'block';
+    if (headerControls) headerControls.style.display = 'none';
     if (bottomBar) bottomBar.style.display = 'none';
     renderA2B1Hub();
   }
@@ -1234,7 +1341,12 @@ function filterAndRenderVocab() {
     <div class="a2b1-vocab-card">
       <div>
         <div class="a2b1-vocab-top">
-          <span class="a2b1-vocab-word">${w.word}</span>
+          <div class="vocab-word-group">
+            <span class="a2b1-vocab-word">${w.word}</span>
+            <button class="btn-audio-speak" onclick="speakWord('${escapeAttr(w.word)}', this)" title="Nghe phát âm chuẩn (Google / Native)">
+              🔊
+            </button>
+          </div>
           <span class="a2b1-vocab-phonetic">${w.phonetic || ''}</span>
         </div>
         <div style="font-size: 0.76rem; color: #94a3b8; font-weight: 600; margin-bottom: 4px;">(${w.type})</div>
@@ -1276,4 +1388,76 @@ function escapeHtml(text) {
   return text.replace(/&/g, '&amp;')
              .replace(/</g, '&lt;')
              .replace(/>/g, '&gt;');
+}
+
+// ===================================================================
+// AUDIO PRONUNCIATION (High Clarity Google & Native Studio Voice)
+// ===================================================================
+
+function speakWord(text, btn) {
+  if (!text) return;
+  const cleanWord = text.split('/')[0].split('(')[0].replace(/[.,;:!?]/g, '').trim();
+  if (!cleanWord) return;
+
+  if (btn) {
+    btn.classList.add('speaking');
+    setTimeout(() => {
+      if (btn) btn.classList.remove('speaking');
+    }, 1400);
+  }
+
+  // 1. Try browser SpeechSynthesis with highest quality English voice
+  let speechTriggered = false;
+  if ('speechSynthesis' in window) {
+    try {
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(cleanWord);
+      utter.lang = 'en-US';
+      utter.rate = 0.85; // slightly slowed down for maximum clarity
+      utter.pitch = 1.0;
+
+      const voices = window.speechSynthesis.getVoices();
+      const bestVoice = voices.find(v => 
+        (v.lang === 'en-US' || v.lang.startsWith('en')) &&
+        (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Ava') || v.name.includes('Siri'))
+      ) || voices.find(v => v.lang === 'en-US' || v.lang.startsWith('en'));
+
+      if (bestVoice) {
+        utter.voice = bestVoice;
+      }
+
+      utter.onend = () => {
+        if (btn) btn.classList.remove('speaking');
+      };
+
+      utter.onerror = () => {
+        playCdnPronunciation(cleanWord, btn);
+      };
+
+      window.speechSynthesis.speak(utter);
+      speechTriggered = true;
+    } catch (e) {
+      speechTriggered = false;
+    }
+  }
+
+  // 2. Fallback to native studio audio CDN
+  if (!speechTriggered) {
+    playCdnPronunciation(cleanWord, btn);
+  }
+}
+
+function playCdnPronunciation(word, btn) {
+  // Youdao American English studio recording (type=2: US English)
+  const url = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(word)}&type=2`;
+  const audio = new Audio(url);
+  audio.onended = () => {
+    if (btn) btn.classList.remove('speaking');
+  };
+  audio.play().catch(() => {
+    // Secondary fallback: Google Translate TTS endpoint
+    const gUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encodeURIComponent(word)}`;
+    const gAudio = new Audio(gUrl);
+    gAudio.play().catch(() => {});
+  });
 }

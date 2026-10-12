@@ -508,6 +508,173 @@ body {
   border: 1px solid var(--success-border);
 }
 
+/* Card Call-To-Action Button */
+.exam-card-cta {
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(226, 232, 240, 0.8);
+}
+
+.btn-start-action {
+  width: 100%;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 241, 242, 0.85);
+  border: 1px solid rgba(254, 205, 211, 0.9);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.exam-card:hover .btn-start-action {
+  background: var(--primary-gradient);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.28);
+}
+
+.cta-arrow {
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.exam-card:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+/* Tab View Section Transition Animation */
+.tab-view-section {
+  animation: fadeInView 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInView {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Active Exam Top Action Bar */
+.active-exam-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.btn-exit-exam, .btn-back-header {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--primary-border);
+  color: var(--text-main);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.btn-exit-exam:hover, .btn-back-header:hover {
+  background: #ffffff;
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateX(-2px);
+}
+
+.btn-exit-exam:active, .btn-back-header:active {
+  transform: scale(0.96);
+}
+
+/* Pronunciation Audio Buttons (Google/Native TTS) */
+.vocab-word-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-audio-speak {
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+  color: var(--primary);
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.btn-audio-speak:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(244, 63, 94, 0.3);
+}
+
+.btn-audio-speak.speaking, .btn-audio-speak-sm.speaking {
+  background: var(--primary) !important;
+  color: #fff !important;
+  animation: pulseSpeaking 0.6s infinite alternate;
+}
+
+@keyframes pulseSpeaking {
+  from {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4);
+  }
+  to {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 6px rgba(244, 63, 94, 0);
+  }
+}
+
+.vocab-word-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.btn-audio-speak-sm {
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+  color: var(--primary);
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-audio-speak-sm:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: scale(1.12);
+}
+
 /* ==================== ACTIVE EXAM HEADER ==================== */
 .active-exam-header {
   background: var(--glass-bg-card);
@@ -1536,17 +1703,40 @@ body {
 
 @media (max-width: 600px) {
   body {
-    font-size: 14.5px;
+    font-size: 14px;
+  }
+  .app-header {
+    padding: 8px 12px;
   }
   .brand-title {
-    font-size: 1rem;
+    font-size: 0.92rem;
   }
   .brand-subtitle {
     display: none;
   }
+  .header-controls {
+    gap: 4px;
+  }
+  .btn-back-header {
+    padding: 5px 8px;
+    font-size: 0.74rem;
+  }
+  .mode-toggle-btn {
+    padding: 5px 8px;
+    font-size: 0.74rem;
+  }
+  .timer-badge {
+    padding: 5px 8px;
+    font-size: 0.74rem;
+  }
+  .btn-palette-toggle {
+    padding: 5px 8px;
+    font-size: 0.74rem;
+  }
   .active-exam-header {
     flex-direction: column;
     align-items: flex-start;
+    padding: 14px 16px;
   }
   .actions-group {
     width: 100%;
@@ -1558,9 +1748,9 @@ body {
     grid-template-columns: 1fr;
   }
   .bottom-submit-bar {
-    width: calc(100% - 20px);
-    bottom: 8px;
-    padding: 8px 14px;
+    width: calc(100% - 16px);
+    bottom: 6px;
+    padding: 8px 12px;
   }
 }
 
